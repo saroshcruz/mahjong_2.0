@@ -20,7 +20,7 @@ export default function Footer() {
       </div>
 
       <div
-        className="relative z-10 mx-auto max-w-7xl px-8 py-14 lg:px-14 lg:py-16"
+        className="relative z-10 mx-auto max-w-7xl px-8 pt-14 pb-6 lg:px-14 lg:pt-16 lg:pb-8"
         style={{ textShadow: "0 1px 6px rgba(0,0,0,0.28)" }}
       >
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-12 xl:gap-16">
@@ -78,7 +78,7 @@ export default function Footer() {
               <a href="#membership" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Membership
               </a>
-              <span className="mx-2 text-[#8a8278]/40 sm:hidden" aria-hidden="true">·</span>
+              <span className="mx-2 text-[1.02rem] text-[#8a8278]/46 sm:hidden" aria-hidden="true">·</span>
               <a href="#events" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Events
               </a>
@@ -93,7 +93,7 @@ export default function Footer() {
               <a href="#trainers" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Trainers
               </a>
-              <span className="mx-2 text-[#8a8278]/40 sm:hidden" aria-hidden="true">·</span>
+              <span className="mx-2 text-[1.02rem] text-[#8a8278]/46 sm:hidden" aria-hidden="true">·</span>
               <a href="#classes" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Classes
               </a>
@@ -117,16 +117,9 @@ export default function Footer() {
 
         <div className="mt-12 lg:mt-14">
           <div className="mb-5 h-px bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.18)_28%,rgba(198,168,122,0.18)_72%,rgba(198,168,122,0))]" />
-          <p className="mt-4 text-[0.63rem] tracking-[0.28em] text-[#b8975a]">
-            Payments secured by Razorpay
-          </p>
-        </div>
-
-        <div className="mt-6 pb-0">
-          <div className="mx-auto mb-5 h-px w-24 bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.22)_50%,rgba(198,168,122,0))]" />
-          <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[0.77rem] text-[#7e7a74]">
-              © 2026 Indian Mahjong Association
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[0.63rem] tracking-[0.28em] text-[#b8975a]">
+              Payments secured by Razorpay
             </p>
             <div className="flex gap-6">
               <a
@@ -141,8 +134,23 @@ export default function Footer() {
               >
                 Terms of Use
               </a>
+              <a
+                href="https://www.instagram.com/casselle.co/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[0.77rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
+              >
+                Site by Casselle
+              </a>
             </div>
           </div>
+        </div>
+
+        <div className="mt-6">
+          <div className="mx-auto mb-5 h-px w-24 bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.22)_50%,rgba(198,168,122,0))]" />
+          <p className="text-center text-[0.77rem] text-[#7e7a74]">
+            © 2026 Indian Mahjong Association
+          </p>
         </div>
       </div>
     </footer>

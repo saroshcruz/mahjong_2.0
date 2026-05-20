@@ -5,7 +5,7 @@ const featured = {
   role: "Head Trainer",
   location: "New Delhi",
   story:
-    "Anita has been practicing authentic Chinese Mahjong for over two decades, training under IMA's founding circle. She brings together strategic depth and cultural warmth in every session — guiding students from their very first tile through to their first tournament.",
+    "Anita has been practicing authentic Chinese Mahjong for over two decades, training under IMA's founding circle. She brings together strategic depth and cultural warmth in every session, guiding students from their very first tile through to their first tournament.",
   specialisations: ["Beginner Mahjong", "Strategy & Scoring", "Tournament Preparation"],
 };
 
@@ -15,7 +15,7 @@ const supporting = [
     role: "Strategy Instructor",
     location: "Mumbai",
     description:
-      "A competitive player turned educator, Rajesh specialises in the strategic dimensions of the game — tile reading, probability, and elegant defensive play.",
+      "A competitive player turned educator, Rajesh specialises in the strategic dimensions of the game: tile reading, probability, and elegant defensive play.",
     specialty: "Advanced Strategy",
   },
   {
@@ -115,11 +115,6 @@ export default function Trainers() {
             <div className="h-px w-10 bg-[linear-gradient(90deg,rgba(198,168,122,0.7),rgba(198,168,122,0))]" />
           </div>
 
-          {/* Eyebrow */}
-          <p className="mb-4 text-[0.65rem] uppercase tracking-[0.38em] text-[#7c1f2d] lg:text-[0.68rem] lg:tracking-[0.42em]">
-            Our Trainers
-          </p>
-
           {/* Heading */}
           <h2 className="text-[2.2rem] leading-[1.05] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
             Meet Our Trainers
@@ -194,42 +189,6 @@ export default function Trainers() {
               {featured.story}
             </p>
 
-            {/* Specialisations */}
-            <ul className="mt-6 flex flex-col gap-2 lg:mt-7">
-              {featured.specialisations.map((s) => (
-                <li
-                  key={s}
-                  className="flex items-center gap-2.5 text-[0.79rem] text-[#4d3a2e]"
-                >
-                  <span className="h-px w-4 shrink-0 bg-[#c6a87a]/55" />
-                  {s}
-                </li>
-              ))}
-            </ul>
-
-            {/* CTA */}
-            <a
-              href="#contact"
-              className="group mt-8 flex items-center gap-2 text-[0.76rem] uppercase tracking-[0.22em] text-[#7c1f2d] transition-all duration-300 hover:gap-3"
-            >
-              View Profile
-              <svg
-                width="14"
-                height="10"
-                viewBox="0 0 14 10"
-                fill="none"
-                aria-hidden="true"
-                className="transition-transform duration-300 group-hover:translate-x-0.5"
-              >
-                <path
-                  d="M1 5h12M8 1l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
           </div>
         </div>
       </div>
@@ -245,7 +204,7 @@ export default function Trainers() {
           {supporting.map((trainer) => (
             <div
               key={trainer.name}
-              className="flex flex-col items-center text-center sm:items-start sm:text-left"
+              className="flex flex-col items-start text-left"
             >
               {/* Portrait */}
               <PortraitPlaceholder initial={trainer.name[0]} width={150} height={192} />
@@ -264,7 +223,7 @@ export default function Trainers() {
               <div className="my-4 h-px w-8 bg-[#c6a87a]/36" />
 
               {/* Description */}
-              <p className="max-w-[38ch] text-[0.91rem] leading-[1.86] text-[#5d4d40]">
+              <p className="max-w-[38ch] text-justify text-[0.91rem] leading-[1.86] text-[#5d4d40]">
                 {trainer.description}
               </p>
 

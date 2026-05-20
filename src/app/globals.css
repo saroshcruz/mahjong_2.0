@@ -22,6 +22,19 @@ body {
   font-family: var(--font-body);
 }
 
+/* When the nav drawer is open we add this class to the body to lock scroll */
+.body--nav-open {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Ensure mobile carousels are smooth and accept touch gestures */
+.mobile-carousel {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
 .paper-grain {
   background-image:
     radial-gradient(circle at 20% 20%, rgba(255, 252, 246, 0.7), transparent 22%),

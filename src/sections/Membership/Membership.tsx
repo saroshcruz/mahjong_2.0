@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const tiers = [
@@ -9,6 +10,7 @@ const tiers = [
     tagline: "Every player begins with a table.",
     duration: "1 Year Membership",
     price: "₹1,000",
+    tileImage: "/assets/membership/pearl-tile.png",
     benefits: [
       "Weekly training sessions",
       "IMA membership certificate",
@@ -32,6 +34,7 @@ const tiers = [
     tagline: "For those who return to the table.",
     duration: "5 Year Membership",
     price: "₹4,000",
+    tileImage: "/assets/membership/ruby-tile.png",
     benefits: [
       "All Pearl benefits",
       "Priority event registration",
@@ -56,6 +59,7 @@ const tiers = [
     tagline: "For those helping shape the culture.",
     duration: "Lifetime Membership",
     price: "₹10,000",
+    tileImage: "/assets/membership/jade-tile.png",
     benefits: [
       "All Ruby benefits",
       "Lifetime IMA recognition",
@@ -81,7 +85,7 @@ type Tier = typeof tiers[number];
 function TierPanel({ tier }: { tier: Tier }) {
   return (
     <div
-      className="overflow-hidden rounded-[0.75rem]"
+      className="h-full overflow-hidden rounded-[0.75rem] flex flex-col"
       style={{
         border: `1px solid ${tier.panelBorder}`,
         background:
@@ -94,45 +98,28 @@ function TierPanel({ tier }: { tier: Tier }) {
       <div
         style={{
           height: 3,
+          flexShrink: 0,
           background: `linear-gradient(90deg,rgba(${tier.accentRgb},0) 0%,rgba(${tier.accentRgb},0.82) 18%,rgba(${tier.accentRgb},0.82) 82%,rgba(${tier.accentRgb},0) 100%)`,
         }}
       />
 
-      <div className="flex flex-col items-center px-7 pb-8 pt-7 text-center">
+      <div className="flex flex-col flex-1 items-center px-3 pb-4 pt-3 text-center lg:px-5 lg:pb-5 lg:pt-7">
 
-        {/* Single iconic dragon tile */}
-        <div className="mb-7">
-          <div
-            style={{
-              width: 54,
-              height: 76,
-              borderRadius: 7,
-              background: tier.tileTheme.bg,
-              border: `1.5px solid ${tier.tileTheme.border}`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: `inset 0 0 0 3px rgba(255,255,255,0.62), 0 6px 20px ${tier.tileTheme.shadow}`,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-heading)",
-                fontSize: 28,
-                lineHeight: 1,
-                color: tier.tileTheme.text,
-                userSelect: "none",
-              }}
-            >
-              {tier.dragon.symbol}
-            </span>
-          </div>
+        {/* PNG tile — 20% larger for more visual presence */}
+        <div className="mb-4 relative w-[82px] h-[108px] lg:mb-7">
+          <Image
+            src={tier.tileImage}
+            alt={tier.dragon.label}
+            fill
+            sizes="82px"
+            className="object-contain"
+          />
         </div>
 
-        {/* Tier name */}
+        {/* Tier name — increased weight and opacity for legibility */}
         <p
-          className="text-[0.60rem] uppercase tracking-[0.34em]"
-          style={{ color: `rgba(${tier.accentRgb},0.72)` }}
+          className="font-medium text-[0.60rem] uppercase tracking-[0.34em]"
+          style={{ color: `rgba(${tier.accentRgb},0.92)` }}
         >
           {tier.eyebrow}
         </p>
@@ -183,13 +170,16 @@ function TierPanel({ tier }: { tier: Tier }) {
           ))}
         </ul>
 
-        {/* CTA */}
-        <a
-          href="#contact"
-          className="mt-7 flex w-full items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] py-3 text-[0.70rem] uppercase tracking-[0.22em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)]"
-        >
-          {tier.cta}
-        </a>
+        {/* CTA — wrapper absorbs remaining space via mt-auto; pt-5 gives consistent
+            gap above the button without affecting button dimensions */}
+        <div className="mt-auto w-full flex justify-center pt-3 lg:pt-5">
+          <a
+            href="#contact"
+            className="flex w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.70rem] uppercase tracking-[0.22em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)]"
+          >
+            {tier.cta}
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -198,102 +188,119 @@ function TierPanel({ tier }: { tier: Tier }) {
 export default function Membership() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const snapPositions = useRef<number[]>([]);
+  const isProgrammatic = useRef(false);
+  const programmaticTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const measureSnapPositions = () => {
+    const container = carouselRef.current;
+    if (!container) return;
+    const cards = Array.from(container.querySelectorAll("[data-card]")) as HTMLElement[];
+    const paddingLeft = parseFloat(window.getComputedStyle(container).paddingLeft) || 0;
+    snapPositions.current = cards.map((c) => c.offsetLeft - paddingLeft);
+  };
+
+  const updateActiveCard = () => {
+    const container = carouselRef.current;
+    if (!container || !snapPositions.current.length) return;
+    const scrollLeft = container.scrollLeft;
+    let closestIndex = 0;
+    let minDistance = Infinity;
+    snapPositions.current.forEach((position, index) => {
+      const distance = Math.abs(scrollLeft - position);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = index;
+      }
+    });
+    setActiveIndex(closestIndex);
+  };
+
+  const scrollToCard = (index: number) => {
+    const container = carouselRef.current;
+    if (!container) return;
+    // Re-measure if positions weren't ready at mount (can happen on slow mobile paint)
+    if (!snapPositions.current.length) measureSnapPositions();
+    if (!snapPositions.current.length) return;
+    isProgrammatic.current = true;
+    if (programmaticTimer.current) clearTimeout(programmaticTimer.current);
+    container.scrollTo({ left: snapPositions.current[index], behavior: "smooth" });
+    setActiveIndex(index);
+    programmaticTimer.current = setTimeout(() => {
+      isProgrammatic.current = false;
+      updateActiveCard();
+    }, 700);
+  };
 
   useEffect(() => {
     const container = carouselRef.current;
     if (!container) return;
 
-    // Find the card whose left edge is closest to the current scrollLeft.
-    // When a snap point is settled, scrollLeft === that card's offsetLeft
-    // (browser accounts for scroll-padding which mirrors padding-left CSS class).
-    const updateActive = () => {
-      const { scrollLeft } = container;
-      const cards = Array.from(
-        container.querySelectorAll("[data-card]")
-      ) as HTMLElement[];
-      let closest = 0;
-      let minDist = Infinity;
-      cards.forEach((el, i) => {
-        const dist = Math.abs(el.offsetLeft - scrollLeft);
-        if (dist < minDist) { minDist = dist; closest = i; }
-      });
-      setActiveIndex(closest);
-    };
+    // Defer measurement by one rAF to guarantee layout is complete on mobile
+    requestAnimationFrame(measureSnapPositions);
 
-    // scrollend fires after snap settles — Safari 17.4+, Chrome 114+
-    // Debounced scroll is the fallback for older mobile browsers
-    let debounceTimer: ReturnType<typeof setTimeout>;
+    let scrollTimer: ReturnType<typeof setTimeout>;
     const onScroll = () => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(updateActive, 120);
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        if (!isProgrammatic.current) updateActiveCard();
+      }, 80);
     };
 
-    container.addEventListener("scrollend", updateActive);
-    container.addEventListener("scroll", onScroll, { passive: true });
+    const onScrollEnd = () => updateActiveCard();
 
-    // RAF polling fallback: some mobile browsers don't reliably fire scroll
-    // events the way desktop does. Poll scrollLeft and update when it changes.
-    let rafId: number | null = null
-    let lastLeft = container.scrollLeft
-    const poll = () => {
-      const cur = container.scrollLeft
-      if (cur !== lastLeft) {
-        lastLeft = cur
-        updateActive()
-      }
-      rafId = requestAnimationFrame(poll)
-    }
-    rafId = requestAnimationFrame(poll)
+    const onResize = () => {
+      measureSnapPositions();
+      updateActiveCard();
+    };
+
+    container.addEventListener("scroll", onScroll, { passive: true });
+    container.addEventListener("scrollend", onScrollEnd);
+    window.addEventListener("resize", onResize);
 
     return () => {
-      clearTimeout(debounceTimer);
-      container.removeEventListener("scrollend", updateActive);
+      clearTimeout(scrollTimer);
+      if (programmaticTimer.current) clearTimeout(programmaticTimer.current);
       container.removeEventListener("scroll", onScroll);
-      if (rafId) cancelAnimationFrame(rafId)
+      container.removeEventListener("scrollend", onScrollEnd);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
-  const scrollToCard = (index: number) => {
-    const cards = carouselRef.current?.querySelectorAll("[data-card]");
-    (cards?.[index] as HTMLElement | undefined)?.scrollIntoView({
-      behavior: "smooth",
-      inline: "start",
-      block: "nearest",
-    });
-  };
-
   return (
-    <section id="membership" className="relative overflow-hidden bg-[#edebda]">
+    <section id="membership" className="relative overflow-hidden bg-[#f5f0e8]">
 
-      {/* Soft blend from Trainers */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-20"
-        style={{ background: "linear-gradient(180deg,#f5efe4 0%,transparent 100%)" }}
-      />
+      {/* ── WATERCOLOR BACKGROUND TREATMENT ── z-0, fully isolated from content ── */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
 
-      {/* Ambient atmosphere */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-4rem] top-[12%] h-[44rem] w-[44rem] rounded-full bg-[radial-gradient(circle,rgba(198,168,122,0.06),rgba(198,168,122,0)_60%)]" />
-        <div className="absolute right-[-4rem] bottom-[10%] h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(circle,rgba(47,93,80,0.05),rgba(47,93,80,0)_58%)]" />
-        <div className="absolute left-[38%] top-[38%] h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(124,31,45,0.03),rgba(124,31,45,0)_55%)]" />
+        {/* Layer 1 — watercolor texture */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: "url('/assets/backgrounds/membership-watercolor-bg.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.9,
+          }}
+        />
+
+        {/* Layer 2 — top edge fade */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-32"
+          style={{ background: "linear-gradient(180deg,#f5efe4 0%,rgba(245,239,228,0) 100%)" }}
+        />
+
+        {/* Layer 3 — bottom edge fade */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-32"
+          style={{ background: "linear-gradient(0deg,#f5f0e8 0%,rgba(245,240,232,0) 100%)" }}
+        />
       </div>
 
       {/* ── SECTION INTRO ── */}
-      <div className="relative mx-auto max-w-7xl px-6 pb-12 pt-20 sm:px-8 lg:px-16 lg:pb-16 lg:pt-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-12 pt-8 sm:px-8 lg:px-16 lg:pb-16 lg:pt-10">
         <div className="mx-auto max-w-2xl text-center">
-
-          {/* Ornamental divider */}
-          <div className="mb-8 flex items-center justify-center gap-3 lg:mb-10">
-            <div className="h-px w-10 bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.7))]" />
-            <div className="h-[3px] w-[3px] rounded-full bg-[#c6a87a]" />
-            <div className="h-px w-10 bg-[linear-gradient(90deg,rgba(198,168,122,0.7),rgba(198,168,122,0))]" />
-          </div>
-
-          {/* Eyebrow */}
-          <p className="mb-4 text-[0.65rem] uppercase tracking-[0.38em] text-[#7c1f2d] lg:text-[0.68rem] lg:tracking-[0.42em]">
-            Membership
-          </p>
 
           {/* Heading — single line on desktop */}
           <h2 className="text-[2.2rem] leading-[1.05] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:whitespace-nowrap lg:text-[3.4rem] lg:leading-[0.95]">
@@ -308,58 +315,79 @@ export default function Membership() {
       </div>
 
       {/* ── MOBILE: SNAP CAROUSEL ── */}
-      <div className="lg:hidden pb-14 pt-2">
+      <div className="relative z-10 lg:hidden pb-8 pt-2">
         <p className="mb-5 text-center text-[0.58rem] uppercase tracking-[0.28em] text-[#8a6a4a]/50">
           Swipe to explore
         </p>
 
+        {/* items-stretch (flex default) makes all card wrappers the same height as the tallest */}
         <div
           ref={carouselRef}
           className="flex snap-x snap-mandatory overflow-x-auto gap-4 px-6 [&::-webkit-scrollbar]:hidden"
-          style={{ scrollbarWidth: "none" }}
+          style={{ scrollbarWidth: "none", overflowY: "hidden", touchAction: "pan-x pan-y", WebkitOverflowScrolling: "touch" as any }}
+          role="region"
+          aria-label="Membership tiers carousel"
         >
           {tiers.map((tier, i) => (
             <div
               key={tier.id}
               data-card=""
               data-index={i}
-              className="flex-none w-[82vw] snap-start sm:w-[66vw]"
+              className="flex-none w-[76vw] snap-start sm:w-[62vw] flex flex-col"
             >
               <TierPanel tier={tier} />
             </div>
           ))}
         </div>
 
-        {/* Pagination dots */}
-        <div className="mt-7 flex justify-center gap-2.5">
-          {tiers.map((tier, i) => (
-            <button
-              key={tier.id}
-              onClick={() => scrollToCard(i)}
-              aria-label={tier.eyebrow}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeIndex === i ? "w-6 bg-[#c6a87a]" : "w-1.5 bg-[#c6a87a]/28"
-              }`}
-            />
-          ))}
+        {/* Arrow navigation — z-50 + pointer-events:auto ensures it sits above all decorative layers */}
+        <div
+          className="relative mt-6 flex items-center justify-center gap-5"
+          style={{ zIndex: 50, pointerEvents: "auto" }}
+        >
+          <button
+            type="button"
+            onClick={() => { console.log("LEFT CLICK"); scrollToCard(activeIndex - 1); }}
+            onTouchEnd={(e) => { e.preventDefault(); console.log("LEFT TOUCH"); scrollToCard(activeIndex - 1); }}
+            disabled={activeIndex === 0}
+            aria-label="Previous membership tier"
+            style={{ touchAction: "manipulation", pointerEvents: "auto" }}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c6a87a]/45 bg-[#fbf7ef]/90 text-[#8a6a4a] shadow-[0_2px_8px_rgba(110,79,47,0.08)] transition-all duration-200 hover:border-[#c6a87a]/80 hover:text-[#5d4534] disabled:opacity-25"
+          >
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+              <path d="M7 1.5L3 5.5l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          <span className="text-[0.58rem] uppercase tracking-[0.32em] text-[#8a6a4a]/60">
+            {activeIndex + 1} / {tiers.length}
+          </span>
+
+          <button
+            type="button"
+            onClick={() => { console.log("RIGHT CLICK"); scrollToCard(activeIndex + 1); }}
+            onTouchEnd={(e) => { e.preventDefault(); console.log("RIGHT TOUCH"); scrollToCard(activeIndex + 1); }}
+            disabled={activeIndex === tiers.length - 1}
+            aria-label="Next membership tier"
+            style={{ touchAction: "manipulation", pointerEvents: "auto" }}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c6a87a]/45 bg-[#fbf7ef]/90 text-[#8a6a4a] shadow-[0_2px_8px_rgba(110,79,47,0.08)] transition-all duration-200 hover:border-[#c6a87a]/80 hover:text-[#5d4534] disabled:opacity-25"
+          >
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+              <path d="M4 1.5l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
         </div>
       </div>
 
       {/* ── DESKTOP: THREE PANEL GRID ── */}
-      <div className="hidden lg:block">
-        <div className="mx-auto max-w-7xl px-6 pb-24 sm:px-8 lg:px-16">
-          <div className="grid grid-cols-3 gap-8 xl:gap-10">
+      <div className="relative z-10 hidden lg:block">
+        <div className="mx-auto max-w-7xl px-6 pb-12 sm:px-8 lg:px-16">
+          {/* CSS Grid stretches all items to the same row height by default */}
+          <div className="grid grid-cols-3 gap-8 xl:gap-10 items-stretch">
             {tiers.map((tier) => (
               <TierPanel key={tier.id} tier={tier} />
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* ── SECTION BOTTOM TRANSITION ── */}
-      <div aria-hidden="true" className="pointer-events-none pb-8 pt-2 lg:pb-10">
-        <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-16">
-          <div className="h-px bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.44)_22%,rgba(198,168,122,0.44)_78%,rgba(198,168,122,0))]" />
         </div>
       </div>
 

@@ -23,23 +23,19 @@ export default function Navbar() {
   useEffect(() => {
     if (open) {
       const scrollY = window.scrollY;
-      document.body.style.position = "fixed";
+      // Add a class to body so CSS controls visual layout, but set top inline
+      document.body.classList.add("body--nav-open");
       document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = "100%";
-      document.body.style.overflow = "hidden";
     } else {
-      const scrollY = document.body.style.top;
-      document.body.style.position = "";
+      const top = document.body.style.top;
+      document.body.classList.remove("body--nav-open");
       document.body.style.top = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
-      window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      const scrollY = top ? parseInt(top || "0") * -1 : 0;
+      window.scrollTo(0, scrollY);
     }
     return () => {
-      document.body.style.position = "";
+      document.body.classList.remove("body--nav-open");
       document.body.style.top = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
     };
   }, [open]);
 
@@ -67,7 +63,7 @@ export default function Navbar() {
               <a href="#top" className="group shrink-0">
                 <div className="flex flex-col items-center gap-1.5">
                   <div className="relative h-[4.5rem] w-[4.5rem] overflow-hidden rounded-2xl border border-[#c6a87a]/65 shadow-[0_3px_10px_rgba(110,79,47,0.12)]">
-                    <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill className="object-cover" priority />
+                    <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="72px" className="object-cover" priority />
                   </div>
                   <span className="text-[0.75rem] uppercase tracking-[0.26em] text-[#7c1f2d]">
                     Indian Mahjong Association
@@ -100,23 +96,26 @@ export default function Navbar() {
           iOS <label> + checkbox has always been reliable; avoids all button/sticky/blur bugs.
         */}
         <div
-          className="flex items-center justify-between px-5 py-3 lg:hidden"
+          className="grid grid-cols-[2.75rem_1fr_2.75rem] items-center px-5 py-3 lg:hidden"
           style={{
             background: "rgba(234,224,208,0.99)",
             borderBottom: "2px solid rgba(198,168,122,0.60)",
             boxShadow: "0 2px 14px rgba(110,79,47,0.07)",
           }}
         >
-          <a href="#top" className="flex items-center gap-2.5">
-            <div className="relative h-9 w-9 overflow-hidden rounded-xl border border-[#c6a87a]/65 shadow-[0_3px_10px_rgba(110,79,47,0.10)]">
-              <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill className="object-cover" priority />
+          {/* Logo — same fixed width as burger */}
+          <a href="#top" className="flex items-center justify-start">
+            <div className="relative h-11 w-11 overflow-hidden rounded-xl border border-[#c6a87a]/65 shadow-[0_3px_10px_rgba(110,79,47,0.10)]">
+              <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="44px" className="object-cover" priority />
             </div>
-            <span className="text-[0.55rem] uppercase leading-tight tracking-[0.14em] text-[#7c1f2d]">
-              Indian Mahjong Association
-            </span>
           </a>
 
-          {/* Label — always tappable on iOS, no clipping parent */}
+          {/* Centered title */}
+          <span className="text-center text-[0.55rem] font-semibold uppercase leading-tight tracking-[0.14em] text-[#7c1f2d]">
+            Indian Mahjong Association
+          </span>
+
+          {/* Burger — same fixed width as logo */}
           <label
             htmlFor="nav-drawer"
             aria-label="Open navigation menu"

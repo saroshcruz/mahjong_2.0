@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
+import DebugOverlay from "@/components/DebugOverlay";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${playfair.variable} ${inter.variable}`}>
         {children}
+        <DebugOverlay />
       </body>
     </html>
   );
