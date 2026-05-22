@@ -188,8 +188,7 @@ function TierPanel({ tier }: { tier: Tier }) {
 export default function Membership() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const snapPositions = useRef<number[]>([]);
-  const isProgrammatic = useRef(false);
+  const snapPositions = useRef<number[]>([]);  const activeIndexRef = useRef(0);  const isProgrammatic = useRef(false);
   const programmaticTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const measureSnapPositions = () => {
@@ -213,22 +212,25 @@ export default function Membership() {
         closestIndex = index;
       }
     });
+    activeIndexRef.current = closestIndex;
     setActiveIndex(closestIndex);
   };
 
   const scrollToCard = (index: number) => {
     const container = carouselRef.current;
     if (!container) return;
+    const clamped = Math.max(0, Math.min(index, tiers.length - 1));
     // Re-measure if positions weren't ready at mount (can happen on slow mobile paint)
     if (!snapPositions.current.length) measureSnapPositions();
     if (!snapPositions.current.length) return;
     isProgrammatic.current = true;
     if (programmaticTimer.current) clearTimeout(programmaticTimer.current);
-    container.scrollTo({ left: snapPositions.current[index], behavior: "smooth" });
-    setActiveIndex(index);
+    activeIndexRef.current = clamped;
+    setActiveIndex(clamped);
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    container.scrollTo({ left: Math.min(snapPositions.current[clamped], maxScroll), behavior: "smooth" });
     programmaticTimer.current = setTimeout(() => {
       isProgrammatic.current = false;
-      updateActiveCard();
     }, 700);
   };
 
@@ -254,6 +256,17 @@ export default function Membership() {
       updateActiveCard();
     };
 
+    // Document-level capture listener for arrows and dots
+    // Works on iOS where pointer events on non-native elements may be suppressed
+    const onDocPointerUp = (e: PointerEvent) => {
+      const el = e.target as HTMLElement;
+      const dot = el.closest("[data-dot-index]") as HTMLElement | null;
+      if (dot) { scrollToCard(parseInt(dot.dataset.dotIndex ?? "0", 10)); return; }
+      if (el.closest("[data-nav='prev']")) { scrollToCard(activeIndexRef.current - 1); return; }
+      if (el.closest("[data-nav='next']")) { scrollToCard(activeIndexRef.current + 1); }
+    };
+    document.addEventListener("pointerup", onDocPointerUp, { capture: true });
+
     container.addEventListener("scroll", onScroll, { passive: true });
     container.addEventListener("scrollend", onScrollEnd);
     window.addEventListener("resize", onResize);
@@ -264,6 +277,7 @@ export default function Membership() {
       container.removeEventListener("scroll", onScroll);
       container.removeEventListener("scrollend", onScrollEnd);
       window.removeEventListener("resize", onResize);
+      document.removeEventListener("pointerup", onDocPointerUp, { capture: true });
     };
   }, []);
 
@@ -345,37 +359,59 @@ export default function Membership() {
           className="relative mt-6 flex items-center justify-center gap-5"
           style={{ zIndex: 50, pointerEvents: "auto" }}
         >
-          <button
-            type="button"
-            onClick={() => { console.log("LEFT CLICK"); scrollToCard(activeIndex - 1); }}
-            onTouchEnd={(e) => { e.preventDefault(); console.log("LEFT TOUCH"); scrollToCard(activeIndex - 1); }}
-            disabled={activeIndex === 0}
+          <div
+            data-nav="prev"
+            role="button"
             aria-label="Previous membership tier"
-            style={{ touchAction: "manipulation", pointerEvents: "auto" }}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c6a87a]/45 bg-[#fbf7ef]/90 text-[#8a6a4a] shadow-[0_2px_8px_rgba(110,79,47,0.08)] transition-all duration-200 hover:border-[#c6a87a]/80 hover:text-[#5d4534] disabled:opacity-25"
+            aria-disabled={activeIndex === 0}
+            style={{ touchAction: "manipulation", cursor: activeIndex === 0 ? "default" : "pointer", opacity: activeIndex === 0 ? 0.25 : 1, WebkitTapHighlightColor: "transparent" }}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c6a87a]/45 bg-[#fbf7ef]/90 text-[#8a6a4a] shadow-[0_2px_8px_rgba(110,79,47,0.08)] transition-all duration-200"
           >
-            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true" style={{ pointerEvents: "none" }}>
               <path d="M7 1.5L3 5.5l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </button>
+          </div>
 
           <span className="text-[0.58rem] uppercase tracking-[0.32em] text-[#8a6a4a]/60">
             {activeIndex + 1} / {tiers.length}
           </span>
 
-          <button
-            type="button"
-            onClick={() => { console.log("RIGHT CLICK"); scrollToCard(activeIndex + 1); }}
-            onTouchEnd={(e) => { e.preventDefault(); console.log("RIGHT TOUCH"); scrollToCard(activeIndex + 1); }}
-            disabled={activeIndex === tiers.length - 1}
+          <div
+            data-nav="next"
+            role="button"
             aria-label="Next membership tier"
-            style={{ touchAction: "manipulation", pointerEvents: "auto" }}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c6a87a]/45 bg-[#fbf7ef]/90 text-[#8a6a4a] shadow-[0_2px_8px_rgba(110,79,47,0.08)] transition-all duration-200 hover:border-[#c6a87a]/80 hover:text-[#5d4534] disabled:opacity-25"
+            aria-disabled={activeIndex === tiers.length - 1}
+            style={{ touchAction: "manipulation", cursor: activeIndex === tiers.length - 1 ? "default" : "pointer", opacity: activeIndex === tiers.length - 1 ? 0.25 : 1, WebkitTapHighlightColor: "transparent" }}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c6a87a]/45 bg-[#fbf7ef]/90 text-[#8a6a4a] shadow-[0_2px_8px_rgba(110,79,47,0.08)] transition-all duration-200"
           >
-            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true" style={{ pointerEvents: "none" }}>
               <path d="M4 1.5l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </button>
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div className="mt-5 flex justify-center gap-2.5">
+          {tiers.map((tier, i) => (
+            <div
+              key={tier.id}
+              data-dot-index={i}
+              role="button"
+              aria-label={`Go to ${tier.eyebrow}`}
+              style={{ touchAction: "manipulation", cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
+              className="flex h-10 w-10 items-center justify-center"
+            >
+              <span
+                className="block rounded-full transition-all duration-300"
+                style={{
+                  height: 6,
+                  width: activeIndex === i ? 24 : 6,
+                  background: activeIndex === i ? "#c6a87a" : "rgba(198,168,122,0.35)",
+                  pointerEvents: "none",
+                }}
+              />
+            </div>
+          ))}
         </div>
       </div>
 
