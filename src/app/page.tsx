@@ -1,4 +1,5 @@
 import Footer from "@/sections/Footer/Footer";
+import Events from "@/sections/Events/Events";
 import Membership from "@/sections/Membership/Membership";
 import Navbar from "@/sections/Navbar/Navbar";
 import Trainers from "@/sections/Trainers/Trainers";
@@ -19,8 +20,9 @@ export default function Home() {
     <main id="top" className="min-h-screen bg-[#f5efe4]">
       <Navbar />
       <HeroPlaceholder />
-      <Trainers />
       <Membership />
+      <Trainers />
+      <Events />
       <Footer />
       <ScrollToTop />
     </main>

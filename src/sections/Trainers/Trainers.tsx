@@ -42,6 +42,22 @@ const supporting = [
       "Drawing on Kolkata's historic connection to Chinese culture, Deepak teaches Mahjong within its authentic historical and cultural context.",
     specialty: "Heritage & Tradition",
   },
+  {
+    name: "Meera Nair",
+    role: "Tournament Coach",
+    location: "Kochi",
+    description:
+      "A seasoned tournament player with multiple regional titles, Meera prepares students for competitive play through rigorous pattern recognition and mental endurance training.",
+    specialty: "Competitive Play",
+  },
+  {
+    name: "Arjun Patel",
+    role: "Youth Programme Instructor",
+    location: "Ahmedabad",
+    description:
+      "Arjun has pioneered IMA's youth outreach initiative, designing age-appropriate curricula that introduce the next generation to the art and discipline of authentic Mahjong.",
+    specialty: "Youth Education",
+  },
 ];
 
 function PortraitPlaceholder({
@@ -108,17 +124,10 @@ export default function Trainers() {
       <div className="relative mx-auto max-w-7xl px-6 pb-12 pt-16 sm:px-8 lg:px-16 lg:pb-16 lg:pt-20">
         <div className="mx-auto max-w-2xl text-center">
 
-          {/* Ornamental divider */}
-          <div className="mb-8 flex items-center justify-center gap-3 lg:mb-10">
-            <div className="h-px w-10 bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.7))]" />
-            <div className="h-[3px] w-[3px] rounded-full bg-[#c6a87a]" />
-            <div className="h-px w-10 bg-[linear-gradient(90deg,rgba(198,168,122,0.7),rgba(198,168,122,0))]" />
+          {/* Divider */}
+          <div className="mb-8 lg:mb-10">
+            <div className="h-px bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.44)_22%,rgba(198,168,122,0.44)_78%,rgba(198,168,122,0))]" />
           </div>
-
-          {/* Eyebrow */}
-          <p className="mb-4 text-[0.65rem] uppercase tracking-[0.38em] text-[#7c1f2d] lg:text-[0.68rem] lg:tracking-[0.42em]">
-            Our Trainers
-          </p>
 
           {/* Heading */}
           <h2 className="text-[2.2rem] leading-[1.05] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
@@ -157,9 +166,9 @@ export default function Trainers() {
                 <Image
                   src="/assets/founder/Vineeta.jpeg"
                   alt={featured.name}
-                  width={280}
-                  height={373}
-                  className="h-auto w-[190px] object-cover object-[center_18%] sm:w-[230px] lg:w-[270px]"
+                  width={196}
+                  height={261}
+                  className="h-auto w-[133px] object-cover object-[center_18%] sm:w-[161px] lg:w-[189px]"
                 />
                 <div
                   aria-hidden="true"
@@ -194,42 +203,6 @@ export default function Trainers() {
               {featured.story}
             </p>
 
-            {/* Specialisations */}
-            <ul className="mt-6 flex flex-col gap-2 lg:mt-7">
-              {featured.specialisations.map((s) => (
-                <li
-                  key={s}
-                  className="flex items-center gap-2.5 text-[0.79rem] text-[#4d3a2e]"
-                >
-                  <span className="h-px w-4 shrink-0 bg-[#c6a87a]/55" />
-                  {s}
-                </li>
-              ))}
-            </ul>
-
-            {/* CTA */}
-            <a
-              href="#contact"
-              className="group mt-8 inline-flex items-center gap-2 rounded-full border border-[#7c1f2d] px-6 py-2.5 text-[0.70rem] uppercase tracking-[0.22em] text-[#7c1f2d] transition-all duration-300 hover:bg-[#7c1f2d] hover:text-[#f5efe4] lg:border-0 lg:p-0 lg:rounded-none lg:hover:bg-transparent lg:hover:text-[#7c1f2d]"
-            >
-              View Profile
-              <svg
-                width="14"
-                height="10"
-                viewBox="0 0 14 10"
-                fill="none"
-                aria-hidden="true"
-                className="transition-transform duration-300 group-hover:translate-x-0.5"
-              >
-                <path
-                  d="M1 5h12M8 1l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
           </div>
         </div>
       </div>
