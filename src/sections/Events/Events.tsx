@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 // ── TYPES ─────────────────────────────────────────────────────────────────────
 
@@ -184,10 +184,11 @@ function formatEventDate(e: EventItem) {
 // ── COMPONENT ──────────────────────────────────────────────────────────────────
 
 export default function Events() {
-  const [viewYear, setViewYear]       = useState(2026);
-  const [viewMonth, setViewMonth]     = useState(7); // August
-  const [selected, setSelected]       = useState<EventItem | null>(null);
+  const [viewYear, setViewYear]         = useState(2026);
+  const [viewMonth, setViewMonth]       = useState(7); // August
+  const [selected, setSelected]         = useState<EventItem | null>(null);
   const [panelVisible, setPanelVisible] = useState(true);
+  const detailPanelRef                  = useRef<HTMLDivElement>(null);
 
   const cells = useMemo(
     () => buildCalendarCells(viewYear, viewMonth),
@@ -223,6 +224,11 @@ export default function Events() {
     setTimeout(() => {
       setSelected(event);
       setPanelVisible(true);
+      // Mobile only: smooth scroll to detail panel after content loads
+      if (window.innerWidth < 1024 && detailPanelRef.current) {
+        const top = detailPanelRef.current.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
     }, 200);
   };
 
@@ -296,7 +302,7 @@ export default function Events() {
           >
 
             {/* Month navigation */}
-            <div className="flex items-center justify-between px-7 pb-5 pt-7 lg:px-9 lg:pt-9">
+            <div className="flex items-center justify-between px-4 pb-4 pt-5 lg:px-9 lg:pt-9 lg:pb-5">
               <button
                 onClick={() => navigateMonth(-1)}
                 aria-label="Previous month"
@@ -326,7 +332,7 @@ export default function Events() {
             </div>
 
             {/* Day-of-week labels */}
-            <div className="grid grid-cols-7 px-5 pb-2 lg:px-7">
+            <div className="grid grid-cols-7 px-3 pb-2 lg:px-7">
               {DAY_LABELS.map(d => (
                 <div
                   key={d}
@@ -338,7 +344,7 @@ export default function Events() {
             </div>
 
             {/* Calendar grid */}
-            <div className="grid grid-cols-7 gap-y-1.5 px-5 pb-7 lg:px-7 lg:pb-9">
+            <div className="grid grid-cols-7 gap-y-1.5 px-3 pb-5 lg:px-7 lg:pb-9">
               {cells.map((cell, idx) => {
                 const event      = cell.current ? eventsByDay.get(cell.day) : undefined;
                 const isSelected = !!event && selected?.id === event.id;
@@ -413,28 +419,28 @@ export default function Events() {
 
             {/* Calendar footer legend */}
             <div
-              className="flex items-center gap-5 px-7 py-4 lg:px-9"
+              className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-3 lg:gap-x-5 lg:px-9 lg:py-4"
               style={{ borderTop: "1px solid rgba(198,168,122,0.18)" }}
             >
-              <div className="flex items-center gap-2">
-                <span className="h-[5px] w-[5px] rounded-full bg-[#2f5d50]" />
-                <span className="text-[0.54rem] uppercase tracking-[0.22em] text-[#8a6a4a]/60">
+              <div className="flex items-center gap-1.5">
+                <span className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#2f5d50]" />
+                <span className="text-[0.54rem] uppercase tracking-[0.18em] text-[#8a6a4a]/60">
                   Social
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="h-[5px] w-[5px] rounded-full bg-[#7c1f2d]" />
-                <span className="text-[0.54rem] uppercase tracking-[0.22em] text-[#8a6a4a]/60">
+              <div className="flex items-center gap-1.5">
+                <span className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#7c1f2d]" />
+                <span className="text-[0.54rem] uppercase tracking-[0.18em] text-[#8a6a4a]/60">
                   Tournament
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="h-[5px] w-[5px] rounded-full bg-[#c6a87a]" />
-                <span className="text-[0.54rem] uppercase tracking-[0.22em] text-[#8a6a4a]/60">
+              <div className="flex items-center gap-1.5">
+                <span className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#c6a87a]" />
+                <span className="text-[0.54rem] uppercase tracking-[0.18em] text-[#8a6a4a]/60">
                   Workshop
                 </span>
               </div>
-              <p className="ml-auto text-[0.54rem] uppercase tracking-[0.2em] text-[#8a6a4a]/45">
+              <p className="ml-auto shrink-0 text-[0.54rem] uppercase tracking-[0.18em] text-[#8a6a4a]/45">
                 {eventsByDay.size} {eventsByDay.size === 1 ? "event" : "events"}
               </p>
             </div>
@@ -444,6 +450,7 @@ export default function Events() {
               EVENT DETAIL PANEL
           ══════════════════════════════════════════ */}
           <div
+            ref={detailPanelRef}
             className="rounded-[1.25rem] overflow-hidden"
             style={{
               background: "linear-gradient(155deg,rgba(255,253,248,0.95) 0%,rgba(248,242,232,0.91) 100%)",
