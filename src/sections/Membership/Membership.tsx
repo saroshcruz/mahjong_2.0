@@ -10,7 +10,6 @@ const tiers = [
     tagline: "Every player begins with a table.",
     duration: "1 Year Membership",
     price: "₹1,000",
-    tileImage: "/assets/membership/pearl-tile.png",
     benefits: [
       "Weekly training sessions",
       "IMA membership certificate",
@@ -20,6 +19,7 @@ const tiers = [
     cta: "Buy This Tier",
     accentRgb: "198,168,122",
     panelBorder: "rgba(198,168,122,0.38)",
+    tileImage: "/assets/membership/pearl-tile.png",
     dragon: { symbol: "白", label: "White Dragon" },
     tileTheme: {
       bg: "rgba(255,253,248,0.97)",
@@ -34,7 +34,6 @@ const tiers = [
     tagline: "For those who return to the table.",
     duration: "5 Year Membership",
     price: "₹4,000",
-    tileImage: "/assets/membership/ruby-tile.png",
     benefits: [
       "All Pearl benefits",
       "Priority event registration",
@@ -45,6 +44,7 @@ const tiers = [
     cta: "Buy This Tier",
     accentRgb: "124,31,45",
     panelBorder: "rgba(124,31,45,0.26)",
+    tileImage: "/assets/membership/ruby-tile.png",
     dragon: { symbol: "中", label: "Red Dragon" },
     tileTheme: {
       bg: "rgba(253,248,246,0.97)",
@@ -59,7 +59,6 @@ const tiers = [
     tagline: "For those helping shape the culture.",
     duration: "Lifetime Membership",
     price: "₹10,000",
-    tileImage: "/assets/membership/jade-tile.png",
     benefits: [
       "All Ruby benefits",
       "Lifetime IMA recognition",
@@ -70,6 +69,7 @@ const tiers = [
     cta: "Buy This Tier",
     accentRgb: "47,93,80",
     panelBorder: "rgba(47,93,80,0.26)",
+    tileImage: "/assets/membership/jade-tile.png",
     dragon: { symbol: "發", label: "Green Dragon" },
     tileTheme: {
       bg: "rgba(247,252,250,0.97)",

@@ -1,34 +1,20 @@
 "use client"
 
-"use client"
-
 import { useEffect, useRef, useState } from "react"
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false)
   const lastEventTs = useRef<number>(0)
 
-  const debugMode = typeof window !== "undefined" && window.location.search.includes("debugTouch=1")
-
-  const THRESHOLD = 80 // px before showing the button — lower threshold helps mobile
+  const THRESHOLD = 120 // px before showing the button
 
   const getScrollY = () => {
     if (typeof window === "undefined") return 0
     const vv: any = (window as any).visualViewport
-    // Prefer visualViewport metrics when available (mobile address-bar friendly)
-    if (vv) {
-      if (typeof vv.pageTop === "number") return vv.pageTop
-      if (typeof vv.offsetTop === "number") return vv.offsetTop
-      if (typeof vv.scrollTop === "number") return vv.scrollTop
-    }
-
-    // Standard fallbacks for various browsers
-    if (typeof window.pageYOffset === "number") return window.pageYOffset
-    if (document.scrollingElement) return (document.scrollingElement as any).scrollTop || 0
-    if (document.documentElement) return document.documentElement.scrollTop || 0
-    // Last resort
-    // @ts-ignore
-    return (document.body && document.body.scrollTop) || 0
+    if (vv && typeof vv.pageTop === "number") return vv.pageTop
+    if (vv && typeof vv.offsetTop === "number") return vv.offsetTop
+    if (document.scrollingElement) return document.scrollingElement.scrollTop
+    return window.scrollY || 0
   }
 
   useEffect(() => {
@@ -41,12 +27,7 @@ export default function ScrollToTop() {
     }
 
     window.addEventListener("scroll", handle, { passive: true })
-    // Some mobile browsers don't reliably fire the main scroll event — add touch/visual listeners
-    document.addEventListener("touchmove", handle, { passive: true })
-    window.addEventListener("resize", handle)
-    window.addEventListener("orientationchange", handle)
-
-    // visualViewport moves on mobile when address bar hides — listen to it if present
+    // visualViewport moves on mobile when address bar hides — listen to it
     if ((window as any).visualViewport) {
       ;(window as any).visualViewport.addEventListener("scroll", handle)
       ;(window as any).visualViewport.addEventListener("resize", handle)
@@ -69,14 +50,8 @@ export default function ScrollToTop() {
     }
     rafId = requestAnimationFrame(loop)
 
-    // Run an initial check in case the page is already scrolled on mount
-    handle()
-
     return () => {
       window.removeEventListener("scroll", handle)
-      document.removeEventListener("touchmove", handle)
-      window.removeEventListener("resize", handle)
-      window.removeEventListener("orientationchange", handle)
       if ((window as any).visualViewport) {
         ;(window as any).visualViewport.removeEventListener("scroll", handle)
         ;(window as any).visualViewport.removeEventListener("resize", handle)
@@ -90,10 +65,9 @@ export default function ScrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  if (!visible && !debugMode) return null
+  if (!visible) return null
 
   return (
-    <>
     <button
       aria-label="Scroll to top"
       onClick={scrollToTop}
@@ -120,13 +94,5 @@ export default function ScrollToTop() {
         <path d="M5 12l7-7 7 7" stroke="#7c1f2d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </button>
-      {debugMode && typeof window !== "undefined" && (
-        <div style={{position: 'fixed', left: 10, top: 10, zIndex: 2147483647, background: 'rgba(0,0,0,0.6)', color: 'white', padding: '6px 8px', borderRadius: 6, fontSize: 12}}>
-          <div>y: {getScrollY()}</div>
-          <div>visible: {String(visible)}</div>
-          <div>body overflow: {document.body.style.overflow || 'auto'}</div>
-        </div>
-      )}
-    </>
   )
 }

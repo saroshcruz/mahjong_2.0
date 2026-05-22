@@ -3,39 +3,36 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-const desktopNav = [
+const navLinks = [
   { href: "#story", label: "Our Story" },
   { href: "#membership", label: "Membership" },
   { href: "#trainers", label: "Trainers" },
   { href: "#events", label: "Events" },
 ];
 
-const drawerNav = [
-  { href: "#story", label: "Our Story" },
-  { href: "#membership", label: "Membership" },
-  { href: "#trainers", label: "Trainers" },
-  { href: "#events", label: "Events" },
-];
+
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  // A's working scroll-lock logic (inline styles, reliably restores scroll position)
   useEffect(() => {
     if (open) {
       const scrollY = window.scrollY;
-      // Add a class to body so CSS controls visual layout, but set top inline
-      document.body.classList.add("body--nav-open");
+      document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
     } else {
-      const top = document.body.style.top;
-      document.body.classList.remove("body--nav-open");
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
       document.body.style.top = "";
-      const scrollY = top ? parseInt(top || "0") * -1 : 0;
-      window.scrollTo(0, scrollY);
+      document.body.style.width = "";
+      if (scrollY) window.scrollTo(0, parseInt(scrollY) * -1);
     }
     return () => {
-      document.body.classList.remove("body--nav-open");
+      document.body.style.position = "";
       document.body.style.top = "";
+      document.body.style.width = "";
     };
   }, [open]);
 
@@ -49,7 +46,7 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-50">
 
-        {/* ── DESKTOP: full-width rectangular masthead ── */}
+        {/* ── DESKTOP ── */}
         <div className="hidden lg:block">
           <div
             className="relative w-full overflow-hidden backdrop-blur-xl"
@@ -71,7 +68,7 @@ export default function Navbar() {
                 </div>
               </a>
               <nav className="flex flex-1 items-center justify-end gap-x-9 text-[0.74rem] font-medium uppercase tracking-[0.22em] text-[#55463d]">
-                {desktopNav.map((item) => (
+                {navLinks.map((item) => (
                   <a key={item.href} href={item.href} className="group relative px-1 py-1 transition duration-300 hover:text-[#7c1f2d]">
                     <span className="absolute inset-x-1 bottom-0 h-px origin-center scale-x-0 bg-[linear-gradient(90deg,rgba(124,31,45,0),rgba(124,31,45,0.75),rgba(124,31,45,0))] transition duration-300 group-hover:scale-x-100" />
                     {item.label}
@@ -79,22 +76,11 @@ export default function Navbar() {
                 ))}
               </nav>
             </div>
-            {/* Ceremonial gold bottom line */}
-            <div
-              aria-hidden="true"
-              style={{
-                height: 2,
-                background: "linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.60) 18%,rgba(198,168,122,0.60) 82%,rgba(198,168,122,0))",
-              }}
-            />
+            <div aria-hidden="true" style={{ height: 2, background: "linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.60) 18%,rgba(198,168,122,0.60) 82%,rgba(198,168,122,0))" }} />
           </div>
         </div>
 
-        {/*
-          MOBILE: plain flat bar — no overflow-hidden, no backdrop-blur, no border-radius.
-          The <label> trigger is a direct child with nothing clipping its touch area.
-          iOS <label> + checkbox has always been reliable; avoids all button/sticky/blur bugs.
-        */}
+        {/* ── MOBILE bar — B's UI: grid layout with centered title ── */}
         <div
           className="grid grid-cols-[2.75rem_1fr_2.75rem] items-center px-5 py-3 lg:hidden"
           style={{
@@ -103,84 +89,55 @@ export default function Navbar() {
             boxShadow: "0 2px 14px rgba(110,79,47,0.07)",
           }}
         >
-          {/* Logo — same fixed width as burger */}
           <a href="#top" className="flex items-center justify-start">
             <div className="relative h-11 w-11 overflow-hidden rounded-xl border border-[#c6a87a]/65 shadow-[0_3px_10px_rgba(110,79,47,0.10)]">
               <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="44px" className="object-cover" priority />
             </div>
           </a>
 
-          {/* Centered title */}
           <span className="text-center text-[0.55rem] font-semibold uppercase leading-tight tracking-[0.14em] text-[#7c1f2d]">
             Indian Mahjong Association
           </span>
 
-          {/* Burger — same fixed width as logo */}
-          <label
-            htmlFor="nav-drawer"
+          <button
+            type="button"
             aria-label="Open navigation menu"
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-[#cbb18b]/50 bg-[#fbf7ef] text-[#5d4534]"
+            aria-expanded={open}
+            onClick={() => setOpen(true)}
+            className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#cbb18b]/50 bg-[#fbf7ef] text-[#5d4534]"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
               <line x1="4" y1="8" x2="20" y2="8" />
               <line x1="4" y1="16" x2="20" y2="16" />
             </svg>
-          </label>
+          </button>
         </div>
       </header>
 
-      {/*
-        Checkbox is the state driver.
-        React syncs with it only for scroll-lock — the CSS peer selectors
-        handle all the visual transitions without JavaScript.
-      */}
-      <input
-        type="checkbox"
-        id="nav-drawer"
-        className="peer sr-only"
-        checked={open}
-        onChange={(e) => setOpen(e.target.checked)}
-      />
-
-      {/* Dimmed backdrop — label so tapping it closes the drawer */}
-      <label
-        htmlFor="nav-drawer"
-        aria-label="Close menu"
-        className="pointer-events-none fixed inset-0 z-[58] bg-black/0 opacity-0 transition-all duration-300 peer-checked:pointer-events-auto peer-checked:bg-black/40 peer-checked:opacity-100 lg:hidden"
-      />
-
-      {/* Side drawer */}
-      <div className="fixed right-0 top-0 z-[59] flex h-[100dvh] w-[min(300px,85vw)] translate-x-full flex-col overflow-y-auto overscroll-contain bg-[#fbf6ee] shadow-[-8px_0_40px_rgba(110,79,47,0.18)] transition-transform duration-300 peer-checked:translate-x-0 lg:hidden">
-
-        {/* Drawer header — just the close button */}
-        <div className="flex shrink-0 items-center justify-end border-b border-[#e8d8b8]/60 px-5 py-4">
-          <label
-            htmlFor="nav-drawer"
-            aria-label="Close menu"
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-[#e8d8b8]/60 bg-[#f5ece0]/60 text-[#8a6a4a]"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              <line x1="6" y1="6" x2="18" y2="18" />
-              <line x1="18" y1="6" x2="6" y2="18" />
-            </svg>
-          </label>
-        </div>
-
-        {/* Nav links */}
-        <nav className="flex flex-col px-4 pt-2" aria-label="Mobile navigation">
-          {drawerNav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-3 border-b border-[#e8d8b8]/40 py-4 text-[0.82rem] uppercase tracking-[0.32em] text-[#4d3a2e] transition-colors duration-200 hover:text-[#7c1f2d]"
-            >
-              <span className="h-px w-4 shrink-0 bg-[#c6a87a]/60" />
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </div>
+      {/* ── MOBILE drawer — only in DOM when open (A's pattern: no hidden overlay eating touches) ── */}
+      {open && (
+        <>
+          <div aria-hidden="true" onClick={() => setOpen(false)} className="fixed inset-0 z-[58] bg-black/40 lg:hidden" />
+          <div className="fixed right-0 top-0 z-[59] flex h-[100dvh] w-[min(300px,85vw)] flex-col overflow-y-auto overscroll-contain bg-[#fbf6ee] shadow-[-8px_0_40px_rgba(110,79,47,0.18)] lg:hidden">
+            <div className="flex shrink-0 items-center justify-end border-b border-[#e8d8b8]/60 px-5 py-4">
+              <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#e8d8b8]/60 bg-[#f5ece0]/60 text-[#8a6a4a]">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+              </button>
+            </div>
+            <nav className="flex flex-col px-4 pt-2" aria-label="Mobile navigation">
+              {navLinks.map((item) => (
+                <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="flex items-center gap-3 border-b border-[#e8d8b8]/40 py-4 text-[0.82rem] uppercase tracking-[0.32em] text-[#4d3a2e] transition-colors duration-200 hover:text-[#7c1f2d]">
+                  <span className="h-px w-4 shrink-0 bg-[#c6a87a]/60" />
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </>
+      )}
     </>
   );
 }

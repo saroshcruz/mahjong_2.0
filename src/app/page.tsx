@@ -19,8 +19,8 @@ export default function Home() {
     <main id="top" className="min-h-screen bg-[#f5efe4]">
       <Navbar />
       <HeroPlaceholder />
-      <Membership />
       <Trainers />
+      <Membership />
       <Footer />
       <ScrollToTop />
     </main>

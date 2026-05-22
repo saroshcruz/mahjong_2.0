@@ -1,7 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import DebugOverlay from "@/components/DebugOverlay";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -12,6 +11,13 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
 });
+
+// Critical: without this, mobile browsers render at ~980px and scale down,
+// causing touch coordinate mismatches where taps miss their targets.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Indian Mahjong Association",
@@ -27,7 +33,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${playfair.variable} ${inter.variable}`}>
         {children}
-        <DebugOverlay />
       </body>
     </html>
   );

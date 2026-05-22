@@ -115,6 +115,11 @@ export default function Trainers() {
             <div className="h-px w-10 bg-[linear-gradient(90deg,rgba(198,168,122,0.7),rgba(198,168,122,0))]" />
           </div>
 
+          {/* Eyebrow */}
+          <p className="mb-4 text-[0.65rem] uppercase tracking-[0.38em] text-[#7c1f2d] lg:text-[0.68rem] lg:tracking-[0.42em]">
+            Our Trainers
+          </p>
+
           {/* Heading */}
           <h2 className="text-[2.2rem] leading-[1.05] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
             Meet Our Trainers
@@ -189,6 +194,42 @@ export default function Trainers() {
               {featured.story}
             </p>
 
+            {/* Specialisations */}
+            <ul className="mt-6 flex flex-col gap-2 lg:mt-7">
+              {featured.specialisations.map((s) => (
+                <li
+                  key={s}
+                  className="flex items-center gap-2.5 text-[0.79rem] text-[#4d3a2e]"
+                >
+                  <span className="h-px w-4 shrink-0 bg-[#c6a87a]/55" />
+                  {s}
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA */}
+            <a
+              href="#contact"
+              className="group mt-8 inline-flex items-center gap-2 rounded-full border border-[#7c1f2d] px-6 py-2.5 text-[0.70rem] uppercase tracking-[0.22em] text-[#7c1f2d] transition-all duration-300 hover:bg-[#7c1f2d] hover:text-[#f5efe4] lg:border-0 lg:p-0 lg:rounded-none lg:hover:bg-transparent lg:hover:text-[#7c1f2d]"
+            >
+              View Profile
+              <svg
+                width="14"
+                height="10"
+                viewBox="0 0 14 10"
+                fill="none"
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-0.5"
+              >
+                <path
+                  d="M1 5h12M8 1l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
           </div>
         </div>
       </div>
