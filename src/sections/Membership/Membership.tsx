@@ -354,42 +354,6 @@ export default function Membership() {
           ))}
         </div>
 
-        {/* Arrow navigation — z-50 + pointer-events:auto ensures it sits above all decorative layers */}
-        <div
-          className="relative mt-6 flex items-center justify-center gap-5"
-          style={{ zIndex: 50, pointerEvents: "auto" }}
-        >
-          <div
-            data-nav="prev"
-            role="button"
-            aria-label="Previous membership tier"
-            aria-disabled={activeIndex === 0}
-            style={{ touchAction: "manipulation", cursor: activeIndex === 0 ? "default" : "pointer", opacity: activeIndex === 0 ? 0.25 : 1, WebkitTapHighlightColor: "transparent" }}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c6a87a]/45 bg-[#fbf7ef]/90 text-[#8a6a4a] shadow-[0_2px_8px_rgba(110,79,47,0.08)] transition-all duration-200"
-          >
-            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true" style={{ pointerEvents: "none" }}>
-              <path d="M7 1.5L3 5.5l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-
-          <span className="text-[0.58rem] uppercase tracking-[0.32em] text-[#8a6a4a]/60">
-            {activeIndex + 1} / {tiers.length}
-          </span>
-
-          <div
-            data-nav="next"
-            role="button"
-            aria-label="Next membership tier"
-            aria-disabled={activeIndex === tiers.length - 1}
-            style={{ touchAction: "manipulation", cursor: activeIndex === tiers.length - 1 ? "default" : "pointer", opacity: activeIndex === tiers.length - 1 ? 0.25 : 1, WebkitTapHighlightColor: "transparent" }}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c6a87a]/45 bg-[#fbf7ef]/90 text-[#8a6a4a] shadow-[0_2px_8px_rgba(110,79,47,0.08)] transition-all duration-200"
-          >
-            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true" style={{ pointerEvents: "none" }}>
-              <path d="M4 1.5l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-        </div>
-
         {/* Dots */}
         <div className="mt-5 flex justify-center gap-2.5">
           {tiers.map((tier, i) => (
