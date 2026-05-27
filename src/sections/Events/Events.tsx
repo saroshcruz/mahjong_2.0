@@ -187,7 +187,7 @@ export default function Events() {
   const [viewYear, setViewYear]         = useState(2026);
   const [viewMonth, setViewMonth]       = useState(7); // August
   const [selected, setSelected]         = useState<EventItem | null>(null);
-  const [panelVisible, setPanelVisible] = useState(true);
+  const [panelVisible, setPanelVisible] = useState(false);
   const detailPanelRef                  = useRef<HTMLDivElement>(null);
 
   const cells = useMemo(
@@ -210,26 +210,41 @@ export default function Events() {
     if (m > 11) { m = 0;  y += 1; }
     setViewMonth(m);
     setViewYear(y);
-    // Fade out panel then clear selection
+
+    if (!selected) return;
+
     setPanelVisible(false);
-    setTimeout(() => {
+    window.setTimeout(() => {
       setSelected(null);
-      setPanelVisible(true);
-    }, 200);
+    }, 240);
   };
 
   const handleDayClick = (event: EventItem) => {
     if (event.id === selected?.id) return;
-    setPanelVisible(false);
-    setTimeout(() => {
+
+    const revealSelectedEvent = () => {
       setSelected(event);
-      setPanelVisible(true);
-      // Mobile only: smooth scroll to detail panel after content loads
-      if (window.innerWidth < 1024 && detailPanelRef.current) {
-        const top = detailPanelRef.current.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top, behavior: "smooth" });
+      window.setTimeout(() => {
+        setPanelVisible(true);
+      }, 20);
+
+      if (window.innerWidth < 1024) {
+        window.setTimeout(() => {
+          if (!detailPanelRef.current) return;
+          const top = detailPanelRef.current.getBoundingClientRect().top + window.scrollY - 88;
+          window.scrollTo({ top, behavior: "smooth" });
+        }, 120);
       }
-    }, 200);
+    };
+
+    if (!selected) {
+      setPanelVisible(false);
+      revealSelectedEvent();
+      return;
+    }
+
+    setPanelVisible(false);
+    window.setTimeout(revealSelectedEvent, 220);
   };
 
   return (
@@ -449,68 +464,37 @@ export default function Events() {
           {/* ══════════════════════════════════════════
               EVENT DETAIL PANEL
           ══════════════════════════════════════════ */}
-          <div
-            ref={detailPanelRef}
-            className="rounded-[1.25rem] overflow-hidden"
-            style={{
-              background: "linear-gradient(155deg,rgba(255,253,248,0.95) 0%,rgba(248,242,232,0.91) 100%)",
-              border: "1px solid rgba(198,168,122,0.22)",
-              boxShadow:
-                "inset 0 0 0 1px rgba(255,255,255,0.48), 0 8px 40px rgba(110,79,47,0.07), 0 2px 12px rgba(110,79,47,0.04)",
-              minHeight: "460px",
-            }}
-          >
+          {selected && (
             <div
-              className="flex h-full flex-col p-7 lg:p-10"
+              ref={detailPanelRef}
+              className="overflow-hidden rounded-[1.25rem]"
               style={{
+                background: "linear-gradient(155deg,rgba(255,253,248,0.96) 0%,rgba(248,242,232,0.92) 100%)",
+                border: "1px solid rgba(198,168,122,0.24)",
+                boxShadow:
+                  "inset 0 0 0 1px rgba(255,255,255,0.50), 0 10px 44px rgba(110,79,47,0.08), 0 2px 12px rgba(110,79,47,0.04)",
                 opacity: panelVisible ? 1 : 0,
-                transition: "opacity 0.2s ease",
+                transform: panelVisible ? "translateY(0)" : "translateY(10px)",
+                transition: "opacity 280ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             >
-
-              {/* ── Empty state ── */}
-              {!selected && (
-                <div className="flex flex-1 flex-col items-center justify-center gap-7 text-center">
-                  <div
-                    className="select-none text-[4.5rem] leading-none"
-                    aria-hidden="true"
-                    style={{
-                      fontFamily: "var(--font-heading)",
-                      color: "rgba(198,168,122,0.16)",
-                    }}
-                  >
-                    雀
-                  </div>
-                  <div>
-                    <p
-                      className="text-[1.12rem] leading-snug text-[#2d2926]/45 lg:text-[1.08rem]"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      Select an event date
-                    </p>
-                    <p className="mt-2 text-[0.84rem] leading-relaxed text-[#8a6a4a]/50 lg:text-[0.78rem]">
-                      to explore details
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="h-px w-8 bg-[rgba(198,168,122,0.28)]" />
-                    <div className="h-[3px] w-[3px] rounded-full bg-[#c6a87a]/40" />
-                    <div className="h-px w-8 bg-[rgba(198,168,122,0.28)]" />
-                  </div>
-                </div>
-              )}
-
-              {/* ── Event detail ── */}
-              {selected && (
+              <div
+                aria-hidden="true"
+                style={{
+                  height: 3,
+                  background: `linear-gradient(90deg,rgba(${ACCENT[selected.accent].rgb},0) 0%,rgba(${ACCENT[selected.accent].rgb},0.72) 18%,rgba(${ACCENT[selected.accent].rgb},0.72) 82%,rgba(${ACCENT[selected.accent].rgb},0) 100%)`,
+                }}
+              />
+              <div className="flex h-full flex-col p-7 lg:p-10">
                 <div className="flex h-full flex-col">
 
                   {/* Tag + Date row */}
-                  <div className="mb-7 flex items-center justify-between">
+                  <div className="mb-7 flex items-center justify-between gap-5">
                     <span
                       className="text-[0.58rem] uppercase tracking-[0.34em]"
                       style={{ color: ACCENT[selected.accent].hex }}
                     >
-                      {selected.tag}
+                      {selected.tag} Invitation
                     </span>
                     <span className="text-[0.58rem] uppercase tracking-[0.22em] text-[#8a6a4a]/55">
                       {formatEventDate(selected)}
@@ -617,9 +601,9 @@ export default function Events() {
                     </a>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
-          </div>
+          )}
 
         </div>
       </div>
