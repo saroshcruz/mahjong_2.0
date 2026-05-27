@@ -80,7 +80,7 @@ const EVENTS: EventItem[] = [
     description: "The opening round of IMA's national championship circuit. A refined and intimate competitive gathering for the association's most senior members.",
     venue: "Oberoi Grand, Kolkata",
     time: "11:00 AM",
-    eligibility: "Jade Members Only",
+    eligibility: "Ruby Members Only",
     seats: 8,
     tag: "Tournament",
     accent: "burgundy",
@@ -93,7 +93,7 @@ const EVENTS: EventItem[] = [
     description: "An exclusive gathering for founding circle members. An evening of play, conversation and cultural reflection at one of India's most storied venues.",
     venue: "Taj Mahal Palace, Apollo Bunder",
     time: "7:30 PM",
-    eligibility: "Jade Members Only",
+    eligibility: "Ruby Members Only",
     seats: 10,
     tag: "Private",
     accent: "jade",
@@ -264,21 +264,21 @@ export default function Events() {
       </div>
 
       {/* ── SECTION INTRO ── */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-12 pt-12 sm:px-8 lg:px-16 lg:pb-16 lg:pt-16">
+      <div className="relative z-10 mx-auto max-w-7xl px-7 pb-12 pt-12 sm:px-8 lg:px-16 lg:pb-16 lg:pt-16">
         <div className="mx-auto max-w-2xl text-center">
 
           {/* Eyebrow */}
-          <p className="mb-4 text-[0.65rem] uppercase tracking-[0.38em] text-[#7c1f2d] lg:text-[0.68rem] lg:tracking-[0.42em]">
+          <p className="mb-4 text-[0.66rem] uppercase tracking-[0.32em] text-[#7c1f2d] lg:text-[0.68rem] lg:tracking-[0.42em]">
             Community Gatherings
           </p>
 
           {/* Heading */}
-          <h2 className="text-[2.2rem] leading-[1.05] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
+          <h2 className="text-[2.25rem] leading-[1.08] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
             Events &amp; Gatherings
           </h2>
 
           {/* Subtext */}
-          <p className="mx-auto mt-6 max-w-[48ch] text-[0.96rem] leading-[1.88] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
+          <p className="mx-auto mt-6 max-w-[48ch] text-[1rem] leading-[1.92] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
             Curated Mahjong socials, tournaments, workshops and private member experiences across India.
           </p>
         </div>
@@ -306,7 +306,7 @@ export default function Events() {
               <button
                 onClick={() => navigateMonth(-1)}
                 aria-label="Previous month"
-                className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-all duration-200 hover:bg-[#c6a87a]/12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a87a]/40"
+                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full transition-all duration-200 hover:bg-[#c6a87a]/12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a87a]/40 lg:h-9 lg:w-9"
               >
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
                   <path d="M9.5 11.5L5.5 7.5l4-4" stroke="#8a6a4a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -314,7 +314,7 @@ export default function Events() {
               </button>
 
               <p
-                className="text-[0.72rem] uppercase tracking-[0.36em] text-[#2d2926]"
+                className="text-[0.76rem] uppercase tracking-[0.28em] text-[#2d2926] lg:text-[0.72rem] lg:tracking-[0.36em]"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 {MONTH_NAMES[viewMonth]} {viewYear}
@@ -323,7 +323,7 @@ export default function Events() {
               <button
                 onClick={() => navigateMonth(1)}
                 aria-label="Next month"
-                className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-all duration-200 hover:bg-[#c6a87a]/12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a87a]/40"
+                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full transition-all duration-200 hover:bg-[#c6a87a]/12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a87a]/40 lg:h-9 lg:w-9"
               >
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
                   <path d="M5.5 3.5l4 4-4 4" stroke="#8a6a4a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -336,7 +336,7 @@ export default function Events() {
               {DAY_LABELS.map(d => (
                 <div
                   key={d}
-                  className="py-2 text-center text-[0.56rem] uppercase tracking-[0.2em] text-[#8a6a4a]/55"
+                  className="py-2 text-center text-[0.58rem] uppercase tracking-[0.18em] text-[#8a6a4a]/60 lg:text-[0.56rem] lg:tracking-[0.2em]"
                 >
                   {d}
                 </div>
@@ -352,16 +352,16 @@ export default function Events() {
 
                 // Hidden: other-month filler days
                 if (!cell.current) {
-                  return <div key={idx} aria-hidden="true" className="h-10 w-full" />;
+                  return <div key={idx} aria-hidden="true" className="h-11 w-full lg:h-10" />;
                 }
 
                 // Non-event current-month day
                 if (!event) {
                   return (
                     <div key={idx} className="flex justify-center">
-                      <div className="flex h-10 w-10 items-center justify-center">
+                      <div className="flex h-11 w-11 items-center justify-center lg:h-10 lg:w-10">
                         <span
-                          className="text-[0.82rem] leading-none text-[#2d2926]/35"
+                          className="text-[0.88rem] leading-none text-[#2d2926]/35 lg:text-[0.82rem]"
                           style={{ fontFamily: "var(--font-heading)" }}
                         >
                           {cell.day}
@@ -378,7 +378,7 @@ export default function Events() {
                       onClick={() => handleDayClick(event)}
                       aria-label={`${cell.day} ${MONTH_NAMES[viewMonth]}: ${event.title}`}
                       aria-pressed={isSelected}
-                      className="group relative flex h-10 w-10 cursor-pointer flex-col items-center justify-center rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a87a]/40"
+                      className="group relative flex h-11 w-11 cursor-pointer flex-col items-center justify-center rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c6a87a]/40 lg:h-10 lg:w-10"
                       style={
                         isSelected
                           ? {
@@ -394,7 +394,7 @@ export default function Events() {
                       )}
 
                       <span
-                        className="relative text-[0.82rem] leading-none"
+                        className="relative text-[0.88rem] leading-none lg:text-[0.82rem]"
                         style={{
                           fontFamily: "var(--font-heading)",
                           color: isSelected ? "#f5efe4" : "#2d2926",
@@ -424,23 +424,23 @@ export default function Events() {
             >
               <div className="flex items-center gap-1.5">
                 <span className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#2f5d50]" />
-                <span className="text-[0.54rem] uppercase tracking-[0.18em] text-[#8a6a4a]/60">
+                <span className="text-[0.58rem] uppercase tracking-[0.16em] text-[#8a6a4a]/65 lg:text-[0.54rem] lg:tracking-[0.18em]">
                   Social
                 </span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#7c1f2d]" />
-                <span className="text-[0.54rem] uppercase tracking-[0.18em] text-[#8a6a4a]/60">
+                <span className="text-[0.58rem] uppercase tracking-[0.16em] text-[#8a6a4a]/65 lg:text-[0.54rem] lg:tracking-[0.18em]">
                   Tournament
                 </span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#c6a87a]" />
-                <span className="text-[0.54rem] uppercase tracking-[0.18em] text-[#8a6a4a]/60">
+                <span className="text-[0.58rem] uppercase tracking-[0.16em] text-[#8a6a4a]/65 lg:text-[0.54rem] lg:tracking-[0.18em]">
                   Workshop
                 </span>
               </div>
-              <p className="ml-auto shrink-0 text-[0.54rem] uppercase tracking-[0.18em] text-[#8a6a4a]/45">
+              <p className="ml-auto shrink-0 text-[0.58rem] uppercase tracking-[0.16em] text-[#8a6a4a]/50 lg:text-[0.54rem] lg:tracking-[0.18em]">
                 {eventsByDay.size} {eventsByDay.size === 1 ? "event" : "events"}
               </p>
             </div>
@@ -461,7 +461,7 @@ export default function Events() {
             }}
           >
             <div
-              className="flex h-full flex-col p-8 lg:p-10"
+              className="flex h-full flex-col p-7 lg:p-10"
               style={{
                 opacity: panelVisible ? 1 : 0,
                 transition: "opacity 0.2s ease",
@@ -483,12 +483,12 @@ export default function Events() {
                   </div>
                   <div>
                     <p
-                      className="text-[1.08rem] leading-snug text-[#2d2926]/45"
+                      className="text-[1.12rem] leading-snug text-[#2d2926]/45 lg:text-[1.08rem]"
                       style={{ fontFamily: "var(--font-heading)" }}
                     >
                       Select an event date
                     </p>
-                    <p className="mt-2 text-[0.78rem] leading-relaxed text-[#8a6a4a]/50">
+                    <p className="mt-2 text-[0.84rem] leading-relaxed text-[#8a6a4a]/50 lg:text-[0.78rem]">
                       to explore details
                     </p>
                   </div>
@@ -519,7 +519,7 @@ export default function Events() {
 
                   {/* Title */}
                   <h3
-                    className="text-[1.6rem] leading-[1.15] text-[#2d2926] lg:text-[1.8rem]"
+                    className="text-[1.68rem] leading-[1.18] text-[#2d2926] lg:text-[1.8rem] lg:leading-[1.15]"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {selected.title}
@@ -532,7 +532,7 @@ export default function Events() {
                   />
 
                   {/* Description */}
-                  <p className="max-w-[44ch] text-[0.93rem] leading-[1.9] text-[#5d4d40]">
+                  <p className="max-w-[44ch] text-[0.98rem] leading-[1.94] text-[#5d4d40] lg:text-[0.93rem] lg:leading-[1.9]">
                     {selected.description}
                   </p>
 
@@ -541,41 +541,41 @@ export default function Events() {
 
                     {/* Venue — full width */}
                     <div className="sm:col-span-2">
-                      <p className="mb-1 text-[0.54rem] uppercase tracking-[0.28em] text-[#8a6a4a]/55">
+                      <p className="mb-1 text-[0.58rem] uppercase tracking-[0.24em] text-[#8a6a4a]/55 lg:text-[0.54rem] lg:tracking-[0.28em]">
                         Venue
                       </p>
-                      <p className="text-[0.88rem] leading-snug text-[#2d2926]">
+                      <p className="text-[0.94rem] leading-snug text-[#2d2926] lg:text-[0.88rem]">
                         {selected.venue}
                       </p>
                     </div>
 
                     {/* Time */}
                     <div>
-                      <p className="mb-1 text-[0.54rem] uppercase tracking-[0.28em] text-[#8a6a4a]/55">
+                      <p className="mb-1 text-[0.58rem] uppercase tracking-[0.24em] text-[#8a6a4a]/55 lg:text-[0.54rem] lg:tracking-[0.28em]">
                         Time
                       </p>
-                      <p className="text-[0.88rem] leading-snug text-[#2d2926]">
+                      <p className="text-[0.94rem] leading-snug text-[#2d2926] lg:text-[0.88rem]">
                         {selected.time}
                       </p>
                     </div>
 
                     {/* Eligibility */}
                     <div>
-                      <p className="mb-1 text-[0.54rem] uppercase tracking-[0.28em] text-[#8a6a4a]/55">
+                      <p className="mb-1 text-[0.58rem] uppercase tracking-[0.24em] text-[#8a6a4a]/55 lg:text-[0.54rem] lg:tracking-[0.28em]">
                         Eligibility
                       </p>
-                      <p className="text-[0.88rem] leading-snug text-[#2d2926]">
-                        Inclusive with Any Membership
+                      <p className="text-[0.94rem] leading-snug text-[#2d2926] lg:text-[0.88rem]">
+                        {selected.eligibility}
                       </p>
                     </div>
 
                     {/* Seats */}
                     <div>
-                      <p className="mb-1 text-[0.54rem] uppercase tracking-[0.28em] text-[#8a6a4a]/55">
+                      <p className="mb-1 text-[0.58rem] uppercase tracking-[0.24em] text-[#8a6a4a]/55 lg:text-[0.54rem] lg:tracking-[0.28em]">
                         Availability
                       </p>
                       <p
-                        className="text-[0.88rem] leading-snug"
+                        className="text-[0.94rem] leading-snug lg:text-[0.88rem]"
                         style={{ color: selected.seats <= 10 ? "#7c1f2d" : "#2d2926" }}
                       >
                         {selected.seats} {selected.seats === 1 ? "seat" : "seats"} remaining
@@ -595,7 +595,7 @@ export default function Events() {
                   <div className="mt-7">
                     <a
                       href="#contact"
-                      className="group inline-flex cursor-pointer items-center gap-2.5 rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-7 py-3 text-[0.70rem] uppercase tracking-[0.22em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_10px_28px_rgba(124,31,45,0.26)]"
+                      className="group inline-flex min-h-12 cursor-pointer items-center gap-2.5 rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-7 py-3 text-[0.72rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_10px_28px_rgba(124,31,45,0.26)] lg:min-h-0 lg:text-[0.70rem] lg:tracking-[0.22em]"
                     >
                       Reserve Seat
                       <svg

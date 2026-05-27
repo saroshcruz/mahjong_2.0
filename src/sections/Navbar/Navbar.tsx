@@ -82,20 +82,20 @@ export default function Navbar() {
 
         {/* ── MOBILE bar — B's UI: grid layout with centered title ── */}
         <div
-          className="grid grid-cols-[2.75rem_1fr_2.75rem] items-center px-5 py-3 lg:hidden"
+          className="grid grid-cols-[3rem_1fr_3rem] items-center px-5 py-3.5 lg:hidden"
           style={{
             background: "rgba(234,224,208,0.99)",
             borderBottom: "2px solid rgba(198,168,122,0.60)",
             boxShadow: "0 2px 14px rgba(110,79,47,0.07)",
           }}
         >
-          <a href="#top" className="flex items-center justify-start">
-            <div className="relative h-11 w-11 overflow-hidden rounded-xl border border-[#c6a87a]/65 shadow-[0_3px_10px_rgba(110,79,47,0.10)]">
-              <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="44px" className="object-cover" priority />
+          <a href="#top" className="flex min-h-12 items-center justify-start">
+            <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-[#c6a87a]/70 shadow-[0_4px_12px_rgba(110,79,47,0.12)]">
+              <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="48px" className="object-cover" priority />
             </div>
           </a>
 
-          <span className="text-center text-[0.55rem] font-semibold uppercase leading-tight tracking-[0.14em] text-[#7c1f2d]">
+          <span className="px-2 text-center text-[0.58rem] font-semibold uppercase leading-[1.25] tracking-[0.14em] text-[#7c1f2d]">
             Indian Mahjong Association
           </span>
 
@@ -104,7 +104,7 @@ export default function Navbar() {
             aria-label="Open navigation menu"
             aria-expanded={open}
             onClick={() => setOpen(true)}
-            className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#cbb18b]/50 bg-[#fbf7ef] text-[#5d4534]"
+            className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#cbb18b]/50 bg-[#fbf7ef] text-[#5d4534]"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
               <line x1="4" y1="8" x2="20" y2="8" />
@@ -120,7 +120,7 @@ export default function Navbar() {
           <div aria-hidden="true" onClick={() => setOpen(false)} className="fixed inset-0 z-[58] bg-black/40 lg:hidden" />
           <div className="fixed right-0 top-0 z-[59] flex h-[100dvh] w-[min(300px,85vw)] flex-col overflow-y-auto overscroll-contain bg-[#fbf6ee] shadow-[-8px_0_40px_rgba(110,79,47,0.18)] lg:hidden">
             <div className="flex shrink-0 items-center justify-end border-b border-[#e8d8b8]/60 px-5 py-4">
-              <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#e8d8b8]/60 bg-[#f5ece0]/60 text-[#8a6a4a]">
+              <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#e8d8b8]/60 bg-[#f5ece0]/60 text-[#8a6a4a]">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                   <line x1="6" y1="6" x2="18" y2="18" />
                   <line x1="18" y1="6" x2="6" y2="18" />
@@ -129,7 +129,7 @@ export default function Navbar() {
             </div>
             <nav className="flex flex-col px-4 pt-2" aria-label="Mobile navigation">
               {navLinks.map((item) => (
-                <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="flex items-center gap-3 border-b border-[#e8d8b8]/40 py-4 text-[0.82rem] uppercase tracking-[0.32em] text-[#4d3a2e] transition-colors duration-200 hover:text-[#7c1f2d]">
+                <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="flex min-h-14 items-center gap-3 border-b border-[#e8d8b8]/40 py-4 text-[0.86rem] uppercase tracking-[0.28em] text-[#4d3a2e] transition-colors duration-200 hover:text-[#7c1f2d]">
                   <span className="h-px w-4 shrink-0 bg-[#c6a87a]/60" />
                   {item.label}
                 </a>

@@ -11,7 +11,7 @@ const featured = {
 
 const supporting = [
   {
-    name: "Rajesh Mehta",
+    name: "Anu Nagpal",
     role: "Strategy Instructor",
     location: "Mumbai",
     description:
@@ -19,7 +19,7 @@ const supporting = [
     specialty: "Advanced Strategy",
   },
   {
-    name: "Priya Singh",
+    name: "Alka Talwar",
     role: "Beginner Programme Lead",
     location: "Bengaluru",
     description:
@@ -27,7 +27,7 @@ const supporting = [
     specialty: "Beginner Mahjong",
   },
   {
-    name: "Kavita Sharma",
+    name: "Rumpy Sidana",
     role: "Community Trainer",
     location: "Chennai",
     description:
@@ -35,7 +35,7 @@ const supporting = [
     specialty: "Cultural Mahjong",
   },
   {
-    name: "Deepak Bose",
+    name: "Anita Srivastav",
     role: "Cultural Heritage Instructor",
     location: "Kolkata",
     description:
@@ -121,7 +121,7 @@ export default function Trainers() {
       </div>
 
       {/* ── SECTION INTRO ── */}
-      <div className="relative mx-auto max-w-7xl px-6 pb-12 pt-16 sm:px-8 lg:px-16 lg:pb-16 lg:pt-20">
+      <div className="relative mx-auto max-w-7xl px-7 pb-12 pt-16 sm:px-8 lg:px-16 lg:pb-16 lg:pt-20">
         <div className="mx-auto max-w-2xl text-center">
 
           {/* Divider */}
@@ -130,12 +130,12 @@ export default function Trainers() {
           </div>
 
           {/* Heading */}
-          <h2 className="text-[2.2rem] leading-[1.05] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
+          <h2 className="text-[2.25rem] leading-[1.08] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
             Meet Our Trainers
           </h2>
 
           {/* Subtext */}
-          <p className="mx-auto mt-6 max-w-[48ch] text-[0.96rem] leading-[1.88] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
+          <p className="mx-auto mt-6 max-w-[48ch] text-[1rem] leading-[1.92] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
             Learn from experienced Mahjong practitioners, teachers, and community builders
             rooted in authentic Chinese Mahjong culture.
           </p>
@@ -143,7 +143,7 @@ export default function Trainers() {
       </div>
 
       {/* ── FEATURED TRAINER ── */}
-      <div className="relative mx-auto max-w-7xl px-6 pb-16 sm:px-8 lg:px-16 lg:pb-20">
+      <div className="relative mx-auto max-w-7xl px-7 pb-16 sm:px-8 lg:px-16 lg:pb-20">
         <div className="flex flex-col items-center gap-10 lg:grid lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
 
           {/* Portrait — Vineeta image used temporarily for visual direction test */}
@@ -191,7 +191,7 @@ export default function Trainers() {
             </h3>
 
             {/* Role · Location */}
-            <p className="mt-2 text-[0.68rem] uppercase tracking-[0.28em] text-[#8a6a4a]">
+            <p className="mt-2 text-[0.70rem] uppercase leading-relaxed tracking-[0.24em] text-[#8a6a4a] lg:text-[0.68rem] lg:tracking-[0.28em]">
               {featured.role}&ensp;·&ensp;{featured.location}
             </p>
 
@@ -199,7 +199,7 @@ export default function Trainers() {
             <div className="my-5 h-px w-10 bg-[#c6a87a]/40" />
 
             {/* Story */}
-            <p className="max-w-[44ch] text-[0.97rem] leading-[1.92] text-[#5d4d40]">
+            <p className="max-w-[44ch] text-[1rem] leading-[1.94] text-[#5d4d40] lg:text-[0.97rem] lg:leading-[1.92]">
               {featured.story}
             </p>
 
@@ -213,8 +213,8 @@ export default function Trainers() {
       </div>
 
       {/* ── SUPPORTING TRAINERS ── */}
-      <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-14 sm:px-8 lg:px-16 lg:pb-24 lg:pt-16">
-        <div className="grid grid-cols-1 gap-14 sm:grid-cols-2 lg:gap-x-16 lg:gap-y-16">
+      <div className="relative mx-auto max-w-7xl px-7 pb-20 pt-14 sm:px-8 lg:px-16 lg:pb-24 lg:pt-16">
+        <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:gap-x-16 lg:gap-y-16">
           {supporting.map((trainer) => (
             <div
               key={trainer.name}
@@ -229,7 +229,7 @@ export default function Trainers() {
               </h3>
 
               {/* Role · Location */}
-              <p className="mt-1.5 text-[0.62rem] uppercase tracking-[0.24em] text-[#8a6a4a]">
+              <p className="mt-1.5 text-[0.64rem] uppercase leading-relaxed tracking-[0.21em] text-[#8a6a4a] lg:text-[0.62rem] lg:tracking-[0.24em]">
                 {trainer.role}&ensp;·&ensp;{trainer.location}
               </p>
 
@@ -237,12 +237,12 @@ export default function Trainers() {
               <div className="my-4 h-px w-8 bg-[#c6a87a]/36" />
 
               {/* Description */}
-              <p className="max-w-[38ch] text-justify text-[0.91rem] leading-[1.86] text-[#5d4d40]">
+              <p className="max-w-[38ch] text-left text-[0.96rem] leading-[1.9] text-[#5d4d40] sm:text-justify lg:text-[0.91rem] lg:leading-[1.86]">
                 {trainer.description}
               </p>
 
               {/* Specialty */}
-              <p className="mt-4 text-[0.6rem] uppercase tracking-[0.28em] text-[#8a6a4a]/80">
+              <p className="mt-4 text-[0.62rem] uppercase tracking-[0.24em] text-[#8a6a4a]/80 lg:text-[0.6rem] lg:tracking-[0.28em]">
                 {trainer.specialty}
               </p>
             </div>

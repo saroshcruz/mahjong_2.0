@@ -29,8 +29,8 @@ const tiers = [
     },
   },
   {
-    id: "ruby",
-    eyebrow: "Ruby Membership",
+    id: "jade",
+    eyebrow: "Jade Membership",
     tagline: "For those who return to the table.",
     duration: "5 Year Membership",
     price: "₹4,000",
@@ -39,32 +39,7 @@ const tiers = [
       "Priority event registration",
       "Tournament participation rights",
       "Strategy workshops and masterclasses",
-      "Ruby member recognition",
-    ],
-    cta: "Buy This Tier",
-    accentRgb: "124,31,45",
-    panelBorder: "rgba(124,31,45,0.26)",
-    tileImage: "/assets/membership/ruby-tile.png",
-    dragon: { symbol: "中", label: "Red Dragon" },
-    tileTheme: {
-      bg: "rgba(253,248,246,0.97)",
-      border: "rgba(124,31,45,0.38)",
-      text: "rgba(124,31,45,0.82)",
-      shadow: "rgba(124,31,45,0.08)",
-    },
-  },
-  {
-    id: "jade",
-    eyebrow: "Jade Membership",
-    tagline: "For those helping shape the culture.",
-    duration: "Lifetime Membership",
-    price: "₹10,000",
-    benefits: [
-      "All Ruby benefits",
-      "Lifetime IMA recognition",
-      "Cultural heritage committee access",
-      "Invitations to founding circle events",
-      "Legacy member status",
+      "Jade member recognition",
     ],
     cta: "Buy This Tier",
     accentRgb: "47,93,80",
@@ -76,6 +51,31 @@ const tiers = [
       border: "rgba(47,93,80,0.38)",
       text: "rgba(47,93,80,0.82)",
       shadow: "rgba(47,93,80,0.08)",
+    },
+  },
+  {
+    id: "ruby",
+    eyebrow: "Ruby Membership",
+    tagline: "For those helping shape the culture.",
+    duration: "Lifetime Membership",
+    price: "₹10,000",
+    benefits: [
+      "All Jade benefits",
+      "Lifetime IMA recognition",
+      "Cultural heritage committee access",
+      "Invitations to founding circle events",
+      "Legacy member status",
+    ],
+    cta: "Buy This Tier",
+    accentRgb: "124,31,45",
+    panelBorder: "rgba(124,31,45,0.26)",
+    tileImage: "/assets/membership/ruby-tile.png",
+    dragon: { symbol: "中", label: "Red Dragon" },
+    tileTheme: {
+      bg: "rgba(253,248,246,0.97)",
+      border: "rgba(124,31,45,0.38)",
+      text: "rgba(124,31,45,0.82)",
+      shadow: "rgba(124,31,45,0.08)",
     },
   },
 ];
@@ -103,7 +103,7 @@ function TierPanel({ tier }: { tier: Tier }) {
         }}
       />
 
-      <div className="flex flex-col flex-1 items-center px-3 pb-4 pt-3 text-center lg:px-5 lg:pb-5 lg:pt-7">
+      <div className="flex flex-col flex-1 items-center px-4 pb-5 pt-4 text-center lg:px-5 lg:pb-5 lg:pt-7">
 
         {/* PNG tile — 20% larger for more visual presence */}
         <div className="mb-4 relative w-[82px] h-[108px] lg:mb-7">
@@ -118,7 +118,7 @@ function TierPanel({ tier }: { tier: Tier }) {
 
         {/* Tier name — increased weight and opacity for legibility */}
         <p
-          className="font-medium text-[0.60rem] uppercase tracking-[0.34em]"
+          className="font-medium text-[0.62rem] uppercase tracking-[0.32em] lg:text-[0.60rem] lg:tracking-[0.34em]"
           style={{ color: `rgba(${tier.accentRgb},0.92)` }}
         >
           {tier.eyebrow}
@@ -126,7 +126,7 @@ function TierPanel({ tier }: { tier: Tier }) {
 
         {/* Tagline */}
         <p
-          className="mt-3 max-w-[22ch] text-[0.98rem] leading-[1.60] text-[#2d2926]"
+          className="mt-3 max-w-[22ch] text-[1.02rem] leading-[1.62] text-[#2d2926] lg:text-[0.98rem] lg:leading-[1.60]"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           {tier.tagline}
@@ -139,7 +139,7 @@ function TierPanel({ tier }: { tier: Tier }) {
         />
 
         {/* Duration */}
-        <p className="text-[0.58rem] uppercase tracking-[0.28em] text-[#8a6a4a]">
+        <p className="text-[0.60rem] uppercase tracking-[0.26em] text-[#8a6a4a] lg:text-[0.58rem] lg:tracking-[0.28em]">
           {tier.duration}
         </p>
 
@@ -159,7 +159,7 @@ function TierPanel({ tier }: { tier: Tier }) {
           {tier.benefits.map((benefit) => (
             <li
               key={benefit}
-              className="flex items-start gap-2.5 text-[0.79rem] leading-[1.55] text-[#4d3a2e]"
+              className="flex items-start gap-2.5 text-[0.84rem] leading-[1.62] text-[#4d3a2e] lg:text-[0.79rem] lg:leading-[1.55]"
             >
               <span
                 className="mt-[0.44em] h-px w-3.5 shrink-0"
@@ -175,7 +175,7 @@ function TierPanel({ tier }: { tier: Tier }) {
         <div className="mt-auto w-full flex justify-center pt-3 lg:pt-5">
           <a
             href="#contact"
-            className="flex w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.70rem] uppercase tracking-[0.22em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)]"
+            className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.72rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] lg:min-h-0 lg:text-[0.70rem] lg:tracking-[0.22em]"
           >
             {tier.cta}
           </a>
@@ -317,12 +317,12 @@ export default function Membership() {
         <div className="mx-auto max-w-2xl text-center">
 
           {/* Heading — single line on desktop */}
-          <h2 className="text-[2.2rem] leading-[1.05] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:whitespace-nowrap lg:text-[3.4rem] lg:leading-[0.95]">
+          <h2 className="text-[2.25rem] leading-[1.08] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:whitespace-nowrap lg:text-[3.4rem] lg:leading-[0.95]">
             Choose Your Membership
           </h2>
 
           {/* Subtext */}
-          <p className="mx-auto mt-6 max-w-[48ch] text-[0.96rem] leading-[1.88] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
+          <p className="mx-auto mt-6 max-w-[48ch] text-[1rem] leading-[1.92] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
             Three ways to gather, learn and belong within the Indian Mahjong Association.
           </p>
         </div>
@@ -330,15 +330,15 @@ export default function Membership() {
 
       {/* ── MOBILE: SNAP CAROUSEL ── */}
       <div className="relative z-10 lg:hidden pb-8 pt-2">
-        <p className="mb-5 text-center text-[0.58rem] uppercase tracking-[0.28em] text-[#8a6a4a]/50">
+        <p className="mb-5 text-center text-[0.60rem] uppercase tracking-[0.26em] text-[#8a6a4a]/55">
           Swipe to explore
         </p>
 
         {/* items-stretch (flex default) makes all card wrappers the same height as the tallest */}
         <div
           ref={carouselRef}
-          className="flex snap-x snap-mandatory overflow-x-auto gap-4 px-6 [&::-webkit-scrollbar]:hidden"
-          style={{ scrollbarWidth: "none", overflowY: "hidden", touchAction: "pan-x pan-y", WebkitOverflowScrolling: "touch" as any }}
+          className="flex snap-x snap-mandatory overflow-x-auto gap-5 px-6 [&::-webkit-scrollbar]:hidden"
+          style={{ scrollbarWidth: "none", overflowY: "hidden", touchAction: "pan-x pan-y", WebkitOverflowScrolling: "touch" }}
           role="region"
           aria-label="Membership tiers carousel"
         >
@@ -347,7 +347,7 @@ export default function Membership() {
               key={tier.id}
               data-card=""
               data-index={i}
-              className="flex-none w-[76vw] snap-start sm:w-[62vw] flex flex-col"
+              className="flex-none w-[78vw] snap-start sm:w-[62vw] flex flex-col"
             >
               <TierPanel tier={tier} />
             </div>

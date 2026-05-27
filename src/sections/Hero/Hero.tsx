@@ -6,12 +6,12 @@ const heroLinks = [
 
 function HeroButtons() {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+    <div className="flex flex-col items-center justify-center gap-3.5 sm:flex-row sm:flex-wrap">
       {heroLinks.map((link) => (
         <a
           key={link.href}
           href={link.href}
-          className="inline-flex min-w-[10.5rem] items-center justify-center rounded-full border px-6 py-3 text-[0.70rem] uppercase tracking-[0.22em] transition-all duration-300 hover:-translate-y-px hover:bg-[rgba(138,106,74,0.26)] hover:text-[#2d2926]"
+          className="inline-flex min-h-12 min-w-[11rem] items-center justify-center rounded-full border px-7 py-3 text-[0.72rem] uppercase tracking-[0.20em] transition-all duration-300 hover:-translate-y-px hover:bg-[rgba(138,106,74,0.26)] hover:text-[#2d2926] lg:min-h-0 lg:min-w-[10.5rem] lg:px-6 lg:text-[0.70rem] lg:tracking-[0.22em]"
           style={{
             borderColor: "rgba(198,168,122,0.46)",
             background:
@@ -48,13 +48,13 @@ export default function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(0deg,#f5efe4,rgba(245,239,228,0))]" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-18 pt-14 text-center sm:px-8 lg:px-16 lg:pb-24 lg:pt-20">
+      <div className="relative z-10 mx-auto max-w-7xl px-7 pb-18 pt-14 text-center sm:px-8 lg:px-16 lg:pb-24 lg:pt-20">
         <div className="mx-auto max-w-4xl">
-          <p className="mb-5 text-[0.65rem] uppercase tracking-[0.38em] text-[#7c1f2d] lg:mb-6 lg:text-[0.68rem] lg:tracking-[0.42em]">
+          <p className="mb-5 text-[0.66rem] uppercase tracking-[0.32em] text-[#7c1f2d] lg:mb-6 lg:text-[0.68rem] lg:tracking-[0.42em]">
             Preserving Tradition
           </p>
 
-          <h1 className="text-[2.7rem] leading-[0.98] text-[#2d2926] sm:text-[3.8rem] sm:leading-[0.94] lg:text-[5.4rem] lg:leading-[0.9]">
+          <h1 className="text-[2.75rem] leading-[1.0] text-[#2d2926] sm:text-[3.8rem] sm:leading-[0.94] lg:text-[5.4rem] lg:leading-[0.9]">
             INDIAN MAHJONG
             <br />
             ASSOCIATION
@@ -66,7 +66,7 @@ export default function Hero() {
             <div className="h-px w-8 bg-[#c6a87a]/40" />
           </div>
 
-          <p className="mx-auto mt-6 max-w-[44ch] text-[0.96rem] leading-[1.88] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
+          <p className="mx-auto mt-6 max-w-[44ch] text-[1rem] leading-[1.94] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
             A modern home for Mahjong in India, cultivating community, learning
             and meaningful play.
           </p>
