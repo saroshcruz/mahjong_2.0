@@ -105,17 +105,17 @@ export default async function MembershipTierPage({ params }: MembershipPageProps
                     {tier.duration}
                   </p>
                 </div>
-                <p className="mt-4 text-[1rem] leading-[1.76] text-[#5d4d40]">
-                  {tier.summary}
-                </p>
-                <p className="mt-3 text-[0.94rem] leading-[1.72] text-[#5d4d40]">
+                <p className="mt-4 text-[0.94rem] leading-[1.72] text-[#5d4d40]">
                   Complete your details below to begin your membership.
                 </p>
                 <a
                   href="/#membership"
-                  className="mt-5 inline-flex text-[0.66rem] uppercase tracking-[0.22em] text-[#8a6a4a] transition duration-200 hover:text-[#7c1f2d]"
+                  className="mt-5 inline-flex min-h-12 items-center justify-center rounded-full border border-[#c6a87a]/42 bg-[#fffaf2]/54 px-5 text-[0.66rem] uppercase tracking-[0.20em] text-[#6f5848] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.34)] transition-all duration-300 hover:-translate-y-px hover:border-[#7c1f2d]/42 hover:text-[#7c1f2d] hover:shadow-[0_6px_18px_rgba(110,79,47,0.08)]"
                 >
-                  Change tier
+                  <span aria-hidden="true" className="mr-2 text-[0.88rem] leading-none">
+                    ←
+                  </span>
+                  Change Tier
                 </a>
               </div>
             </aside>
