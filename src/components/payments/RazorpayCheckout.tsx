@@ -1,0 +1,169 @@
+"use client";
+
+import { useState } from "react";
+import type { MembershipTierId } from "@/lib/membership/tiers";
+
+declare global {
+  interface Window {
+    Razorpay?: new (options: RazorpayOptions) => {
+      open: () => void;
+      on: (
+        event: "payment.failed",
+        handler: (response: { error?: { description?: string } }) => void
+      ) => void;
+    };
+  }
+}
+
+type RazorpayOptions = {
+  key: string;
+  amount: number;
+  currency: "INR";
+  name: string;
+  description: string;
+  order_id: string;
+  handler: () => void;
+  prefill: Record<string, never>;
+  theme: {
+    color: string;
+  };
+  modal: {
+    ondismiss: () => void;
+  };
+};
+
+type OrderResponse = {
+  keyId: string;
+  orderId: string;
+  amount: number;
+  currency: "INR";
+  tierName: string;
+  error?: string;
+};
+
+type RazorpayCheckoutProps = {
+  tierId: MembershipTierId;
+  cta: string;
+};
+
+let checkoutScriptPromise: Promise<void> | null = null;
+
+function loadRazorpayCheckout() {
+  if (window.Razorpay) return Promise.resolve();
+  if (checkoutScriptPromise) return checkoutScriptPromise;
+
+  checkoutScriptPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error("Unable to load Razorpay Checkout."));
+    document.body.appendChild(script);
+  });
+
+  return checkoutScriptPromise;
+}
+
+export default function RazorpayCheckout({ tierId, cta }: RazorpayCheckoutProps) {
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [message, setMessage] = useState<string | null>(null);
+
+  const startCheckout = async () => {
+    setStatus("loading");
+    setMessage(null);
+
+    try {
+      const [orderResponse] = await Promise.all([
+        fetch("/api/create-order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ tierId }),
+        }),
+        loadRazorpayCheckout(),
+      ]);
+
+      const order = (await orderResponse.json()) as OrderResponse;
+
+      if (!orderResponse.ok || order.error) {
+        throw new Error(order.error ?? "Unable to start payment.");
+      }
+
+      if (!window.Razorpay) {
+        throw new Error("Razorpay Checkout is not available.");
+      }
+
+      const checkout = new window.Razorpay({
+        key: order.keyId,
+        amount: order.amount,
+        currency: order.currency,
+        name: "Indian Mahjong Association",
+        description: "Membership Registration",
+        order_id: order.orderId,
+        prefill: {},
+        theme: {
+          color: "#7c1f2d",
+        },
+        modal: {
+          ondismiss: () => {
+            setStatus("idle");
+          },
+        },
+        handler: () => {
+          setStatus("success");
+          setMessage(`${order.tierName} request has been received.`);
+        },
+      });
+
+      checkout.on("payment.failed", (response) => {
+        setStatus("idle");
+        setMessage(
+          response.error?.description ??
+            "Payment could not be completed. Please try again."
+        );
+      });
+
+      checkout.open();
+    } catch (error) {
+      setStatus("idle");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Unable to start payment. Please try again."
+      );
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <div className="w-full rounded-[0.75rem] border border-[#c6a87a]/36 bg-[#fbf7ef]/76 px-5 py-4 text-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.42)]">
+        <p className="text-[0.66rem] uppercase tracking-[0.24em] text-[#7c1f2d]">
+          Payment Successful
+        </p>
+        <p className="mt-2 text-[0.88rem] leading-[1.72] text-[#4d3a2e]">
+          {message ?? "Your membership request has been received."}
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex w-full flex-col items-center">
+      <button
+        type="button"
+        onClick={startCheckout}
+        disabled={status === "loading"}
+        className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.72rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] disabled:cursor-wait disabled:opacity-70 lg:min-h-0 lg:text-[0.70rem] lg:tracking-[0.22em]"
+      >
+        {status === "loading" ? "Opening Checkout" : cta}
+      </button>
+
+      {message && (
+        <p className="mt-3 max-w-[26ch] text-center text-[0.78rem] leading-[1.62] text-[#7c1f2d]">
+          {message}
+        </p>
+      )}
+    </div>
+  );
+}

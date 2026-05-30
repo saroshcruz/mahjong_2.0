@@ -78,7 +78,7 @@ const tiers = [
       shadow: "rgba(124,31,45,0.08)",
     },
   },
-];
+] as const;
 
 type Tier = typeof tiers[number];
 
@@ -174,7 +174,7 @@ function TierPanel({ tier }: { tier: Tier }) {
             gap above the button without affecting button dimensions */}
         <div className="mt-auto w-full flex justify-center pt-3 lg:pt-5">
           <a
-            href="#contact"
+            href={`/membership/${tier.id}`}
             className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.72rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] lg:min-h-0 lg:text-[0.70rem] lg:tracking-[0.22em]"
           >
             {tier.cta}

@@ -1,7 +1,7 @@
 const heroLinks = [
-  { href: "#membership", label: "Membership" },
-  { href: "#trainers", label: "Trainers" },
-  { href: "#events", label: "Events" },
+  { href: "/#membership", label: "Membership" },
+  { href: "/#trainers", label: "Trainers" },
+  { href: "/#events", label: "Events" },
 ];
 
 function HeroButtons() {
@@ -54,7 +54,7 @@ export default function Hero() {
             Preserving Tradition
           </p>
 
-          <h1 className="text-[2.75rem] leading-[1.0] text-[#2d2926] sm:text-[3.8rem] sm:leading-[0.94] lg:text-[5.4rem] lg:leading-[0.9]">
+          <h1 className="text-[2.75rem] leading-[1.04] text-[#2d2926] sm:text-[3.8rem] sm:leading-[0.99] lg:text-[5.4rem] lg:leading-[0.96]">
             INDIAN MAHJONG
             <br />
             ASSOCIATION

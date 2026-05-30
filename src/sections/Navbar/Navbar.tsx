@@ -4,16 +4,38 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const navLinks = [
-  { href: "#story", label: "Our Story" },
-  { href: "#membership", label: "Membership" },
-  { href: "#trainers", label: "Trainers" },
-  { href: "#events", label: "Events" },
+  { href: "/#membership", label: "Membership" },
+  { href: "/#trainers", label: "Trainers" },
+  { href: "/#events", label: "Events" },
+];
+
+const mobileNavLinks = [
+  { href: "/", label: "Home" },
+  ...navLinks,
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/refund-policy", label: "Refund Policy" },
 ];
 
 
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+
+  const handleMobileNavClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href === "/" && window.location.pathname === "/") {
+      event.preventDefault();
+      setOpen(false);
+      window.setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 80);
+      return;
+    }
+
+    setOpen(false);
+  };
 
   // A's working scroll-lock logic (inline styles, reliably restores scroll position)
   useEffect(() => {
@@ -57,7 +79,7 @@ export default function Navbar() {
           >
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_left_top,rgba(124,31,45,0.06),rgba(124,31,45,0)_28%)]" />
             <div className="relative mx-auto flex max-w-7xl items-center px-8 py-4">
-              <a href="#top" className="group shrink-0">
+              <a href="/#top" className="group shrink-0">
                 <div className="flex flex-col items-center gap-1.5">
                   <div className="relative h-[4.5rem] w-[4.5rem] overflow-hidden rounded-2xl border border-[#c6a87a]/65 shadow-[0_3px_10px_rgba(110,79,47,0.12)]">
                     <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="72px" className="object-cover" priority />
@@ -89,7 +111,7 @@ export default function Navbar() {
             boxShadow: "0 2px 14px rgba(110,79,47,0.07)",
           }}
         >
-          <a href="#top" className="flex min-h-12 items-center justify-start">
+          <a href="/#top" className="flex min-h-12 items-center justify-start">
             <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-[#c6a87a]/70 shadow-[0_4px_12px_rgba(110,79,47,0.12)]">
               <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="48px" className="object-cover" priority />
             </div>
@@ -128,8 +150,8 @@ export default function Navbar() {
               </button>
             </div>
             <nav className="flex flex-col px-4 pt-2" aria-label="Mobile navigation">
-              {navLinks.map((item) => (
-                <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="flex min-h-14 items-center gap-3 border-b border-[#e8d8b8]/40 py-4 text-[0.86rem] uppercase tracking-[0.28em] text-[#4d3a2e] transition-colors duration-200 hover:text-[#7c1f2d]">
+              {mobileNavLinks.map((item) => (
+                <a key={item.href} href={item.href} onClick={(event) => handleMobileNavClick(event, item.href)} className="flex min-h-14 items-center gap-3 border-b border-[#e8d8b8]/40 py-4 text-[0.86rem] uppercase tracking-[0.28em] text-[#4d3a2e] transition-colors duration-200 hover:text-[#7c1f2d]">
                   <span className="h-px w-4 shrink-0 bg-[#c6a87a]/60" />
                   {item.label}
                 </a>

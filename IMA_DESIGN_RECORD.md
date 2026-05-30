@@ -228,13 +228,13 @@ Explore column: "Membership Tiers" sub-header, Pearl / Ruby / Jade links. On mob
 Learn column: Trainers link.
 About column: Our Story link.
 
-Bottom strip: copyright © 2026, Privacy Policy, Terms of Use. Below that: a narrow ornamental divider + "Payments secured by Razorpay" in fine print (`0.63rem` uppercase).
+Bottom strip: copyright © 2026, Privacy Policy, Refund Policy. Below that: a narrow ornamental divider + "Payments secured by Razorpay" in fine print (`0.63rem` uppercase).
 
 ---
 
-### STORY — Not yet built
+### STORY — Temporarily removed
 
-**Target id:** `#story`
+**Target id:** Restore only when the section is rebuilt.
 
 Planned: Founder story of Vineeta Sahni — army postings → community building → IMA today. Deeply human and narrative-led. Editorial card layout with slight rotation (inspired by Magia de Pires recipe card approach). Vineeta's portrait belongs here, in intimate context. No generic timeline dots.
 

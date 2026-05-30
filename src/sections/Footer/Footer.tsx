@@ -23,7 +23,7 @@ export default function Footer() {
         className="relative z-10 mx-auto max-w-7xl px-8 pt-14 pb-6 lg:px-14 lg:pt-16 lg:pb-8"
         style={{ textShadow: "0 1px 6px rgba(0,0,0,0.28)" }}
       >
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-12 xl:gap-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr] lg:gap-12 xl:gap-16">
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-3">
               <Image
@@ -75,11 +75,11 @@ export default function Footer() {
               Explore
             </p>
             <nav className="mt-5 flex flex-wrap items-center gap-y-1 sm:flex-col sm:items-start sm:gap-2.5" aria-label="Explore">
-              <a href="#membership" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
+              <a href="/#membership" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Membership
               </a>
               <span className="mx-2 text-[1.02rem] text-[#8a8278]/46 sm:hidden" aria-hidden="true">·</span>
-              <a href="#events" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
+              <a href="/#events" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Events
               </a>
             </nav>
@@ -90,26 +90,8 @@ export default function Footer() {
               Learn
             </p>
             <nav className="mt-5 flex flex-wrap items-center gap-y-1 sm:flex-col sm:items-start sm:gap-2.5" aria-label="Learn">
-              <a href="#trainers" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
+              <a href="/#trainers" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Trainers
-              </a>
-              <span className="mx-2 text-[1.02rem] text-[#8a8278]/46 sm:hidden" aria-hidden="true">·</span>
-              <a href="#classes" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
-                Classes
-              </a>
-            </nav>
-          </div>
-
-          <div>
-            <p className="text-[0.6rem] uppercase tracking-[0.44em] text-[#b8975a]">
-              About
-            </p>
-            <nav className="mt-5 flex flex-col gap-2.5" aria-label="About">
-              <a
-                href="#story"
-                className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]"
-              >
-                Our Story
               </a>
             </nav>
           </div>
@@ -121,7 +103,7 @@ export default function Footer() {
             <p className="text-[0.63rem] tracking-[0.28em] text-[#b8975a]">
               Payments secured by Razorpay
             </p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
               <a
                 href="/privacy"
                 className="text-[0.77rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
@@ -129,10 +111,10 @@ export default function Footer() {
                 Privacy Policy
               </a>
               <a
-                href="/terms"
+                href="/refund-policy"
                 className="text-[0.77rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
               >
-                Terms of Use
+                Refund Policy
               </a>
               <a
                 href="https://www.instagram.com/casselle.co/"
@@ -140,7 +122,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="text-[0.77rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
               >
-                Site by Casselle
+                Site by Caselle &amp; Co.
               </a>
             </div>
           </div>

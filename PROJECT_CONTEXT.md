@@ -86,7 +86,7 @@ public/
 - Grid: brand col (2fr) + Explore / Learn / About (1fr each) — `lg:grid-cols-[2fr_1fr_1fr_1fr]`
 - Mobile tiers: Pearl · Ruby · Jade inline with separator (not vertical stack)
 - Instagram: icon + `indianmahjongassociation` (no @ prefix)
-- Bottom: copyright + Privacy + Terms + "Payments secured by Razorpay" fine print
+- Bottom: copyright + Privacy + Refund Policy + "Payments secured by Razorpay" fine print
 
 **ScrollToTop** (`src/components/ScrollToTop.tsx`)
 - Fixed circle button, cream background, burgundy arrow, z-index 9999
@@ -99,7 +99,7 @@ Each section must be created as its own file and added to `src/app/page.tsx`.
 
 | Section | File path | id | Notes |
 |---|---|---|---|
-| Story | `src/sections/Story/Story.tsx` | `#story` | Founder narrative, editorial card layout |
+| Story | Temporarily removed | Restore route/id only when rebuilt | Founder narrative, editorial card layout |
 | Trainers | `src/sections/Trainers/Trainers.tsx` | `#trainers` | 5 trainers, tile-rhythm layout |
 | Membership | `src/sections/Membership/Membership.tsx` | `#membership` | Pearl/Ruby/Jade tiers, Razorpay ready |
 | Events | `src/sections/Events/Events.tsx` | `#events` | Poster feel, static or Supabase-driven |

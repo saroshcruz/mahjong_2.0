@@ -578,7 +578,7 @@ export default function Events() {
                   {/* CTA */}
                   <div className="mt-7">
                     <a
-                      href="#contact"
+                      href="/#contact"
                       className="group inline-flex min-h-12 cursor-pointer items-center gap-2.5 rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-7 py-3 text-[0.72rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_10px_28px_rgba(124,31,45,0.26)] lg:min-h-0 lg:text-[0.70rem] lg:tracking-[0.22em]"
                     >
                       Reserve Seat
