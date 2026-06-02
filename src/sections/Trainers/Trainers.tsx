@@ -1,11 +1,11 @@
 import Image from "next/image";
 
 const featured = {
-  name: "Anita Kapoor",
+  name: "Vineeta Sahni",
   role: "Head Trainer",
   location: "New Delhi",
   story:
-    "Anita has been practicing authentic Chinese Mahjong for over two decades, training under IMA's founding circle. She brings together strategic depth and cultural warmth in every session, guiding students from their very first tile through to their first tournament.",
+    "Vineeta Sahni has been practicing authentic Chinese Mahjong for over two decades, training under IMA's founding circle. She brings together strategic depth and cultural warmth in every session, guiding students from their very first tile through to their first tournament.",
   specialisations: ["Beginner Mahjong", "Strategy & Scoring", "Tournament Preparation"],
 };
 
@@ -122,11 +122,11 @@ export default function Trainers() {
 
       {/* ── SECTION INTRO ── */}
       <div className="relative mx-auto max-w-7xl px-7 pb-12 pt-16 sm:px-8 lg:px-16 lg:pb-16 lg:pt-20">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="max-w-3xl text-left">
 
           {/* Divider */}
           <div className="mb-8 lg:mb-10">
-            <div className="h-px bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.44)_22%,rgba(198,168,122,0.44)_78%,rgba(198,168,122,0))]" />
+            <div className="h-px bg-[linear-gradient(90deg,rgba(198,168,122,0.44),rgba(198,168,122,0.28)_42%,rgba(198,168,122,0))]" />
           </div>
 
           {/* Heading */}
@@ -135,7 +135,7 @@ export default function Trainers() {
           </h2>
 
           {/* Subtext */}
-          <p className="mx-auto mt-6 max-w-[48ch] text-[1rem] leading-[1.92] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
+          <p className="mt-6 max-w-[48ch] text-[1rem] leading-[1.92] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
             Learn from experienced Mahjong practitioners, teachers, and community builders
             rooted in authentic Chinese Mahjong culture.
           </p>
@@ -144,10 +144,10 @@ export default function Trainers() {
 
       {/* ── FEATURED TRAINER ── */}
       <div className="relative mx-auto max-w-7xl px-7 pb-16 sm:px-8 lg:px-16 lg:pb-20">
-        <div className="flex flex-col items-center gap-10 lg:grid lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
+        <div className="flex flex-col items-start gap-10 lg:grid lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
 
           {/* Portrait — Vineeta image used temporarily for visual direction test */}
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex justify-start lg:justify-end">
             <div
               style={{
                 filter:
@@ -183,7 +183,7 @@ export default function Trainers() {
           </div>
 
           {/* Content */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="flex flex-col items-start text-left">
 
             {/* Name */}
             <h3 className="text-[1.9rem] leading-tight text-[#2d2926] lg:text-[2.4rem]">

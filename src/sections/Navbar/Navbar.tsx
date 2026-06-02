@@ -104,16 +104,16 @@ export default function Navbar() {
 
         {/* ── MOBILE bar — B's UI: grid layout with centered title ── */}
         <div
-          className="grid grid-cols-[3rem_1fr_3rem] items-center px-5 py-3.5 lg:hidden"
+          className="grid grid-cols-[3.5rem_1fr_3.5rem] items-center px-5 py-3.5 lg:hidden"
           style={{
             background: "rgba(234,224,208,0.99)",
             borderBottom: "2px solid rgba(198,168,122,0.60)",
             boxShadow: "0 2px 14px rgba(110,79,47,0.07)",
           }}
         >
-          <a href="/#top" className="flex min-h-12 items-center justify-start">
-            <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-[#c6a87a]/70 shadow-[0_4px_12px_rgba(110,79,47,0.12)]">
-              <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="48px" className="object-cover" priority />
+          <a href="/#top" className="flex min-h-[3.3rem] items-center justify-start">
+            <div className="relative h-[3.3rem] w-[3.3rem] overflow-hidden rounded-xl border border-[#c6a87a]/70 shadow-[0_4px_12px_rgba(110,79,47,0.12)]">
+              <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="53px" className="object-cover" priority />
             </div>
           </a>
 
