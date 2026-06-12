@@ -35,17 +35,13 @@ export default function Hero() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "url('/assets/backgrounds/membership-watercolor-bg.png')",
+            backgroundImage: "url('/assets/hero/hero-banner.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
-            opacity: 0.42,
           }}
         />
-        <div className="absolute left-[-8rem] top-[4%] h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgba(47,93,80,0.05),rgba(47,93,80,0)_62%)]" />
-        <div className="absolute right-[-6rem] top-[12%] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(124,31,45,0.05),rgba(124,31,45,0)_60%)]" />
-        <div className="absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,#f5efe4,rgba(245,239,228,0))]" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(0deg,#f5efe4,rgba(245,239,228,0))]" />
+        <div className="absolute inset-0 bg-[#0f0d0a]/[0.18]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-7 pb-18 pt-14 text-center sm:px-8 lg:px-16 lg:pb-24 lg:pt-20">
