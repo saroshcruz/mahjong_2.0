@@ -64,11 +64,11 @@ export default async function MembershipTierPage({ params }: MembershipPageProps
           <div className="absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(0deg,#1b2f25,rgba(27,47,37,0))] opacity-[0.08]" />
         </div>
 
-        <div className="relative z-10 mx-auto grid max-w-6xl gap-6 px-7 pb-16 pt-8 sm:px-8 sm:pt-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-8 lg:px-16 lg:pb-24 lg:pt-12">
-          <div className="lg:grid lg:grid-cols-[auto_minmax(0,1fr)] lg:items-start lg:gap-4">
+        <div className="relative z-10 mx-auto grid max-w-[72rem] gap-6 px-7 pb-16 pt-8 sm:px-8 sm:pt-10 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-12 lg:px-16 lg:pb-24 lg:pt-12 xl:grid-cols-[320px_minmax(0,1fr)] xl:gap-14">
+          <div className="flex flex-col gap-3">
             <a
               href="/#membership"
-              className="mb-3 inline-flex min-h-11 items-center gap-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a6a4a] transition duration-200 hover:text-[#7c1f2d] lg:mb-0 lg:mt-4 lg:whitespace-nowrap"
+              className="inline-flex min-h-11 items-center gap-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a6a4a] transition duration-200 hover:text-[#7c1f2d]"
             >
               <span aria-hidden="true" className="text-[0.95rem] leading-none">
                 ←
