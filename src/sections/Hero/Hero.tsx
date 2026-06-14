@@ -33,13 +33,7 @@ export default function Hero() {
     <section className="relative overflow-hidden bg-[#f5efe4]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url('/assets/hero/hero-banner-1.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-            backgroundRepeat: "no-repeat",
-          }}
+          className="absolute inset-0 bg-[url('/assets/hero/hero-banner-1.png')] bg-[length:235%_auto] bg-[position:16%_top] bg-no-repeat sm:bg-cover sm:bg-center"
         />
         <div className="absolute inset-0 bg-[#4a311c]/[0.04]" />
       </div>
