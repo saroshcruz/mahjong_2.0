@@ -41,8 +41,7 @@ export default function Hero() {
             backgroundRepeat: "no-repeat",
           }}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(245,239,228,0.18)_0%,rgba(245,239,228,0.30)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,239,228,0.72)_0%,rgba(245,239,228,0.48)_38%,rgba(245,239,228,0.16)_74%,rgba(245,239,228,0.08)_100%)]" />
+        <div className="absolute inset-0 bg-[#4a311c]/[0.04]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-7 pb-18 pt-14 text-center sm:px-8 lg:px-16 lg:pb-24 lg:pt-20">
@@ -51,13 +50,7 @@ export default function Hero() {
             Preserving Tradition
           </p>
 
-          <h1
-            className="font-semibold text-[2.75rem] leading-[1.04] text-[#1f1a16] sm:text-[3.8rem] sm:leading-[0.99] lg:text-[5.4rem] lg:leading-[0.96]"
-            style={{
-              textShadow:
-                "0 1px 0 rgba(255,255,255,0.36), 0 14px 36px rgba(75,52,31,0.16)",
-            }}
-          >
+          <h1 className="text-[2.75rem] leading-[1.04] text-[#2d2926] sm:text-[3.8rem] sm:leading-[0.99] lg:text-[5.4rem] lg:leading-[0.96]">
             INDIAN MAHJONG
             <br />
             ASSOCIATION

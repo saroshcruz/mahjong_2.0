@@ -11,52 +11,68 @@ const featured = {
 
 const supporting = [
   {
-    name: "Anu Nagpal",
-    role: "Strategy Instructor",
+    name: "Kavita Ranade",
+    role: "Mahjong Trainer",
     location: "Mumbai",
     description:
-      "A competitive player turned educator, Rajesh specialises in the strategic dimensions of the game: tile reading, probability, and elegant defensive play.",
-    specialty: "Advanced Strategy",
+      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+    specialty: "Player Development",
   },
   {
     name: "Alka Talwar",
-    role: "Beginner Programme Lead",
+    role: "Mahjong Trainer",
     location: "Bengaluru",
     description:
-      "Priya runs IMA's beginner curriculum with patience and precision. Her sessions make the game feel immediately welcoming to newcomers of all ages.",
+      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Beginner Mahjong",
   },
   {
-    name: "Rumpy Sidana",
-    role: "Community Trainer",
+    name: "Sonia Jaidka",
+    role: "Mahjong Trainer",
     location: "Chennai",
     description:
-      "Kavita brings the spirit of companionship to every table. She leads community sessions that honour the social and cultural roots of the game.",
-    specialty: "Cultural Mahjong",
+      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+    specialty: "Community Play",
   },
   {
-    name: "Anita Srivastav",
-    role: "Cultural Heritage Instructor",
+    name: "Anu Nagpal",
+    role: "Mahjong Trainer",
     location: "Kolkata",
     description:
-      "Drawing on Kolkata's historic connection to Chinese culture, Deepak teaches Mahjong within its authentic historical and cultural context.",
+      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+    specialty: "Strategy Practice",
+  },
+  {
+    name: "Anu Srivastav",
+    role: "Mahjong Trainer",
+    location: "Kochi",
+    description:
+      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Heritage & Tradition",
   },
   {
-    name: "Meera Nair",
-    role: "Tournament Coach",
-    location: "Kochi",
-    description:
-      "A seasoned tournament player with multiple regional titles, Meera prepares students for competitive play through rigorous pattern recognition and mental endurance training.",
-    specialty: "Competitive Play",
-  },
-  {
-    name: "Arjun Patel",
-    role: "Youth Programme Instructor",
+    name: "Annu Mastan",
+    role: "Mahjong Trainer",
     location: "Ahmedabad",
     description:
-      "Arjun has pioneered IMA's youth outreach initiative, designing age-appropriate curricula that introduce the next generation to the art and discipline of authentic Mahjong.",
-    specialty: "Youth Education",
+      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+    specialty: "Guided Learning",
+  },
+  {
+    name: "Rumpy Sidana",
+    role: "Mahjong Trainer",
+    location: "New Delhi",
+    description:
+      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+    specialty: "Community Sessions",
+  },
+  {
+    name: "Ritu Kapur",
+    role: "Mahjong Trainer",
+    location: "Jaipur",
+    description:
+      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+    specialty: "Table Practice",
   },
 ];
 
