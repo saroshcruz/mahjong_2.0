@@ -160,7 +160,7 @@ export default function Trainers() {
 
       {/* ── FEATURED TRAINER ── */}
       <div className="relative mx-auto max-w-7xl px-7 pb-16 sm:px-8 lg:px-16 lg:pb-20">
-        <div className="flex flex-col items-start gap-10 lg:grid lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
+        <div className="flex flex-col items-start gap-10 lg:ml-auto lg:mr-[7%] lg:grid lg:w-fit lg:grid-cols-[auto_auto] lg:items-center lg:gap-20">
 
           {/* Portrait — Vineeta image used temporarily for visual direction test */}
           <div className="flex justify-start lg:justify-end">

@@ -9,10 +9,10 @@ const tiers = [
     eyebrow: "Pearl Membership",
     tagline: "Every player begins with a table.",
     duration: "1 Year Membership",
-    price: "₹1,000",
+    price: "₹1,500",
     benefits: [
-      "Weekly training sessions",
-      "IMA membership certificate",
+      "Access to 2 events",
+      "IMA Membership Certificate",
       "Community events and gatherings",
       "Beginner curriculum access",
     ],
@@ -35,7 +35,8 @@ const tiers = [
     duration: "5 Year Membership",
     price: "₹4,000",
     benefits: [
-      "All Pearl benefits",
+      "Access to 2 events per year",
+      "IMA Membership Certificate",
       "Priority event registration",
       "Tournament participation rights",
       "Strategy workshops and masterclasses",
@@ -60,7 +61,8 @@ const tiers = [
     duration: "Lifetime Membership",
     price: "₹10,000",
     benefits: [
-      "All Jade benefits",
+      "Access to 2 events per year",
+      "IMA Membership Certificate",
       "Lifetime IMA recognition",
       "Cultural heritage committee access",
       "Invitations to founding circle events",

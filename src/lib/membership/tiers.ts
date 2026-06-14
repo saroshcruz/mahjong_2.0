@@ -2,8 +2,8 @@ export const membershipTiers = {
   pearl: {
     name: "Pearl Membership",
     displayName: "PEARL MEMBERSHIP",
-    amount: 100000,
-    price: "₹1,000",
+    amount: 150000,
+    price: "₹1,500",
     duration: "1 Year Membership",
     summary: "For beginning your place at the IMA table.",
     accentRgb: "198,168,122",
