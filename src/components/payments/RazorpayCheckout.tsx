@@ -9,11 +9,23 @@ declare global {
       open: () => void;
       on: (
         event: "payment.failed",
-        handler: (response: { error?: { description?: string } }) => void
+        handler: (response: RazorpayFailureResponse) => void
       ) => void;
     };
   }
 }
+
+type RazorpaySuccessResponse = {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+};
+
+type RazorpayFailureResponse = {
+  error?: {
+    description?: string;
+  };
+};
 
 type RazorpayOptions = {
   key: string;
@@ -22,8 +34,12 @@ type RazorpayOptions = {
   name: string;
   description: string;
   order_id: string;
-  handler: () => void;
-  prefill: Record<string, never>;
+  handler: (response: RazorpaySuccessResponse) => void;
+  prefill: {
+    name?: string;
+    email?: string;
+    contact?: string;
+  };
   theme: {
     color: string;
   };
@@ -35,15 +51,30 @@ type RazorpayOptions = {
 type OrderResponse = {
   keyId: string;
   orderId: string;
+  order_id: string;
   amount: number;
   currency: "INR";
   tierName: string;
   error?: string;
 };
 
+type VerifyPaymentResponse = {
+  verified?: boolean;
+  paymentId?: string;
+  orderId?: string;
+  error?: string;
+};
+
 type RazorpayCheckoutProps = {
   tierId: MembershipTierId;
   cta: string;
+  customer?: {
+    fullName?: string;
+    email?: string;
+    phone?: string;
+    city?: string;
+  };
+  onSuccess?: (payment: { paymentId: string; orderId: string }) => void;
 };
 
 let checkoutScriptPromise: Promise<void> | null = null;
@@ -64,8 +95,13 @@ function loadRazorpayCheckout() {
   return checkoutScriptPromise;
 }
 
-export default function RazorpayCheckout({ tierId, cta }: RazorpayCheckoutProps) {
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+export default function RazorpayCheckout({
+  tierId,
+  cta,
+  customer,
+  onSuccess,
+}: RazorpayCheckoutProps) {
+  const [status, setStatus] = useState<"idle" | "loading" | "verifying" | "success">("idle");
   const [message, setMessage] = useState<string | null>(null);
 
   const startCheckout = async () => {
@@ -79,7 +115,7 @@ export default function RazorpayCheckout({ tierId, cta }: RazorpayCheckoutProps)
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ tierId }),
+          body: JSON.stringify({ tierId, email: customer?.email }),
         }),
         loadRazorpayCheckout(),
       ]);
@@ -87,7 +123,11 @@ export default function RazorpayCheckout({ tierId, cta }: RazorpayCheckoutProps)
       const order = (await orderResponse.json()) as OrderResponse;
 
       if (!orderResponse.ok || order.error) {
-        throw new Error(order.error ?? "Unable to start payment.");
+        throw new Error(
+          order.error === "Membership already active"
+            ? "You already have an active IMA membership."
+            : order.error ?? "Unable to start payment."
+        );
       }
 
       if (!window.Razorpay) {
@@ -101,18 +141,59 @@ export default function RazorpayCheckout({ tierId, cta }: RazorpayCheckoutProps)
         name: "Indian Mahjong Association",
         description: "Membership Registration",
         order_id: order.orderId,
-        prefill: {},
+        prefill: {
+          name: customer?.fullName,
+          email: customer?.email,
+          contact: customer?.phone,
+        },
         theme: {
           color: "#7c1f2d",
         },
         modal: {
           ondismiss: () => {
             setStatus("idle");
+            setMessage("Payment was cancelled before completion.");
           },
         },
-        handler: () => {
-          setStatus("success");
-          setMessage(`${order.tierName} request has been received.`);
+        handler: async (response) => {
+          setStatus("verifying");
+          setMessage("Verifying payment...");
+
+          try {
+            const verifyResponse = await fetch("/api/verify-payment", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                ...response,
+                tierId,
+                full_name: customer?.fullName,
+                email: customer?.email,
+                phone: customer?.phone,
+                city: customer?.city,
+              }),
+            });
+            const verification = (await verifyResponse.json()) as VerifyPaymentResponse;
+
+            if (!verifyResponse.ok || !verification.verified) {
+              throw new Error(verification.error ?? "Payment verification failed.");
+            }
+
+            setStatus("success");
+            setMessage(`${order.tierName} payment has been verified.`);
+            onSuccess?.({
+              paymentId: verification.paymentId ?? response.razorpay_payment_id,
+              orderId: verification.orderId ?? response.razorpay_order_id,
+            });
+          } catch (error) {
+            setStatus("idle");
+            setMessage(
+              error instanceof Error
+                ? error.message
+                : "Payment verification failed. Please contact support."
+            );
+          }
         },
       });
 
@@ -142,7 +223,7 @@ export default function RazorpayCheckout({ tierId, cta }: RazorpayCheckoutProps)
           Payment Successful
         </p>
         <p className="mt-2 text-[0.88rem] leading-[1.72] text-[#4d3a2e]">
-          {message ?? "Your membership request has been received."}
+          {message ?? "Your membership payment has been verified."}
         </p>
       </div>
     );
@@ -153,10 +234,14 @@ export default function RazorpayCheckout({ tierId, cta }: RazorpayCheckoutProps)
       <button
         type="button"
         onClick={startCheckout}
-        disabled={status === "loading"}
+        disabled={status === "loading" || status === "verifying"}
         className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.72rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] disabled:cursor-wait disabled:opacity-70 lg:min-h-0 lg:text-[0.70rem] lg:tracking-[0.22em]"
       >
-        {status === "loading" ? "Opening Checkout" : cta}
+        {status === "loading"
+          ? "Opening Checkout"
+          : status === "verifying"
+            ? "Verifying Payment"
+            : cta}
       </button>
 
       {message && (

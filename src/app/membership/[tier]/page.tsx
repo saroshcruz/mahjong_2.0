@@ -13,11 +13,6 @@ type MembershipPageProps = {
   params: Promise<{ tier: string }>;
 };
 
-function getTierOrNotFound(tierId: string) {
-  if (!isMembershipTierId(tierId)) notFound();
-  return membershipTiers[tierId];
-}
-
 export function generateStaticParams() {
   return Object.keys(membershipTiers).map((tier) => ({ tier }));
 }
@@ -40,7 +35,8 @@ export async function generateMetadata({
 
 export default async function MembershipTierPage({ params }: MembershipPageProps) {
   const { tier: tierId } = await params;
-  const tier = getTierOrNotFound(tierId);
+  if (!isMembershipTierId(tierId)) notFound();
+  const tier = membershipTiers[tierId];
 
   return (
     <main id="top" className="min-h-screen bg-[#f5efe4]">
@@ -135,7 +131,7 @@ export default async function MembershipTierPage({ params }: MembershipPageProps
               </p>
 
               <div className="mt-6">
-                <MembershipRegistrationForm />
+                <MembershipRegistrationForm tierId={tierId} />
               </div>
             </div>
           </article>

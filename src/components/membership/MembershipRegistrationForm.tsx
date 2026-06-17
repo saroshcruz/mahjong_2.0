@@ -1,24 +1,59 @@
 "use client";
 
 import { useState } from "react";
+import type { MembershipTierId } from "@/lib/membership/tiers";
+import RazorpayCheckout from "@/components/payments/RazorpayCheckout";
 
 const experienceLevels = ["Beginner", "Intermediate", "Experienced"];
 
-export default function MembershipRegistrationForm() {
-  const [submitted, setSubmitted] = useState(false);
+type RegistrationDetails = {
+  fullName: string;
+  email: string;
+  phone: string;
+  city: string;
+  experienceLevel: string;
+  message: string;
+};
 
-  if (submitted) {
+export default function MembershipRegistrationForm({
+  tierId,
+}: {
+  tierId: MembershipTierId;
+}) {
+  const [registrationDetails, setRegistrationDetails] =
+    useState<RegistrationDetails | null>(null);
+  const [paymentReference, setPaymentReference] = useState<{
+    paymentId: string;
+    orderId: string;
+  } | null>(null);
+
+  if (registrationDetails) {
     return (
       <div className="rounded-[0.75rem] border border-[#c6a87a]/36 bg-[#fbf7ef]/76 px-6 py-7 text-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.42)] sm:px-8 sm:py-8">
         <p className="text-[0.66rem] uppercase tracking-[0.24em] text-[#7c1f2d]">
           Registration Received
         </p>
         <h2 className="mt-4 text-[1.8rem] leading-tight text-[#2d2926] sm:text-[2.15rem]">
-          Payment integration coming next.
+          Complete your membership payment.
         </h2>
         <p className="mx-auto mt-4 max-w-[38ch] text-[1rem] leading-[1.86] text-[#5d4d40]">
-          Your membership details are ready for the next step. We will connect the payment flow after this registration step is finalized.
+          Your membership details are ready. Continue to Razorpay Standard Checkout to complete your registration.
         </p>
+
+        <div className="mt-7 flex justify-center">
+          <RazorpayCheckout
+            tierId={tierId}
+            cta="Pay Securely"
+            customer={registrationDetails}
+            onSuccess={setPaymentReference}
+          />
+        </div>
+
+        {paymentReference && (
+          <p className="mx-auto mt-4 max-w-[42ch] text-[0.78rem] leading-[1.62] text-[#5d4d40]">
+            Payment ID: {paymentReference.paymentId}
+          </p>
+        )}
       </div>
     );
   }
@@ -28,7 +63,16 @@ export default function MembershipRegistrationForm() {
       className="space-y-6"
       onSubmit={(event) => {
         event.preventDefault();
-        setSubmitted(true);
+        const formData = new FormData(event.currentTarget);
+
+        setRegistrationDetails({
+          fullName: String(formData.get("fullName") ?? ""),
+          email: String(formData.get("email") ?? ""),
+          phone: String(formData.get("phone") ?? ""),
+          city: String(formData.get("city") ?? ""),
+          experienceLevel: String(formData.get("experienceLevel") ?? ""),
+          message: String(formData.get("message") ?? ""),
+        });
       }}
     >
       <div className="grid gap-5 sm:grid-cols-2">

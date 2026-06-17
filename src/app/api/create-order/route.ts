@@ -1,10 +1,18 @@
 import { NextResponse } from "next/server";
 import { isMembershipTierId } from "@/lib/membership/tiers";
-import { createRazorpayMembershipOrder } from "@/lib/payments/razorpay";
+import {
+  createRazorpayMembershipOrder,
+  RazorpayOrderError,
+} from "@/lib/payments/razorpay";
+import { getSupabaseServer } from "@/lib/supabase/server";
+
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && value.trim().length > 0;
+}
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { tierId?: unknown };
+    const body = (await request.json()) as { tierId?: unknown; email?: unknown };
 
     if (!isMembershipTierId(body.tierId)) {
       return NextResponse.json(
@@ -13,11 +21,50 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!isNonEmptyString(body.email)) {
+      return NextResponse.json(
+        { error: "Please provide a valid email address." },
+        { status: 400 }
+      );
+    }
+
+    const normalizedEmail = body.email.trim().toLowerCase();
+    const supabase = getSupabaseServer();
+    const { data: existingMembers, error: lookupError } = await supabase
+      .from("members")
+      .select("id")
+      .eq("email", normalizedEmail)
+      .eq("payment_status", "paid")
+      .limit(1);
+
+    if (lookupError) {
+      console.error(lookupError);
+
+      return NextResponse.json(
+        { error: "Unable to verify membership status. Please try again." },
+        { status: 500 }
+      );
+    }
+
+    if (existingMembers.length > 0) {
+      return NextResponse.json(
+        { error: "Membership already active" },
+        { status: 409 }
+      );
+    }
+
     const order = await createRazorpayMembershipOrder(body.tierId);
 
     return NextResponse.json(order);
   } catch (error) {
     console.error(error);
+
+    if (error instanceof RazorpayOrderError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status }
+      );
+    }
 
     return NextResponse.json(
       { error: "Unable to start payment. Please try again." },
