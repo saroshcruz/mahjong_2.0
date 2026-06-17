@@ -93,12 +93,16 @@ export async function POST(request: Request) {
     });
 
     try {
-      await sendMembershipConfirmation({
+      const email = await sendMembershipConfirmation({
         to: trimString(body.email).toLowerCase(),
         name: trimString(body.full_name),
         membershipTier: tier.name,
         membershipId: member.membership_id,
         paymentId: body.razorpay_payment_id,
+      });
+      console.info("Membership confirmation email sent:", {
+        membershipId: member.membership_id,
+        emailId: email?.id,
       });
     } catch (emailError) {
       console.error("Membership confirmation email failed:", emailError);

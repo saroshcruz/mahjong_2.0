@@ -76,7 +76,7 @@ export async function sendMembershipConfirmation({
   }).format(new Date());
   const certificateArtworkUrl = getStaticAssetUrl(certificateArtworkPath);
 
-  return getResendClient().emails.send({
+  const result = await getResendClient().emails.send({
     from: `Indian Mahjong Association <${from}>`,
     to,
     subject: "Welcome to the Indian Mahjong Association",
@@ -144,4 +144,14 @@ Indian Mahjong Association
 
 Preserving tradition. Building community.`,
   });
+
+  if (result.error) {
+    throw new Error(
+      typeof result.error === "object" && "message" in result.error
+        ? String(result.error.message)
+        : "Resend email delivery failed."
+    );
+  }
+
+  return result.data;
 }
