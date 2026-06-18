@@ -99,6 +99,7 @@ export async function POST(request: Request) {
         membershipTier: tier.name,
         membershipId: member.membership_id,
         paymentId: body.razorpay_payment_id,
+        amountPaid: tier.amount,
       });
       console.info("Membership confirmation email sent:", {
         membershipId: member.membership_id,

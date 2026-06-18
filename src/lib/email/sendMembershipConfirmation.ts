@@ -1,6 +1,4 @@
 import "server-only";
-import { readFile } from "fs/promises";
-import path from "path";
 import { Resend } from "resend";
 
 type SendMembershipConfirmationInput = {
@@ -9,15 +7,8 @@ type SendMembershipConfirmationInput = {
   membershipTier: string;
   membershipId: string;
   paymentId: string;
+  amountPaid: number;
 };
-
-const certificateArtworkPath = path.join(
-  process.cwd(),
-  "public",
-  "assets",
-  "email",
-  "email-bg.png"
-);
 
 let resendClient: Resend | null = null;
 
@@ -44,12 +35,21 @@ function escapeHtml(value: string) {
     .replace(/'/g, "&#39;");
 }
 
+function formatCurrencyFromPaise(amount: number) {
+  return new Intl.NumberFormat("en-IN", {
+    maximumFractionDigits: 0,
+    style: "currency",
+    currency: "INR",
+  }).format(amount / 100);
+}
+
 export async function sendMembershipConfirmation({
   to,
   name,
   membershipTier,
   membershipId,
   paymentId,
+  amountPaid,
 }: SendMembershipConfirmationInput) {
   const from = process.env.FROM_EMAIL;
 
@@ -61,12 +61,12 @@ export async function sendMembershipConfirmation({
   const safeMembershipTier = escapeHtml(membershipTier);
   const safeMembershipId = escapeHtml(membershipId);
   const safePaymentId = escapeHtml(paymentId);
+  const safeAmountPaid = escapeHtml(formatCurrencyFromPaise(amountPaid));
   const dateJoined = new Intl.DateTimeFormat("en-IN", {
     day: "numeric",
     month: "long",
     year: "numeric",
   }).format(new Date());
-  const certificateArtwork = await readFile(certificateArtworkPath);
 
   const result = await getResendClient().emails.send({
     from: `Indian Mahjong Association <${from}>`,
@@ -74,27 +74,55 @@ export async function sendMembershipConfirmation({
     subject: "Welcome to the Indian Mahjong Association",
     html: `
       <div style="margin:0;padding:0;background:#f7f0e4;color:#3b3028;font-family:Georgia,'Times New Roman',serif;">
-        <div style="max-width:600px;margin:0 auto;padding:34px 28px 40px;background:#fffaf1;color:#51463c;">
-          <p style="margin:0 0 20px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.24em;text-align:center;text-transform:uppercase;">Indian Mahjong Association</p>
-          <h1 style="margin:0 0 24px;color:#2f2924;font-size:30px;line-height:1.22;font-weight:400;text-align:center;">Welcome to the Table.</h1>
-          <p style="margin:0 0 16px;font-size:16px;line-height:1.72;">Thank you for becoming a member of the Indian Mahjong Association.</p>
-          <p style="margin:0 0 16px;font-size:16px;line-height:1.72;">Your membership has been successfully activated and we are delighted to welcome you to our growing community of players, learners and enthusiasts.</p>
-          <div style="margin:28px 0;padding:22px 0;border-top:1px solid #decaa8;border-bottom:1px solid #decaa8;text-align:center;">
-            <p style="margin:0 0 8px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Membership ID</p>
-            <p style="margin:0 0 20px;color:#2f2924;font-size:28px;line-height:1.25;letter-spacing:0.03em;">${safeMembershipId}</p>
-            <p style="margin:0 0 6px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">Member Name</p>
-            <p style="margin:0 0 16px;color:#352c26;font-size:18px;line-height:1.45;">${safeName}</p>
-            <p style="margin:0 0 6px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">Membership Tier</p>
-            <p style="margin:0 0 16px;color:#352c26;font-size:18px;line-height:1.45;">${safeMembershipTier}</p>
-            <p style="margin:0 0 6px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">Payment ID</p>
-            <p style="margin:0 0 16px;color:#352c26;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.45;">${safePaymentId}</p>
-            <p style="margin:0 0 6px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">Date Joined</p>
-            <p style="margin:0 0 16px;color:#352c26;font-size:17px;line-height:1.45;">${dateJoined}</p>
-            <p style="margin:0 0 6px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:1.4;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">Status</p>
-            <p style="margin:0;color:#352c26;font-size:17px;line-height:1.45;">Active</p>
+        <div style="max-width:680px;margin:0 auto;padding:42px 32px 46px;background:#fffaf1;color:#51463c;">
+          <h1 style="margin:0 0 26px;color:#8d2430;font-family:Georgia,'Times New Roman',serif;font-size:24px;line-height:1.25;font-weight:400;letter-spacing:0.16em;text-align:center;text-transform:uppercase;">Indian Mahjong Association</h1>
+
+          <p style="margin:0 0 30px;color:#2f2924;font-size:30px;line-height:1.25;text-align:center;">Welcome to the Table.</p>
+
+          <div style="margin:0 0 36px;">
+            <p style="margin:0 0 16px;font-size:16px;line-height:1.75;">Thank you for becoming a member of the Indian Mahjong Association.</p>
+            <p style="margin:0;font-size:16px;line-height:1.75;">Your membership has been successfully activated and we are delighted to welcome you to our growing community of players, learners and enthusiasts.</p>
           </div>
-          <p style="margin:0 0 16px;font-size:15px;line-height:1.72;">Your membership certificate is attached to this email. Please download and retain it as proof of payment and verification of your ${safeMembershipTier}.</p>
-          <p style="margin:0;font-size:15px;line-height:1.72;">Warm regards,<br />Indian Mahjong Association</p>
+
+          <div style="margin:0 0 36px;padding:30px 0;border-top:1px solid #decaa8;border-bottom:1px solid #decaa8;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+              <tr>
+                <td style="padding:0 0 18px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Membership ID</td>
+                <td style="padding:0 0 18px;color:#2f2924;font-size:22px;line-height:1.35;text-align:right;">${safeMembershipId}</td>
+              </tr>
+              <tr>
+                <td style="padding:0 0 18px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Member Name</td>
+                <td style="padding:0 0 18px;color:#352c26;font-size:17px;line-height:1.45;text-align:right;">${safeName}</td>
+              </tr>
+              <tr>
+                <td style="padding:0 0 18px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Membership Tier</td>
+                <td style="padding:0 0 18px;color:#352c26;font-size:17px;line-height:1.45;text-align:right;">${safeMembershipTier}</td>
+              </tr>
+              <tr>
+                <td style="padding:0 0 18px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Payment ID</td>
+                <td style="padding:0 0 18px;color:#352c26;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.45;text-align:right;">${safePaymentId}</td>
+              </tr>
+              <tr>
+                <td style="padding:0 0 18px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Amount Paid</td>
+                <td style="padding:0 0 18px;color:#352c26;font-size:17px;line-height:1.45;text-align:right;">${safeAmountPaid}</td>
+              </tr>
+              <tr>
+                <td style="padding:0 0 18px;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Date Joined</td>
+                <td style="padding:0 0 18px;color:#352c26;font-size:17px;line-height:1.45;text-align:right;">${dateJoined}</td>
+              </tr>
+              <tr>
+                <td style="padding:0;color:#8d2430;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">Status</td>
+                <td style="padding:0;color:#352c26;font-size:17px;line-height:1.45;text-align:right;">Active</td>
+              </tr>
+            </table>
+          </div>
+
+          <div style="margin:0 0 34px;">
+            <p style="margin:0 0 16px;font-size:15px;line-height:1.75;">Your membership certificate will be issued separately by the Indian Mahjong Association.</p>
+            <p style="margin:0;font-size:15px;line-height:1.75;">Please retain this email as proof of membership activation and payment confirmation.</p>
+          </div>
+
+          <p style="margin:0;font-size:15px;line-height:1.75;">Warm regards,<br /><br />Indian Mahjong Association</p>
         </div>
       </div>
     `,
@@ -116,32 +144,21 @@ ${membershipId}
 Payment ID:
 ${paymentId}
 
+Amount Paid:
+${formatCurrencyFromPaise(amountPaid)}
+
 Status:
 Active
 
 Date Joined:
 ${dateJoined}
 
-Next Steps:
-- Receive member communications and announcements
-- Access IMA events and gatherings according to your membership tier
-- Participate in future training sessions and community activities
+Your membership certificate will be issued separately by the Indian Mahjong Association.
 
-We look forward to welcoming you to upcoming training sessions, events and community gatherings.
-
-Please retain this email as proof of payment and verification of your ${membershipTier}.
+Please retain this email as proof of membership activation and payment confirmation.
 
 Warm regards,
-Indian Mahjong Association
-
-Preserving tradition. Building community.`,
-    attachments: [
-      {
-        filename: "ima-membership-certificate.png",
-        content: certificateArtwork,
-        contentType: "image/png",
-      },
-    ],
+Indian Mahjong Association`,
   });
 
   if (result.error) {
