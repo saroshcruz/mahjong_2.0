@@ -10,9 +10,17 @@ function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+function isValidIndianMobileNumber(value: unknown): value is string {
+  return typeof value === "string" && /^[6-9]\d{9}$/.test(value);
+}
+
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { tierId?: unknown; email?: unknown };
+    const body = (await request.json()) as {
+      tierId?: unknown;
+      email?: unknown;
+      phone?: unknown;
+    };
 
     if (!isMembershipTierId(body.tierId)) {
       return NextResponse.json(
@@ -24,6 +32,13 @@ export async function POST(request: Request) {
     if (!isNonEmptyString(body.email)) {
       return NextResponse.json(
         { error: "Please provide a valid email address." },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidIndianMobileNumber(body.phone)) {
+      return NextResponse.json(
+        { error: "Invalid phone number" },
         { status: 400 }
       );
     }

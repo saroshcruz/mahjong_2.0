@@ -62,6 +62,7 @@ type VerifyPaymentResponse = {
   verified?: boolean;
   paymentId?: string;
   orderId?: string;
+  membershipId?: string;
   error?: string;
 };
 
@@ -74,7 +75,11 @@ type RazorpayCheckoutProps = {
     phone?: string;
     city?: string;
   };
-  onSuccess?: (payment: { paymentId: string; orderId: string }) => void;
+  onSuccess?: (payment: {
+    paymentId: string;
+    orderId: string;
+    membershipId: string;
+  }) => void;
 };
 
 let checkoutScriptPromise: Promise<void> | null = null;
@@ -115,7 +120,11 @@ export default function RazorpayCheckout({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ tierId, email: customer?.email }),
+          body: JSON.stringify({
+            tierId,
+            email: customer?.email,
+            phone: customer?.phone,
+          }),
         }),
         loadRazorpayCheckout(),
       ]);
@@ -180,11 +189,16 @@ export default function RazorpayCheckout({
               throw new Error(verification.error ?? "Payment verification failed.");
             }
 
+            if (!verification.membershipId) {
+              throw new Error("Membership details could not be confirmed.");
+            }
+
             setStatus("success");
             setMessage(`${order.tierName} payment has been verified.`);
             onSuccess?.({
               paymentId: verification.paymentId ?? response.razorpay_payment_id,
               orderId: verification.orderId ?? response.razorpay_order_id,
+              membershipId: verification.membershipId,
             });
           } catch (error) {
             setStatus("idle");

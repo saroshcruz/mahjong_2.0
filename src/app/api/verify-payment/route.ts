@@ -26,6 +26,10 @@ function trimString(value: string) {
   return value.trim();
 }
 
+function isValidIndianMobileNumber(value: string) {
+  return /^[6-9]\d{9}$/.test(value);
+}
+
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as VerifyPaymentBody;
@@ -42,6 +46,13 @@ export async function POST(request: Request) {
     ) {
       return NextResponse.json(
         { error: "Payment verification details are incomplete." },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidIndianMobileNumber(body.phone)) {
+      return NextResponse.json(
+        { error: "Invalid phone number" },
         { status: 400 }
       );
     }
@@ -113,6 +124,7 @@ export async function POST(request: Request) {
       verified: true,
       paymentId: body.razorpay_payment_id,
       orderId: body.razorpay_order_id,
+      membershipId: member.membership_id,
     });
   } catch (error) {
     console.error(error);
