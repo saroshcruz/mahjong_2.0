@@ -18,7 +18,7 @@ export const membershipTiers = {
     accentRgb: "47,93,80",
   },
   ruby: {
-    name: "Ruby Membership",
+    name: "Ruby Lifetime Membership",
     displayName: "RUBY MEMBERSHIP",
     amount: 1000000,
     price: "₹10,000",

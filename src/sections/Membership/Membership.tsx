@@ -330,6 +330,29 @@ export default function Membership() {
         </div>
       </div>
 
+      {/* ── FOUNDING MEMBER NOTE ── */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-10 sm:px-8 lg:px-16 lg:pb-12">
+        <div className="mx-auto flex max-w-4xl flex-col items-center border-y border-[#c6a87a]/25 px-4 py-7 text-center sm:px-8 lg:py-8">
+          <div className="mb-4 flex items-center justify-center gap-3" aria-hidden="true">
+            <div className="h-px w-8 bg-[#c6a87a]/35" />
+            <div className="h-[3px] w-[3px] rounded-full bg-[#8f2432]/65" />
+            <div className="h-px w-8 bg-[#c6a87a]/35" />
+          </div>
+
+          <p className="text-[0.62rem] font-medium uppercase tracking-[0.30em] text-[#8f2432]">
+            Founding Member Privilege
+          </p>
+
+          <p className="mx-auto mt-3 max-w-[700px] text-[0.96rem] leading-[1.72] text-[#4f443b] sm:text-[1.04rem]">
+            The first 10 Ruby Lifetime Members will receive an exclusive Grandmaster Table Session with Vineeta Sahni.
+          </p>
+
+          <div className="mt-5 inline-flex min-h-8 items-center justify-center rounded-full border border-[#8f2432]/32 bg-[#fffaf2]/45 px-4 text-[0.56rem] font-medium uppercase tracking-[0.22em] text-[#7c1f2d]">
+            Limited to 10 Members
+          </div>
+        </div>
+      </div>
+
       {/* ── MOBILE: SNAP CAROUSEL ── */}
       <div className="relative z-10 lg:hidden pb-8 pt-2">
         <p className="mb-5 text-center text-[0.60rem] uppercase tracking-[0.26em] text-[#8a6a4a]/55">
@@ -388,6 +411,50 @@ export default function Membership() {
           <div className="grid grid-cols-3 gap-8 xl:gap-10 items-stretch">
             {tiers.map((tier) => (
               <TierPanel key={tier.id} tier={tier} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── ADVANCED COACHING PROGRAMME ── */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-6 pt-4 sm:px-8 sm:pb-8 lg:px-16 lg:pb-10 lg:pt-8">
+        <div className="grid gap-8 border-y border-[#c6a87a]/24 px-4 py-9 sm:px-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:px-10 lg:py-12">
+          <div className="text-center lg:text-left">
+            <p className="text-[0.62rem] font-medium uppercase tracking-[0.30em] text-[#8f2432]">
+              Private Instruction
+            </p>
+
+            <h3 className="mt-4 text-[2.2rem] leading-[1.04] text-[#2d2926] sm:text-[3rem]">
+              Advanced Coaching Programme
+            </h3>
+
+            <p className="mt-6 max-w-[58ch] text-[1rem] leading-[1.84] text-[#5d4d40] lg:text-[1.05rem]">
+              For members seeking structured instruction, our senior coaches offer a guided learning programme designed to build confidence, strategy and table experience.
+            </p>
+
+            <a
+              href="/coaching/advanced"
+              className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.70rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)]"
+            >
+              Register Interest
+            </a>
+          </div>
+
+          <div className="border border-[#7c1f2d]/22 bg-[#fffaf2]/54 px-6 py-7 text-center">
+            {[
+              ["15 Hours", "of Instruction"],
+              ["5 Sessions", "guided format"],
+              ["₹15,000", "programme fee"],
+              ["No GST", "applicable"],
+            ].map(([value, label]) => (
+              <div key={value} className="border-b border-[#c6a87a]/18 py-4 last:border-b-0">
+                <p className="text-[1.55rem] leading-tight text-[#2d2926]" style={{ fontFamily: "var(--font-heading)" }}>
+                  {value}
+                </p>
+                <p className="mt-1 text-[0.58rem] uppercase tracking-[0.22em] text-[#8a6a4a]">
+                  {label}
+                </p>
+              </div>
             ))}
           </div>
         </div>

@@ -34,6 +34,41 @@ type Database = {
         Update: Partial<Database["public"]["Tables"]["members"]["Insert"]>;
         Relationships: [];
       };
+      coaching_registrations: {
+        Row: {
+          id?: string;
+          registration_id: string;
+          full_name: string;
+          email: string;
+          phone: string;
+          city: string;
+          experience_level: string | null;
+          message: string | null;
+          programme_name: string;
+          payment_status: string;
+          razorpay_order_id: string;
+          razorpay_payment_id: string;
+          amount_paid: number;
+        };
+        Insert: {
+          registration_id: string;
+          full_name: string;
+          email: string;
+          phone: string;
+          city: string;
+          experience_level?: string | null;
+          message?: string | null;
+          programme_name: string;
+          payment_status: string;
+          razorpay_order_id: string;
+          razorpay_payment_id: string;
+          amount_paid: number;
+        };
+        Update: Partial<
+          Database["public"]["Tables"]["coaching_registrations"]["Insert"]
+        >;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

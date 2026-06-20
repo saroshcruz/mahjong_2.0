@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import {
+  coachingProgrammes,
+  type CoachingProgrammeId,
+} from "@/lib/coaching/programmes";
+import {
   membershipTiers,
   type MembershipTierId,
 } from "@/lib/membership/tiers";
@@ -20,16 +24,23 @@ type RegistrationDetails = {
 
 export default function MembershipRegistrationForm({
   tierId,
+  programmeId,
 }: {
-  tierId: MembershipTierId;
+  tierId?: MembershipTierId;
+  programmeId?: CoachingProgrammeId;
 }) {
-  const tier = membershipTiers[tierId];
+  const isCoachingProgramme = Boolean(programmeId);
+  const tier = tierId ? membershipTiers[tierId] : null;
+  const programme = programmeId ? coachingProgrammes[programmeId] : null;
+  const itemName = programme?.name ?? tier?.name ?? "IMA Registration";
   const [registrationDetails, setRegistrationDetails] =
     useState<RegistrationDetails | null>(null);
   const [paymentReference, setPaymentReference] = useState<{
     paymentId: string;
     orderId: string;
-    membershipId: string;
+    membershipId?: string;
+    registrationId?: string;
+    itemName?: string;
   } | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
 
@@ -57,24 +68,52 @@ export default function MembershipRegistrationForm({
           Payment Successful
         </p>
         <h2 className="mt-4 max-w-[12ch] text-[2.1rem] leading-[1.05] text-[#2d2926] sm:max-w-none sm:text-[2.65rem]">
-          Welcome to the Indian Mahjong Association
+          {isCoachingProgramme
+            ? "Programme registration confirmed"
+            : "Welcome to the Indian Mahjong Association"}
         </h2>
         <p className="mx-auto mt-5 max-w-[34ch] text-[1rem] leading-[1.72] text-[#5d4d40]">
-          Your {tier.name} has been successfully activated.
+          {isCoachingProgramme
+            ? `Your ${itemName} payment has been successfully confirmed.`
+            : `Your ${itemName} has been successfully activated.`}
         </p>
         <p className="mx-auto mt-3 max-w-[42ch] text-[0.92rem] leading-[1.7] text-[#6f5848]">
-          A confirmation email containing your membership details has been sent to your registered email address.
+          {isCoachingProgramme
+            ? "The Indian Mahjong Association team will contact you with programme scheduling details."
+            : "A confirmation email containing your membership details has been sent to your registered email address."}
         </p>
 
         <div className="mt-7 grid w-full max-w-[26rem] gap-4 border-y border-[#c6a87a]/34 py-5 text-left">
-          <div>
-            <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a6a4a]">
-              Membership ID
-            </p>
-            <p className="mt-1 break-words text-[1.25rem] leading-snug text-[#2d2926]">
-              {paymentReference.membershipId}
-            </p>
-          </div>
+          {!isCoachingProgramme && paymentReference.membershipId && (
+            <div>
+              <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a6a4a]">
+                Membership ID
+              </p>
+              <p className="mt-1 break-words text-[1.25rem] leading-snug text-[#2d2926]">
+                {paymentReference.membershipId}
+              </p>
+            </div>
+          )}
+          {isCoachingProgramme && (
+            <div>
+              <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a6a4a]">
+                Registration ID
+              </p>
+              <p className="mt-1 break-words text-[1.25rem] leading-snug text-[#2d2926]">
+                {paymentReference.registrationId}
+              </p>
+            </div>
+          )}
+          {isCoachingProgramme && (
+            <div>
+              <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a6a4a]">
+                Programme
+              </p>
+              <p className="mt-1 break-words text-[1.05rem] leading-snug text-[#2d2926]">
+                {paymentReference.itemName ?? itemName}
+              </p>
+            </div>
+          )}
           <div>
             <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a6a4a]">
               Payment ID
@@ -102,15 +141,21 @@ export default function MembershipRegistrationForm({
           Registration Received
         </p>
         <h2 className="mt-4 text-[1.8rem] leading-tight text-[#2d2926] sm:text-[2.15rem]">
-          Complete your membership payment.
+          {isCoachingProgramme
+            ? "Complete your programme payment."
+            : "Complete your membership payment."}
         </h2>
         <p className="mx-auto mt-4 max-w-[38ch] text-[1rem] leading-[1.86] text-[#5d4d40]">
-          Your membership details are ready. Continue to Razorpay Standard Checkout to complete your registration.
+          {isCoachingProgramme
+            ? "Your programme details are ready. Continue to Razorpay Standard Checkout to complete your registration."
+            : "Your membership details are ready. Continue to Razorpay Standard Checkout to complete your registration."}
         </p>
 
         <div className="mt-7 flex justify-center">
           <RazorpayCheckout
+            purchaseType={isCoachingProgramme ? "coaching" : "membership"}
             tierId={tierId}
+            programmeId={programmeId}
             cta="Pay Securely"
             customer={registrationDetails}
             onSuccess={setPaymentReference}
@@ -258,7 +303,9 @@ export default function MembershipRegistrationForm({
           type="submit"
           className="flex min-h-14 w-full items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.74rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] sm:w-auto sm:min-w-[15rem]"
         >
-          Continue to Membership
+          {isCoachingProgramme
+            ? "Continue to Programme"
+            : "Continue to Membership"}
         </button>
       </div>
     </form>

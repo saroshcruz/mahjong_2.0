@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { isCoachingProgrammeId } from "@/lib/coaching/programmes";
 import { isMembershipTierId } from "@/lib/membership/tiers";
 import {
+  createRazorpayCoachingOrder,
   createRazorpayMembershipOrder,
   RazorpayOrderError,
 } from "@/lib/payments/razorpay";
@@ -17,14 +19,28 @@ function isValidIndianMobileNumber(value: unknown): value is string {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as {
+      purchaseType?: unknown;
       tierId?: unknown;
+      programmeId?: unknown;
       email?: unknown;
       phone?: unknown;
     };
 
-    if (!isMembershipTierId(body.tierId)) {
+    const purchaseType = body.purchaseType === "coaching" ? "coaching" : "membership";
+
+    if (purchaseType === "membership" && !isMembershipTierId(body.tierId)) {
       return NextResponse.json(
         { error: "Please select a valid membership tier." },
+        { status: 400 }
+      );
+    }
+
+    if (
+      purchaseType === "coaching" &&
+      !isCoachingProgrammeId(body.programmeId)
+    ) {
+      return NextResponse.json(
+        { error: "Please select a valid coaching programme." },
         { status: 400 }
       );
     }
@@ -43,33 +59,53 @@ export async function POST(request: Request) {
       );
     }
 
-    const normalizedEmail = body.email.trim().toLowerCase();
-    const supabase = getSupabaseServer();
-    const { data: existingMembers, error: lookupError } = await supabase
-      .from("members")
-      .select("id")
-      .eq("email", normalizedEmail)
-      .eq("payment_status", "paid")
-      .limit(1);
+    if (purchaseType === "membership") {
+      const normalizedEmail = body.email.trim().toLowerCase();
+      const supabase = getSupabaseServer();
+      const { data: existingMembers, error: lookupError } = await supabase
+        .from("members")
+        .select("id")
+        .eq("email", normalizedEmail)
+        .eq("payment_status", "paid")
+        .limit(1);
 
-    if (lookupError) {
-      console.error(lookupError);
+      if (lookupError) {
+        console.error(lookupError);
 
-      return NextResponse.json(
-        { error: "Unable to verify membership status. Please try again." },
-        { status: 500 }
-      );
+        return NextResponse.json(
+          { error: "Unable to verify membership status. Please try again." },
+          { status: 500 }
+        );
+      }
+
+      if (existingMembers.length > 0) {
+        return NextResponse.json(
+          { error: "Membership already active" },
+          { status: 409 }
+        );
+      }
     }
 
-    if (existingMembers.length > 0) {
+    if (purchaseType === "coaching") {
+      if (!isCoachingProgrammeId(body.programmeId)) {
+        return NextResponse.json(
+          { error: "Please select a valid coaching programme." },
+          { status: 400 }
+        );
+      }
+
+      const order = await createRazorpayCoachingOrder(body.programmeId);
+      return NextResponse.json(order);
+    }
+
+    if (!isMembershipTierId(body.tierId)) {
       return NextResponse.json(
-        { error: "Membership already active" },
-        { status: 409 }
+        { error: "Please select a valid membership tier." },
+        { status: 400 }
       );
     }
 
     const order = await createRazorpayMembershipOrder(body.tierId);
-
     return NextResponse.json(order);
   } catch (error) {
     console.error(error);

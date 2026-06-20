@@ -1,5 +1,9 @@
 import "server-only";
 import { Resend } from "resend";
+import {
+  generateMembershipCertificatePdf,
+  getMembershipCertificateFilename,
+} from "@/lib/certificates/membershipCertificate";
 
 type SendMembershipConfirmationInput = {
   to: string;
@@ -8,6 +12,7 @@ type SendMembershipConfirmationInput = {
   membershipId: string;
   paymentId: string;
   amountPaid: number;
+  joinedAt?: Date | string;
 };
 
 let resendClient: Resend | null = null;
@@ -43,6 +48,14 @@ function formatCurrencyFromPaise(amount: number) {
   }).format(amount / 100);
 }
 
+function formatDisplayDate(value: Date | string) {
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(value));
+}
+
 export async function sendMembershipConfirmation({
   to,
   name,
@@ -50,6 +63,7 @@ export async function sendMembershipConfirmation({
   membershipId,
   paymentId,
   amountPaid,
+  joinedAt = new Date(),
 }: SendMembershipConfirmationInput) {
   const from = process.env.FROM_EMAIL;
 
@@ -62,17 +76,22 @@ export async function sendMembershipConfirmation({
   const safeMembershipId = escapeHtml(membershipId);
   const safePaymentId = escapeHtml(paymentId);
   const safeAmountPaid = escapeHtml(formatCurrencyFromPaise(amountPaid));
-  const dateJoined = new Intl.DateTimeFormat("en-IN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date());
+  const dateJoined = formatDisplayDate(joinedAt);
+  // TODO: Store generated certificate PDFs in Supabase Storage and persist certificate_url on the membership record for future re-downloads.
+  const certificatePdf = await generateMembershipCertificatePdf({
+    memberName: name,
+    membershipTier,
+    membershipId,
+    issueDate: dateJoined,
+  });
+  console.log(`Certificate generated for ${membershipId}`);
 
-  const result = await getResendClient().emails.send({
-    from: `Indian Mahjong Association <${from}>`,
-    to,
-    subject: "Welcome to the Indian Mahjong Association",
-    html: `
+  try {
+    const result = await getResendClient().emails.send({
+      from: `Indian Mahjong Association <${from}>`,
+      to,
+      subject: "Welcome to the Indian Mahjong Association",
+      html: `
       <div style="margin:0;padding:0;background:#f7f0e4;color:#3b3028;font-family:Georgia,'Times New Roman',serif;">
         <div style="max-width:680px;margin:0 auto;padding:42px 32px 46px;background:#fffaf1;color:#51463c;">
           <h1 style="margin:0 0 26px;color:#8d2430;font-family:Georgia,'Times New Roman',serif;font-size:24px;line-height:1.25;font-weight:400;letter-spacing:0.16em;text-align:center;text-transform:uppercase;">Indian Mahjong Association</h1>
@@ -118,15 +137,15 @@ export async function sendMembershipConfirmation({
           </div>
 
           <div style="margin:0 0 34px;">
-            <p style="margin:0 0 16px;font-size:15px;line-height:1.75;">Your membership certificate will be issued separately by the Indian Mahjong Association.</p>
-            <p style="margin:0;font-size:15px;line-height:1.75;">Please retain this email as proof of membership activation and payment confirmation.</p>
+            <p style="margin:0 0 16px;font-size:15px;line-height:1.75;">Your membership certificate is attached as a PDF.</p>
+            <p style="margin:0;font-size:15px;line-height:1.75;">Please retain this email and certificate as proof of membership activation and payment confirmation.</p>
           </div>
 
           <p style="margin:0;font-size:15px;line-height:1.75;">Warm regards,<br /><br />Indian Mahjong Association</p>
         </div>
       </div>
     `,
-    text: `Hello ${name},
+      text: `Hello ${name},
 
 Welcome to the Indian Mahjong Association.
 
@@ -153,21 +172,34 @@ Active
 Date Joined:
 ${dateJoined}
 
-Your membership certificate will be issued separately by the Indian Mahjong Association.
+Your membership certificate is attached as a PDF.
 
-Please retain this email as proof of membership activation and payment confirmation.
+Please retain this email and certificate as proof of membership activation and payment confirmation.
 
 Warm regards,
 Indian Mahjong Association`,
-  });
+      attachments: [
+        {
+          filename: getMembershipCertificateFilename(membershipId),
+          content: Buffer.from(certificatePdf),
+          contentType: "application/pdf",
+        },
+      ],
+    });
 
-  if (result.error) {
-    throw new Error(
-      typeof result.error === "object" && "message" in result.error
-        ? String(result.error.message)
-        : "Resend email delivery failed."
-    );
+    if (result.error) {
+      const error = new Error(
+        typeof result.error === "object" && "message" in result.error
+          ? String(result.error.message)
+          : "Resend email delivery failed."
+      );
+      throw error;
+    }
+
+    console.log(`Membership email sent for ${membershipId}`);
+    return result.data;
+  } catch (error) {
+    console.error(`Membership email failed for ${membershipId}`, error);
+    throw error;
   }
-
-  return result.data;
 }

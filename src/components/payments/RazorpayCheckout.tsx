@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { CoachingProgrammeId } from "@/lib/coaching/programmes";
 import type { MembershipTierId } from "@/lib/membership/tiers";
 
 declare global {
@@ -54,7 +55,8 @@ type OrderResponse = {
   order_id: string;
   amount: number;
   currency: "INR";
-  tierName: string;
+  tierName?: string;
+  itemName?: string;
   error?: string;
 };
 
@@ -63,22 +65,30 @@ type VerifyPaymentResponse = {
   paymentId?: string;
   orderId?: string;
   membershipId?: string;
+  registrationId?: string;
+  itemName?: string;
   error?: string;
 };
 
 type RazorpayCheckoutProps = {
-  tierId: MembershipTierId;
+  purchaseType?: "membership" | "coaching";
+  tierId?: MembershipTierId;
+  programmeId?: CoachingProgrammeId;
   cta: string;
   customer?: {
     fullName?: string;
     email?: string;
     phone?: string;
     city?: string;
+    experienceLevel?: string;
+    message?: string;
   };
   onSuccess?: (payment: {
     paymentId: string;
     orderId: string;
-    membershipId: string;
+    membershipId?: string;
+    registrationId?: string;
+    itemName?: string;
   }) => void;
 };
 
@@ -101,7 +111,9 @@ function loadRazorpayCheckout() {
 }
 
 export default function RazorpayCheckout({
+  purchaseType = "membership",
   tierId,
+  programmeId,
   cta,
   customer,
   onSuccess,
@@ -121,7 +133,9 @@ export default function RazorpayCheckout({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            purchaseType,
             tierId,
+            programmeId,
             email: customer?.email,
             phone: customer?.phone,
           }),
@@ -148,7 +162,10 @@ export default function RazorpayCheckout({
         amount: order.amount,
         currency: order.currency,
         name: "Indian Mahjong Association",
-        description: "Membership Registration",
+        description:
+          purchaseType === "coaching"
+            ? "Advanced Coaching Programme"
+            : "Membership Registration",
         order_id: order.orderId,
         prefill: {
           name: customer?.fullName,
@@ -176,11 +193,15 @@ export default function RazorpayCheckout({
               },
               body: JSON.stringify({
                 ...response,
+                purchaseType,
                 tierId,
+                programmeId,
                 full_name: customer?.fullName,
                 email: customer?.email,
                 phone: customer?.phone,
                 city: customer?.city,
+                experienceLevel: customer?.experienceLevel,
+                message: customer?.message,
               }),
             });
             const verification = (await verifyResponse.json()) as VerifyPaymentResponse;
@@ -189,16 +210,20 @@ export default function RazorpayCheckout({
               throw new Error(verification.error ?? "Payment verification failed.");
             }
 
-            if (!verification.membershipId) {
+            if (purchaseType === "membership" && !verification.membershipId) {
               throw new Error("Membership details could not be confirmed.");
             }
 
             setStatus("success");
-            setMessage(`${order.tierName} payment has been verified.`);
+            setMessage(
+              `${order.tierName ?? order.itemName ?? "Registration"} payment has been verified.`
+            );
             onSuccess?.({
               paymentId: verification.paymentId ?? response.razorpay_payment_id,
               orderId: verification.orderId ?? response.razorpay_order_id,
               membershipId: verification.membershipId,
+              registrationId: verification.registrationId,
+              itemName: verification.itemName ?? order.itemName ?? order.tierName,
             });
           } catch (error) {
             setStatus("idle");

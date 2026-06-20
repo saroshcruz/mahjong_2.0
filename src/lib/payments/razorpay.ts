@@ -1,4 +1,8 @@
 import { membershipTiers, type MembershipTierId } from "@/lib/membership/tiers";
+import {
+  coachingProgrammes,
+  type CoachingProgrammeId,
+} from "@/lib/coaching/programmes";
 import crypto from "crypto";
 import Razorpay from "razorpay";
 
@@ -85,6 +89,58 @@ export async function createRazorpayMembershipOrder(tierId: MembershipTierId) {
     amount: Number(order.amount),
     currency: order.currency,
     tierName: tier.name,
+  };
+}
+
+export async function createRazorpayCoachingOrder(
+  programmeId: CoachingProgrammeId
+) {
+  const programme = coachingProgrammes[programmeId];
+
+  if (programme.amount < 100) {
+    throw new RazorpayOrderError("Programme amount must be at least ₹1.", 400);
+  }
+
+  const { publicKeyId } = getRazorpayCredentials();
+  const razorpay = getRazorpayClient();
+
+  let order: RazorpayOrder;
+
+  try {
+    order = (await razorpay.orders.create({
+      amount: programme.amount,
+      currency: "INR",
+      receipt: `ima_coaching_${programmeId}_${Date.now()}`,
+      notes: {
+        purchase_type: "coaching",
+        programme_id: programmeId,
+        programme_name: programme.name,
+      },
+    })) as RazorpayOrder;
+  } catch (error) {
+    const statusCode =
+      typeof error === "object" &&
+      error !== null &&
+      "statusCode" in error &&
+      typeof error.statusCode === "number"
+        ? error.statusCode
+        : 500;
+
+    throw new RazorpayOrderError(
+      statusCode === 401
+        ? "Razorpay authentication failed."
+        : "Unable to create Razorpay order.",
+      statusCode === 401 ? 401 : 500
+    );
+  }
+
+  return {
+    keyId: publicKeyId,
+    orderId: order.id,
+    order_id: order.id,
+    amount: Number(order.amount),
+    currency: order.currency,
+    itemName: programme.name,
   };
 }
 

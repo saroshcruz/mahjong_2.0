@@ -137,13 +137,8 @@ export default function Trainers() {
       </div>
 
       {/* ── SECTION INTRO ── */}
-      <div className="relative mx-auto max-w-7xl px-7 pb-12 pt-16 sm:px-8 lg:px-16 lg:pb-16 lg:pt-20">
+      <div className="relative mx-auto max-w-7xl px-7 pb-12 pt-8 sm:px-8 lg:px-16 lg:pb-16 lg:pt-10">
         <div className="max-w-3xl text-left">
-
-          {/* Divider */}
-          <div className="mb-8 lg:mb-10">
-            <div className="h-px bg-[linear-gradient(90deg,rgba(198,168,122,0.44),rgba(198,168,122,0.28)_42%,rgba(198,168,122,0))]" />
-          </div>
 
           {/* Heading */}
           <h2 className="text-[2.25rem] leading-[1.08] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
