@@ -97,7 +97,7 @@ export default function OurStory() {
         <div className="absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.28),rgba(198,168,122,0))]" />
       </div>
 
-      <div className="relative mx-auto max-w-[84rem] px-5 py-11 sm:px-8 sm:py-14 lg:px-10 lg:py-[4.5rem]">
+      <div className="relative mx-auto max-w-[84rem] px-2 py-9 sm:px-8 sm:py-14 lg:px-10 lg:py-[4.5rem]">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-[2.15rem] leading-[1.05] text-[#2d2926] sm:text-[2.7rem] lg:text-[3.4rem]">
             Our Story
@@ -108,7 +108,7 @@ export default function OurStory() {
         </div>
 
         <div
-          className="relative mx-auto mt-7 max-w-[1340px] px-12 sm:mt-9 sm:px-14 lg:mt-10 lg:px-16"
+          className="relative mx-auto mt-6 max-w-none px-0 sm:mt-9 sm:max-w-[1340px] sm:px-14 lg:mt-10 lg:px-16"
           onMouseEnter={clearTimer}
           onMouseLeave={startTimer}
           onFocus={clearTimer}
@@ -127,8 +127,8 @@ export default function OurStory() {
                     width={1600}
                     height={900}
                     priority={src === slides[0]}
-                    sizes="(min-width: 1500px) 1260px, (min-width: 768px) 86vw, 100vw"
-                    className="mx-auto h-auto w-full max-w-[1260px] select-none"
+                    sizes="(min-width: 1500px) 1260px, (min-width: 768px) 86vw, 95vw"
+                    className="mx-auto h-auto w-full max-w-none select-none sm:max-w-[1260px]"
                     draggable={false}
                   />
                 </div>
@@ -145,7 +145,7 @@ export default function OurStory() {
             ‹
           </button>
 
-          <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center justify-center gap-2 rounded-full bg-[#2d2926]/8 px-2 py-1 sm:bottom-5">
+          <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center justify-center gap-2 rounded-full bg-transparent px-0 py-0 sm:bottom-5">
             {slides.map((src, index) => (
               <button
                 key={src}
