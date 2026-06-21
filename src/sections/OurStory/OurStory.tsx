@@ -7,28 +7,28 @@ import useEmblaCarousel from "embla-carousel-react";
 const slides = [
   {
     id: "our-story",
-    desktop: "/assets/our_story/ourstory-d.png",
-    mobile: "/assets/our_story/ourstory-m.png",
+    desktop: "/assets/our_story/ourstory-d.webp",
+    mobile: "/assets/our_story/ourstory-m.webp",
   },
   {
     id: "kargil",
-    desktop: "/assets/our_story/kargil-d.png",
-    mobile: "/assets/our_story/kargil-m.png",
+    desktop: "/assets/our_story/kargil-d.webp",
+    mobile: "/assets/our_story/kargil-m.webp",
   },
   {
     id: "barter",
-    desktop: "/assets/our_story/barter-d.png",
-    mobile: "/assets/our_story/barter-m.png",
-  },
-  {
-    id: "mahjong",
-    desktop: "/assets/our_story/mahjong-d.png",
-    mobile: "/assets/our_story/mahjong-m.png",
+    desktop: "/assets/our_story/barter-d.webp",
+    mobile: "/assets/our_story/barter-m.webp",
   },
   {
     id: "generations",
-    desktop: "/assets/our_story/generations-d.png",
-    mobile: "/assets/our_story/generations-m.png",
+    desktop: "/assets/our_story/generations-d.webp",
+    mobile: "/assets/our_story/generations-m.webp",
+  },
+  {
+    id: "mahjong",
+    desktop: "/assets/our_story/mahjong-d.webp",
+    mobile: "/assets/our_story/mahjong-m.webp",
   },
 ];
 

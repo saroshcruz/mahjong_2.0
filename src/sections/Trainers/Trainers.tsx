@@ -14,7 +14,7 @@ const supporting = [
     name: "Kavita Ranade",
     role: "Mahjong Trainer",
     location: "Mumbai",
-    image: "/assets/trainers/kavita.png",
+    image: "/assets/trainers/kavita.webp",
     imagePosition: "center 28%",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
@@ -24,7 +24,7 @@ const supporting = [
     name: "Alka Talwar",
     role: "Mahjong Trainer",
     location: "Bengaluru",
-    image: "/assets/trainers/alka.jpg",
+    image: "/assets/trainers/alka.webp",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Beginner Mahjong",
@@ -33,7 +33,7 @@ const supporting = [
     name: "Sonia Jaidka",
     role: "Mahjong Trainer",
     location: "Chennai",
-    image: "/assets/trainers/Sonia.png",
+    image: "/assets/trainers/Sonia.webp",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Community Play",
@@ -42,7 +42,7 @@ const supporting = [
     name: "Anu Nagpal",
     role: "Mahjong Trainer",
     location: "Kolkata",
-    image: "/assets/trainers/Anu-Nagpal.jpg",
+    image: "/assets/trainers/Anu-Nagpal.webp",
     imagePosition: "center 42%",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
@@ -52,7 +52,7 @@ const supporting = [
     name: "Anu Srivastav",
     role: "Mahjong Trainer",
     location: "Kochi",
-    image: "/assets/trainers/Anu.jpg",
+    image: "/assets/trainers/Anu.webp",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Heritage & Tradition",
@@ -69,7 +69,7 @@ const supporting = [
     name: "Rumpy Sidana",
     role: "Mahjong Trainer",
     location: "New Delhi",
-    image: "/assets/trainers/rumpy.jpg",
+    image: "/assets/trainers/rumpy.webp",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Community Sessions",
@@ -78,7 +78,7 @@ const supporting = [
     name: "Ritu Kapur",
     role: "Mahjong Trainer",
     location: "Jaipur",
-    image: "/assets/trainers/ritu.jpg",
+    image: "/assets/trainers/ritu.webp",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Table Practice",

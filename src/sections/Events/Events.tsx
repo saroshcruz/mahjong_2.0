@@ -107,7 +107,7 @@ export default function Events() {
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage: "url('/assets/backgrounds/membership-watercolor-bg.png')",
+            backgroundImage: "url('/assets/backgrounds/membership-watercolor-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",

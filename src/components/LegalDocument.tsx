@@ -34,7 +34,7 @@ export default function LegalDocument({
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: "url('/assets/backgrounds/membership-watercolor-bg.png')",
+              backgroundImage: "url('/assets/backgrounds/membership-watercolor-bg.webp')",
               backgroundPosition: "center top",
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",

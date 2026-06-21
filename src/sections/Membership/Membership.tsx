@@ -19,7 +19,7 @@ const tiers = [
     cta: "Buy This Tier",
     accentRgb: "198,168,122",
     panelBorder: "rgba(198,168,122,0.38)",
-    tileImage: "/assets/membership/pearl-tile.png",
+    tileImage: "/assets/membership/pearl-tile.webp",
     dragon: { symbol: "白", label: "White Dragon" },
     tileTheme: {
       bg: "rgba(255,253,248,0.97)",
@@ -45,7 +45,7 @@ const tiers = [
     cta: "Buy This Tier",
     accentRgb: "47,93,80",
     panelBorder: "rgba(47,93,80,0.26)",
-    tileImage: "/assets/membership/jade-tile.png",
+    tileImage: "/assets/membership/jade-tile.webp",
     dragon: { symbol: "發", label: "Green Dragon" },
     tileTheme: {
       bg: "rgba(247,252,250,0.97)",
@@ -71,7 +71,7 @@ const tiers = [
     cta: "Buy This Tier",
     accentRgb: "124,31,45",
     panelBorder: "rgba(124,31,45,0.26)",
-    tileImage: "/assets/membership/ruby-tile.png",
+    tileImage: "/assets/membership/ruby-tile.webp",
     dragon: { symbol: "中", label: "Red Dragon" },
     tileTheme: {
       bg: "rgba(253,248,246,0.97)",
@@ -293,7 +293,7 @@ export default function Membership() {
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage: "url('/assets/backgrounds/membership-watercolor-bg.png')",
+            backgroundImage: "url('/assets/backgrounds/membership-watercolor-bg.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",

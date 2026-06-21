@@ -8,7 +8,7 @@ export default function Footer() {
     >
       <div aria-hidden="true" className="absolute inset-0">
         <Image
-          src="/assets/footer/footer-landscape.png"
+              src="/assets/footer/footer-landscape.webp"
           alt=""
           fill
           className="object-cover object-[center_bottom]"
