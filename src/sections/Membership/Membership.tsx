@@ -440,14 +440,13 @@ export default function Membership() {
             </a>
           </div>
 
-          <div className="border border-[#7c1f2d]/22 bg-[#fffaf2]/54 px-6 py-7 text-center">
+          <div className="border border-[#7c1f2d]/22 bg-[#fffaf2]/54 px-6 py-8 text-center lg:py-9">
             {[
               ["15 Hours", "of Instruction"],
               ["5 Sessions", "guided format"],
               ["₹15,000", "programme fee"],
-              ["No GST", "applicable"],
             ].map(([value, label]) => (
-              <div key={value} className="border-b border-[#c6a87a]/18 py-4 last:border-b-0">
+              <div key={value} className="border-b border-[#c6a87a]/18 py-5 last:border-b-0 lg:py-6">
                 <p className="text-[1.55rem] leading-tight text-[#2d2926]" style={{ fontFamily: "var(--font-heading)" }}>
                   {value}
                 </p>
