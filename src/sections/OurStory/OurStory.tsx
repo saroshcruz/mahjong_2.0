@@ -20,6 +20,11 @@ const slides = [
     desktop: "/assets/our_story/barter-d.png",
     mobile: "/assets/our_story/barter-m.png",
   },
+  {
+    id: "mahjong",
+    desktop: "/assets/our_story/mahjong-d.png",
+    mobile: "/assets/our_story/mahjong-m.png",
+  },
 ];
 
 const autoScrollDelay = 15000;
