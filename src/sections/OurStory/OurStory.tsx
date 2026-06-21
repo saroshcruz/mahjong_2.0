@@ -195,7 +195,7 @@ export default function OurStory() {
             ‹
           </button>
 
-          <div className="z-10 mt-3 flex items-center justify-center gap-2 rounded-full bg-transparent px-0 py-0 md:absolute md:bottom-5 md:left-1/2 md:mt-0 md:-translate-x-1/2">
+          <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center justify-center gap-2 rounded-full bg-transparent px-0 py-0 md:bottom-5">
             {slides.map((slide, index) => (
               <button
                 key={slide.id}

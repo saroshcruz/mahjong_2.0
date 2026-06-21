@@ -97,35 +97,28 @@ function PortraitPlaceholder({
   return (
     <div
       style={{
-        filter:
-          "drop-shadow(0 20px 44px rgba(60,40,18,0.09)) drop-shadow(0 4px 12px rgba(60,40,18,0.05))",
+        width,
+        height: width,
+        background: [
+          "radial-gradient(circle at 50% 38%, rgba(138,106,74,0.18) 0%, rgba(138,106,74,0.08) 56%, rgba(198,168,122,0.10) 100%)",
+        ].join(", "),
+        borderRadius: "9999px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <div
+      <span
         style={{
-          width,
-          height: width,
-          background: [
-            "radial-gradient(circle at 50% 38%, rgba(138,106,74,0.18) 0%, rgba(138,106,74,0.08) 56%, rgba(198,168,122,0.10) 100%)",
-          ].join(", "),
-          borderRadius: "9999px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          fontFamily: "var(--font-heading)",
+          fontSize: Math.round(height * 0.28),
+          lineHeight: 1,
+          color: "rgba(124,31,45,0.14)",
+          userSelect: "none",
         }}
       >
-        <span
-          style={{
-            fontFamily: "var(--font-heading)",
-            fontSize: Math.round(height * 0.28),
-            lineHeight: 1,
-            color: "rgba(124,31,45,0.14)",
-            userSelect: "none",
-          }}
-        >
-          {initial}
-        </span>
-      </div>
+        {initial}
+      </span>
     </div>
   );
 }
@@ -146,24 +139,15 @@ function TrainerPortrait({
   }
 
   return (
-    <div
-      style={{
-        filter:
-          "drop-shadow(0 20px 44px rgba(60,40,18,0.09)) drop-shadow(0 4px 12px rgba(60,40,18,0.05))",
-      }}
-    >
-      <div
-        className="relative h-[150px] w-[150px] overflow-hidden rounded-full"
-      >
-        <Image
-          src={image}
-          alt={name}
-          fill
-          sizes="150px"
-          className="object-cover object-center"
-          style={{ objectPosition: imagePosition ?? "center center" }}
-        />
-      </div>
+    <div className="relative h-[150px] w-[150px] overflow-hidden rounded-full">
+      <Image
+        src={image}
+        alt={name}
+        fill
+        sizes="150px"
+        className="object-cover object-center"
+        style={{ objectPosition: imagePosition ?? "center center" }}
+      />
     </div>
   );
 }
@@ -201,23 +185,14 @@ export default function Trainers() {
 
           {/* Portrait */}
           <div className="flex justify-start lg:justify-end">
-            <div
-              style={{
-                filter:
-                  "drop-shadow(0 20px 44px rgba(60,40,18,0.11)) drop-shadow(0 6px 14px rgba(60,40,18,0.06))",
-              }}
-            >
-              <div
-                className="relative overflow-hidden rounded-full"
-              >
-                <Image
-                  src="/assets/founder/Vineeta.jpeg"
-                  alt={featured.name}
-                  width={240}
-                  height={240}
-                  className="aspect-square w-[153px] object-cover object-[center_18%] sm:w-[185px] lg:w-[217px]"
-                />
-              </div>
+            <div className="relative overflow-hidden rounded-full">
+              <Image
+                src="/assets/founder/Vineeta.jpeg"
+                alt={featured.name}
+                width={240}
+                height={240}
+                className="aspect-square w-[153px] object-cover object-[center_18%] sm:w-[185px] lg:w-[217px]"
+              />
             </div>
           </div>
 
