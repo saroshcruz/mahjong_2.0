@@ -25,9 +25,14 @@ const slides = [
     desktop: "/assets/our_story/mahjong-d.png",
     mobile: "/assets/our_story/mahjong-m.png",
   },
+  {
+    id: "generations",
+    desktop: "/assets/our_story/generations-d.png",
+    mobile: "/assets/our_story/generations-m.png",
+  },
 ];
 
-const autoScrollDelay = 15000;
+const autoScrollDelay = 10000;
 
 type StorySlide = (typeof slides)[number];
 
@@ -159,9 +164,6 @@ export default function OurStory() {
           <h2 className="text-[2.15rem] leading-[1.05] text-[#2d2926] sm:text-[2.7rem] lg:text-[3.4rem]">
             Our Story
           </h2>
-          <p className="mx-auto mt-4 max-w-[31ch] text-[0.96rem] leading-[1.82] text-[#5d4d40] sm:max-w-[52ch] sm:text-[1rem]">
-            A journey shaped by community, cultural exchange and a shared love for the game.
-          </p>
         </div>
 
         <div

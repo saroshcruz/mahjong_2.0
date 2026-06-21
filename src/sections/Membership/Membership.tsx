@@ -315,7 +315,7 @@ export default function Membership() {
       </div>
 
       {/* ── SECTION INTRO ── */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-12 pt-8 sm:px-8 lg:px-16 lg:pb-16 lg:pt-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-4 pt-8 sm:px-8 lg:px-16 lg:pb-5 lg:pt-10">
         <div className="mx-auto max-w-2xl text-center">
 
           {/* Heading — single line on desktop */}
@@ -332,7 +332,7 @@ export default function Membership() {
 
       {/* ── FOUNDING MEMBER NOTE ── */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 pb-10 sm:px-8 lg:px-16 lg:pb-12">
-        <div className="mx-auto flex max-w-4xl flex-col items-center border-t border-[#c6a87a]/25 px-4 py-7 text-center sm:px-8 lg:py-8">
+        <div className="mx-auto flex max-w-4xl flex-col items-center px-4 pb-7 pt-3 text-center sm:px-8 lg:pb-8 lg:pt-3">
           <div className="mb-4 flex items-center justify-center gap-3" aria-hidden="true">
             <div className="h-px w-8 bg-[#c6a87a]/35" />
             <div className="h-[3px] w-[3px] rounded-full bg-[#8f2432]/65" />

@@ -14,6 +14,8 @@ const supporting = [
     name: "Kavita Ranade",
     role: "Mahjong Trainer",
     location: "Mumbai",
+    image: "/assets/trainers/kavita.png",
+    imagePosition: "center 28%",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Player Development",
@@ -22,6 +24,7 @@ const supporting = [
     name: "Alka Talwar",
     role: "Mahjong Trainer",
     location: "Bengaluru",
+    image: "/assets/trainers/alka.jpg",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Beginner Mahjong",
@@ -30,6 +33,7 @@ const supporting = [
     name: "Sonia Jaidka",
     role: "Mahjong Trainer",
     location: "Chennai",
+    image: "/assets/trainers/Sonia.png",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Community Play",
@@ -38,6 +42,8 @@ const supporting = [
     name: "Anu Nagpal",
     role: "Mahjong Trainer",
     location: "Kolkata",
+    image: "/assets/trainers/Anu-Nagpal.jpg",
+    imagePosition: "center 42%",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Strategy Practice",
@@ -46,6 +52,7 @@ const supporting = [
     name: "Anu Srivastav",
     role: "Mahjong Trainer",
     location: "Kochi",
+    image: "/assets/trainers/Anu.jpg",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Heritage & Tradition",
@@ -62,6 +69,7 @@ const supporting = [
     name: "Rumpy Sidana",
     role: "Mahjong Trainer",
     location: "New Delhi",
+    image: "/assets/trainers/rumpy.jpg",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Community Sessions",
@@ -70,6 +78,7 @@ const supporting = [
     name: "Ritu Kapur",
     role: "Mahjong Trainer",
     location: "Jaipur",
+    image: "/assets/trainers/ritu.jpg",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Table Practice",
@@ -95,16 +104,11 @@ function PortraitPlaceholder({
       <div
         style={{
           width,
-          height,
+          height: width,
           background: [
-            "radial-gradient(ellipse 42% 34% at 50% 26%, rgba(138,106,74,0.22) 0%, transparent 62%)",
-            "radial-gradient(ellipse 52% 58% at 50% 63%, rgba(138,106,74,0.13) 0%, transparent 66%)",
-            "radial-gradient(ellipse 90% 90% at 50% 50%, rgba(198,168,122,0.10) 0%, rgba(245,239,228,0) 76%)",
+            "radial-gradient(circle at 50% 38%, rgba(138,106,74,0.18) 0%, rgba(138,106,74,0.08) 56%, rgba(198,168,122,0.10) 100%)",
           ].join(", "),
-          maskImage:
-            "radial-gradient(ellipse 82% 88% at 50% 38%, black 16%, rgba(0,0,0,0.62) 44%, rgba(0,0,0,0.18) 64%, transparent 82%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 82% 88% at 50% 38%, black 16%, rgba(0,0,0,0.62) 44%, rgba(0,0,0,0.18) 64%, transparent 82%)",
+          borderRadius: "9999px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -121,6 +125,44 @@ function PortraitPlaceholder({
         >
           {initial}
         </span>
+      </div>
+    </div>
+  );
+}
+
+function TrainerPortrait({
+  image,
+  imagePosition,
+  initial,
+  name,
+}: {
+  image?: string;
+  imagePosition?: string;
+  initial: string;
+  name: string;
+}) {
+  if (!image) {
+    return <PortraitPlaceholder initial={initial} width={150} height={150} />;
+  }
+
+  return (
+    <div
+      style={{
+        filter:
+          "drop-shadow(0 20px 44px rgba(60,40,18,0.09)) drop-shadow(0 4px 12px rgba(60,40,18,0.05))",
+      }}
+    >
+      <div
+        className="relative h-[150px] w-[150px] overflow-hidden rounded-full"
+      >
+        <Image
+          src={image}
+          alt={name}
+          fill
+          sizes="150px"
+          className="object-cover object-center"
+          style={{ objectPosition: imagePosition ?? "center center" }}
+        />
       </div>
     </div>
   );
@@ -157,7 +199,7 @@ export default function Trainers() {
       <div className="relative mx-auto max-w-7xl px-7 pb-16 sm:px-8 lg:px-16 lg:pb-20">
         <div className="flex flex-col items-start gap-10 lg:ml-auto lg:mr-[7%] lg:grid lg:w-fit lg:grid-cols-[auto_auto] lg:items-center lg:gap-20">
 
-          {/* Portrait — Vineeta image used temporarily for visual direction test */}
+          {/* Portrait */}
           <div className="flex justify-start lg:justify-end">
             <div
               style={{
@@ -166,28 +208,14 @@ export default function Trainers() {
               }}
             >
               <div
-                className="relative"
-                style={{
-                  maskImage:
-                    "radial-gradient(ellipse 78% 86% at 52% 42%, black 22%, rgba(0,0,0,0.75) 46%, rgba(0,0,0,0.28) 66%, transparent 82%)",
-                  WebkitMaskImage:
-                    "radial-gradient(ellipse 78% 86% at 52% 42%, black 22%, rgba(0,0,0,0.75) 46%, rgba(0,0,0,0.28) 66%, transparent 82%)",
-                }}
+                className="relative overflow-hidden rounded-full"
               >
                 <Image
                   src="/assets/founder/Vineeta.jpeg"
                   alt={featured.name}
-                  width={196}
-                  height={261}
-                  className="h-auto w-[133px] object-cover object-[center_18%] sm:w-[161px] lg:w-[189px]"
-                />
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_30%,rgba(248,238,218,0.10),rgba(248,238,218,0.04)_60%,transparent_82%)]"
-                />
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[36%] bg-[linear-gradient(0deg,rgba(245,239,228,0.72),rgba(245,239,228,0.18)_55%,transparent)]"
+                  width={240}
+                  height={240}
+                  className="aspect-square w-[153px] object-cover object-[center_18%] sm:w-[185px] lg:w-[217px]"
                 />
               </div>
             </div>
@@ -232,7 +260,12 @@ export default function Trainers() {
               className="flex flex-col items-start text-left"
             >
               {/* Portrait */}
-              <PortraitPlaceholder initial={trainer.name[0]} width={150} height={192} />
+              <TrainerPortrait
+                image={trainer.image}
+                imagePosition={trainer.imagePosition}
+                initial={trainer.name[0]}
+                name={trainer.name}
+              />
 
               {/* Name */}
               <h3 className="mt-5 text-[1.25rem] leading-snug text-[#2d2926]">
