@@ -1,16 +1,68 @@
 "use client";
 
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 
 const slides = [
-  "/assets/our_story/Our-story.png",
-  "/assets/our_story/kargil.png",
-  "/assets/our_story/Bater-system.png",
+  {
+    id: "our-story",
+    desktop: "/assets/our_story/ourstory-d.png",
+    mobile: "/assets/our_story/ourstory-m.png",
+  },
+  {
+    id: "kargil",
+    desktop: "/assets/our_story/kargil-d.png",
+    mobile: "/assets/our_story/kargil-m.png",
+  },
+  {
+    id: "barter",
+    desktop: "/assets/our_story/barter-d.png",
+    mobile: "/assets/our_story/barter-m.png",
+  },
 ];
 
 const autoScrollDelay = 15000;
+
+type StorySlide = (typeof slides)[number];
+
+function StorySlideImage({ priority, slide }: { priority: boolean; slide: StorySlide }) {
+  const common = {
+    alt: "",
+    sizes: "(min-width: 1500px) 1260px, (min-width: 768px) 86vw, 95vw",
+  };
+
+  const {
+    props: { srcSet: desktop },
+  } = getImageProps({
+    ...common,
+    width: 1600,
+    height: 900,
+    src: slide.desktop,
+  });
+
+  const {
+    props: { srcSet: mobile, ...imageProps },
+  } = getImageProps({
+    ...common,
+    width: 900,
+    height: 1600,
+    src: slide.mobile,
+    loading: priority ? "eager" : "lazy",
+  });
+
+  return (
+    <picture>
+      <source media="(min-width: 768px)" srcSet={desktop} />
+      <source media="(max-width: 767px)" srcSet={mobile} />
+      <img
+        {...imageProps}
+        className="mx-auto aspect-[9/16] h-auto w-full max-w-none select-none md:aspect-[16/9] md:max-w-[1260px]"
+        draggable={false}
+      />
+    </picture>
+  );
+}
 
 export default function OurStory() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -119,18 +171,9 @@ export default function OurStory() {
             className="relative overflow-hidden"
           >
             <div className="flex touch-pan-y">
-              {slides.map((src) => (
-                <div key={src} className="min-w-0 flex-[0_0_100%] px-0 md:px-2">
-                  <Image
-                    src={src}
-                    alt=""
-                    width={1600}
-                    height={900}
-                    priority={src === slides[0]}
-                    sizes="(min-width: 1500px) 1260px, (min-width: 768px) 86vw, 95vw"
-                    className="mx-auto h-auto w-full max-w-none select-none sm:max-w-[1260px]"
-                    draggable={false}
-                  />
+              {slides.map((slide, index) => (
+                <div key={slide.id} className="min-w-0 flex-[0_0_100%] px-0 md:px-2">
+                  <StorySlideImage priority={index === 0} slide={slide} />
                 </div>
               ))}
             </div>
@@ -146,9 +189,9 @@ export default function OurStory() {
           </button>
 
           <div className="z-10 mt-3 flex items-center justify-center gap-2 rounded-full bg-transparent px-0 py-0 md:absolute md:bottom-5 md:left-1/2 md:mt-0 md:-translate-x-1/2">
-            {slides.map((src, index) => (
+            {slides.map((slide, index) => (
               <button
-                key={src}
+                key={slide.id}
                 type="button"
                 onClick={() => scrollTo(index)}
                 aria-label={`Go to story slide ${index + 1}`}
