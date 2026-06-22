@@ -39,6 +39,9 @@ function isValidIndianMobileNumber(value: string) {
   return /^[6-9]\d{9}$/.test(value);
 }
 
+const coachingDuplicateMessage =
+  "You already have a coaching registration associated with this email address.";
+
 async function createNextCoachingRegistrationId(
   supabase: ReturnType<typeof getSupabaseServer>
 ) {
@@ -133,13 +136,39 @@ export async function POST(request: Request) {
       }
 
       const programme = coachingProgrammes[body.programmeId];
+      const normalizedEmail = trimString(body.email).toLowerCase();
+      const { data: existingRegistrations, error: lookupError } = await supabase
+        .from("coaching_registrations")
+        .select("id")
+        .eq("email", normalizedEmail)
+        .limit(1);
+
+      if (lookupError) {
+        console.error(lookupError);
+
+        return NextResponse.json(
+          {
+            error:
+              "Unable to verify coaching registration status. Please contact support.",
+          },
+          { status: 500 }
+        );
+      }
+
+      if (existingRegistrations.length > 0) {
+        return NextResponse.json(
+          { error: coachingDuplicateMessage },
+          { status: 409 }
+        );
+      }
+
       const registrationId = await createNextCoachingRegistrationId(supabase);
       const { data: coachingRegistration, error: insertError } = await supabase
         .from("coaching_registrations")
         .insert({
           registration_id: registrationId,
           full_name: trimString(body.full_name),
-          email: trimString(body.email).toLowerCase(),
+          email: normalizedEmail,
           phone: trimString(body.phone),
           city: trimString(body.city),
           experience_level: isNonEmptyString(body.experienceLevel)
@@ -160,6 +189,13 @@ export async function POST(request: Request) {
       if (insertError || !coachingRegistration?.registration_id) {
         console.error(insertError);
 
+        if (insertError?.code === "23505") {
+          return NextResponse.json(
+            { error: coachingDuplicateMessage },
+            { status: 409 }
+          );
+        }
+
         return NextResponse.json(
           {
             error:
@@ -177,7 +213,7 @@ export async function POST(request: Request) {
 
       try {
         const email = await sendCoachingConfirmation({
-          to: trimString(body.email).toLowerCase(),
+          to: normalizedEmail,
           name: trimString(body.full_name),
           registrationId: coachingRegistration.registration_id,
           programmeName: programme.name,

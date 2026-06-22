@@ -16,6 +16,9 @@ function isValidIndianMobileNumber(value: unknown): value is string {
   return typeof value === "string" && /^[6-9]\d{9}$/.test(value);
 }
 
+const coachingDuplicateMessage =
+  "You already have a coaching registration associated with this email address.";
+
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as {
@@ -59,9 +62,10 @@ export async function POST(request: Request) {
       );
     }
 
+    const normalizedEmail = body.email.trim().toLowerCase();
+    const supabase = getSupabaseServer();
+
     if (purchaseType === "membership") {
-      const normalizedEmail = body.email.trim().toLowerCase();
-      const supabase = getSupabaseServer();
       const { data: existingMembers, error: lookupError } = await supabase
         .from("members")
         .select("id")
@@ -91,6 +95,31 @@ export async function POST(request: Request) {
         return NextResponse.json(
           { error: "Please select a valid coaching programme." },
           { status: 400 }
+        );
+      }
+
+      const { data: existingRegistrations, error: lookupError } = await supabase
+        .from("coaching_registrations")
+        .select("id")
+        .eq("email", normalizedEmail)
+        .limit(1);
+
+      if (lookupError) {
+        console.error(lookupError);
+
+        return NextResponse.json(
+          {
+            error:
+              "Unable to verify coaching registration status. Please try again.",
+          },
+          { status: 500 }
+        );
+      }
+
+      if (existingRegistrations.length > 0) {
+        return NextResponse.json(
+          { error: coachingDuplicateMessage },
+          { status: 409 }
         );
       }
 
