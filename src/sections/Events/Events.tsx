@@ -133,17 +133,17 @@ export default function Events() {
         <div className="mx-auto max-w-2xl text-center">
 
           {/* Eyebrow */}
-          <p className="mb-4 text-[0.66rem] uppercase tracking-[0.32em] text-[#7c1f2d] lg:text-[0.68rem] lg:tracking-[0.42em]">
+          <p className="mb-4 text-[0.71rem] uppercase tracking-[0.32em] text-[#7c1f2d] lg:text-[0.73rem] lg:tracking-[0.42em]">
             Events &amp; Gatherings
           </p>
 
           {/* Heading */}
-          <h2 className="text-[2.25rem] leading-[1.08] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
+          <h2 className="text-[2.48rem] leading-[1.05] text-[#2d2926] sm:text-[3.08rem] sm:leading-[0.98] lg:text-[4.18rem] lg:leading-[0.93]">
             Events &amp; Gatherings
           </h2>
 
           {/* Subtext */}
-          <p className="mx-auto mt-6 max-w-[48ch] text-[1rem] leading-[1.92] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
+          <p className="mx-auto mt-6 max-w-[48ch] text-[1.08rem] leading-[1.86] text-[#5d4d40] lg:mt-8 lg:text-[1.12rem] lg:leading-[1.86]">
             Our event calendar and gathering schedule will be announced shortly.
           </p>
         </div>
@@ -179,7 +179,7 @@ export default function Events() {
               </button>
 
               <p
-                className="text-[0.76rem] uppercase tracking-[0.28em] text-[#2d2926] lg:text-[0.72rem] lg:tracking-[0.36em]"
+                className="text-[0.82rem] uppercase tracking-[0.28em] text-[#2d2926] lg:text-[0.78rem] lg:tracking-[0.36em]"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 {MONTH_NAMES[viewMonth]} {viewYear}
@@ -201,7 +201,7 @@ export default function Events() {
               {DAY_LABELS.map(d => (
                 <div
                   key={d}
-                  className="py-2 text-center text-[0.58rem] uppercase tracking-[0.18em] text-[#8a6a4a]/60 lg:text-[0.56rem] lg:tracking-[0.2em]"
+                  className="py-2 text-center text-[0.62rem] uppercase tracking-[0.18em] text-[#8a6a4a]/60 lg:text-[0.6rem] lg:tracking-[0.2em]"
                 >
                   {d}
                 </div>
@@ -242,7 +242,7 @@ export default function Events() {
                       )}
 
                       <span
-                        className="relative text-[0.88rem] leading-none lg:text-[0.82rem]"
+                        className="relative text-[0.95rem] leading-none lg:text-[0.89rem]"
                         style={{
                           fontFamily: "var(--font-heading)",
                           color: isSelected ? "#f5efe4" : "#2d2926",
@@ -264,11 +264,11 @@ export default function Events() {
             >
               <div className="flex items-center gap-1.5">
                 <span className="h-[5px] w-[5px] shrink-0 rounded-full bg-[#c6a87a]" />
-                <span className="text-[0.58rem] uppercase tracking-[0.16em] text-[#8a6a4a]/65 lg:text-[0.54rem] lg:tracking-[0.18em]">
+                <span className="text-[0.62rem] uppercase tracking-[0.16em] text-[#8a6a4a]/65 lg:text-[0.58rem] lg:tracking-[0.18em]">
                   Calendar in preparation
                 </span>
               </div>
-              <p className="ml-auto shrink-0 text-[0.58rem] uppercase tracking-[0.16em] text-[#8a6a4a]/50 lg:text-[0.54rem] lg:tracking-[0.18em]">
+              <p className="ml-auto shrink-0 text-[0.62rem] uppercase tracking-[0.16em] text-[#8a6a4a]/50 lg:text-[0.58rem] lg:tracking-[0.18em]">
                 Schedule pending
               </p>
             </div>
@@ -304,14 +304,14 @@ export default function Events() {
 
                   {/* Label */}
                   <div className="mb-7 flex items-center justify-between gap-5">
-                    <span className="text-[0.58rem] uppercase tracking-[0.34em] text-[#7c1f2d]">
+                    <span className="text-[0.62rem] uppercase tracking-[0.34em] text-[#7c1f2d]">
                       Calendar In Preparation
                     </span>
                   </div>
 
                   {/* Title */}
                   <h3
-                    className="text-[1.68rem] leading-[1.18] text-[#2d2926] lg:text-[1.8rem] lg:leading-[1.15]"
+                    className="text-[1.85rem] leading-[1.15] text-[#2d2926] lg:text-[1.98rem] lg:leading-[1.12]"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     Coming Soon
@@ -321,7 +321,7 @@ export default function Events() {
                   <div className="my-5 h-px w-10 bg-[#c6a87a]/40" />
 
                   {/* Description */}
-                  <p className="max-w-[44ch] text-[0.98rem] leading-[1.94] text-[#5d4d40] lg:text-[0.93rem] lg:leading-[1.9]">
+                  <p className="max-w-[44ch] text-[1.06rem] leading-[1.88] text-[#5d4d40] lg:text-[1rem] lg:leading-[1.84]">
                     Our event calendar and gathering schedule will be announced shortly.
                   </p>
                 </div>

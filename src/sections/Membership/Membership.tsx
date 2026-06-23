@@ -145,7 +145,7 @@ function TierPanel({ tier }: { tier: Tier }) {
 
         {/* Tier name — increased weight and opacity for legibility */}
         <p
-          className="font-medium text-[0.62rem] uppercase tracking-[0.32em] lg:text-[0.60rem] lg:tracking-[0.34em]"
+          className="font-medium text-[0.66rem] uppercase tracking-[0.32em] lg:text-[0.64rem] lg:tracking-[0.34em]"
           style={{ color: `rgba(${tier.accentRgb},0.92)` }}
         >
           {tier.eyebrow}
@@ -153,7 +153,7 @@ function TierPanel({ tier }: { tier: Tier }) {
 
         {/* Tagline */}
         <p
-          className="mt-3 max-w-[22ch] text-[1.02rem] leading-[1.62] text-[#2d2926] lg:text-[0.98rem] lg:leading-[1.60]"
+          className="mt-3 max-w-[22ch] text-[1.1rem] leading-[1.58] text-[#2d2926] lg:text-[1.06rem] lg:leading-[1.56]"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           {tier.tagline}
@@ -166,13 +166,13 @@ function TierPanel({ tier }: { tier: Tier }) {
         />
 
         {/* Duration */}
-        <p className="text-[0.60rem] uppercase tracking-[0.26em] text-[#8a6a4a] lg:text-[0.58rem] lg:tracking-[0.28em]">
+        <p className="text-[0.64rem] uppercase tracking-[0.26em] text-[#8a6a4a] lg:text-[0.62rem] lg:tracking-[0.28em]">
           {tier.duration}
         </p>
 
         {/* Price */}
         <p
-          className="mt-1.5 text-[1.85rem] leading-tight text-[#2d2926]"
+          className="mt-1.5 text-[2rem] leading-tight text-[#2d2926]"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           {tier.price}
@@ -186,7 +186,7 @@ function TierPanel({ tier }: { tier: Tier }) {
           {tier.benefits.map((benefit) => (
             <li
               key={benefit}
-              className="flex items-start gap-2.5 text-[0.84rem] leading-[1.62] text-[#4d3a2e] lg:text-[0.79rem] lg:leading-[1.55]"
+              className="flex items-start gap-2.5 text-[0.91rem] leading-[1.58] text-[#4d3a2e] lg:text-[0.85rem] lg:leading-[1.52]"
             >
               <span
                 className="mt-[0.44em] h-px w-3.5 shrink-0"
@@ -202,7 +202,7 @@ function TierPanel({ tier }: { tier: Tier }) {
         <div className="mt-auto w-full flex justify-center pt-3 lg:pt-5">
           <a
             href={`/membership/${tier.id}`}
-            className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.72rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] lg:min-h-0 lg:text-[0.70rem] lg:tracking-[0.22em]"
+            className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.77rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] lg:min-h-0 lg:text-[0.75rem] lg:tracking-[0.22em]"
           >
             {tier.cta}
           </a>
@@ -351,12 +351,12 @@ export default function Membership({
         <div className="mx-auto max-w-2xl text-center">
 
           {/* Heading — single line on desktop */}
-          <h2 className="text-[2.25rem] leading-[1.08] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:whitespace-nowrap lg:text-[3.4rem] lg:leading-[0.95]">
+          <h2 className="text-[2.48rem] leading-[1.05] text-[#2d2926] sm:text-[3.08rem] sm:leading-[0.98] lg:whitespace-nowrap lg:text-[3.74rem] lg:leading-[0.93]">
             Choose Your Membership
           </h2>
 
           {/* Subtext */}
-          <p className="mx-auto mt-6 max-w-[48ch] text-[1rem] leading-[1.92] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
+          <p className="mx-auto mt-6 max-w-[48ch] text-[1.08rem] leading-[1.86] text-[#5d4d40] lg:mt-8 lg:text-[1.12rem] lg:leading-[1.86]">
             Three ways to gather, learn and belong within the Indian Mahjong Association.
           </p>
         </div>
@@ -371,15 +371,15 @@ export default function Membership({
             <div className="h-px w-8 bg-[#c6a87a]/35" />
           </div>
 
-          <p className="text-[0.62rem] font-medium uppercase tracking-[0.30em] text-[#8f2432]">
+          <p className="text-[0.66rem] font-medium uppercase tracking-[0.30em] text-[#8f2432]">
             Founding Member Privilege
           </p>
 
-          <p className="mx-auto mt-3 max-w-[700px] text-[0.96rem] leading-[1.72] text-[#4f443b] sm:text-[1.04rem]">
+          <p className="mx-auto mt-3 max-w-[700px] text-[1.04rem] leading-[1.66] text-[#4f443b] sm:text-[1.12rem]">
             The first 10 Ruby Lifetime Members will receive an exclusive Grandmaster Table Session with Vineeta Sahni.
           </p>
 
-          <div className="mt-5 inline-flex min-h-8 items-center justify-center rounded-full border border-[#8f2432]/32 bg-[#fffaf2]/45 px-4 text-[0.56rem] font-medium uppercase tracking-[0.22em] text-[#7c1f2d]">
+          <div className="mt-5 inline-flex min-h-8 items-center justify-center rounded-full border border-[#8f2432]/32 bg-[#fffaf2]/45 px-4 text-[0.6rem] font-medium uppercase tracking-[0.22em] text-[#7c1f2d]">
             Limited to 10 Members
           </div>
         </div>
@@ -387,7 +387,7 @@ export default function Membership({
 
       {/* ── MOBILE: SNAP CAROUSEL ── */}
       <div className="relative z-10 lg:hidden pb-8 pt-2">
-        <p className="mb-5 text-center text-[0.60rem] uppercase tracking-[0.26em] text-[#8a6a4a]/55">
+        <p className="mb-5 text-center text-[0.64rem] uppercase tracking-[0.26em] text-[#8a6a4a]/55">
           Swipe to explore
         </p>
 
@@ -458,21 +458,21 @@ export default function Membership({
       <div className="relative z-10 mx-auto max-w-7xl px-6 pb-6 pt-4 sm:px-8 sm:pb-8 lg:px-16 lg:pb-10 lg:pt-8">
         <div className="grid gap-8 border-y border-[#c6a87a]/24 px-4 py-9 sm:px-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:px-10 lg:py-12">
           <div className="text-center lg:text-left">
-            <p className="text-[0.62rem] font-medium uppercase tracking-[0.30em] text-[#8f2432]">
+            <p className="text-[0.66rem] font-medium uppercase tracking-[0.30em] text-[#8f2432]">
               Private Instruction
             </p>
 
-            <h3 className="mt-4 text-[2.2rem] leading-[1.04] text-[#2d2926] sm:text-[3rem]">
+            <h3 className="mt-4 text-[2.42rem] leading-[1.02] text-[#2d2926] sm:text-[3.3rem]">
               Advanced Coaching Programme
             </h3>
 
-            <p className="mt-6 max-w-[58ch] text-[1rem] leading-[1.84] text-[#5d4d40] lg:text-[1.05rem]">
+            <p className="mt-6 max-w-[58ch] text-[1.08rem] leading-[1.78] text-[#5d4d40] lg:text-[1.13rem]">
               For members seeking structured instruction, our senior coaches offer a guided learning programme designed to build confidence, strategy and table experience.
             </p>
 
             <a
               href="/coaching/advanced"
-              className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.70rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)]"
+              className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.75rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)]"
             >
               Register Interest
             </a>
@@ -485,10 +485,10 @@ export default function Membership({
               ["₹15,000", "programme fee"],
             ].map(([value, label]) => (
               <div key={value} className="border-b border-[#c6a87a]/18 py-5 last:border-b-0 lg:py-6">
-                <p className="text-[1.55rem] leading-tight text-[#2d2926]" style={{ fontFamily: "var(--font-heading)" }}>
+                <p className="text-[1.68rem] leading-tight text-[#2d2926]" style={{ fontFamily: "var(--font-heading)" }}>
                   {value}
                 </p>
-                <p className="mt-1 text-[0.58rem] uppercase tracking-[0.22em] text-[#8a6a4a]">
+                <p className="mt-1 text-[0.62rem] uppercase tracking-[0.22em] text-[#8a6a4a]">
                   {label}
                 </p>
               </div>

@@ -84,12 +84,12 @@ export default function Navbar() {
                   <div className="relative h-[4.5rem] w-[4.5rem] overflow-hidden rounded-2xl border border-[#c6a87a]/65 shadow-[0_3px_10px_rgba(110,79,47,0.12)]">
                     <Image src="/assets/logos/logo.jpeg" alt="Indian Mahjong Association" fill sizes="72px" className="object-cover" priority />
                   </div>
-                  <span className="text-[0.75rem] uppercase tracking-[0.26em] text-[#7c1f2d]">
+                  <span className="text-[0.8rem] uppercase tracking-[0.26em] text-[#7c1f2d]">
                     Indian Mahjong Association
                   </span>
                 </div>
               </a>
-              <nav className="flex flex-1 items-center justify-end gap-x-9 text-[0.74rem] font-medium uppercase tracking-[0.22em] text-[#55463d]">
+              <nav className="flex flex-1 items-center justify-end gap-x-9 text-[0.79rem] font-medium uppercase tracking-[0.22em] text-[#55463d]">
                 {navLinks.map((item) => (
                   <a key={item.href} href={item.href} className="group relative px-1 py-1 transition duration-300 hover:text-[#7c1f2d]">
                     <span className="absolute inset-x-1 bottom-0 h-px origin-center scale-x-0 bg-[linear-gradient(90deg,rgba(124,31,45,0),rgba(124,31,45,0.75),rgba(124,31,45,0))] transition duration-300 group-hover:scale-x-100" />
@@ -117,7 +117,7 @@ export default function Navbar() {
             </div>
           </a>
 
-          <span className="px-2 text-center text-[0.58rem] font-semibold uppercase leading-[1.25] tracking-[0.14em] text-[#7c1f2d]">
+          <span className="px-2 text-center text-[0.62rem] font-semibold uppercase leading-[1.25] tracking-[0.14em] text-[#7c1f2d]">
             Indian Mahjong Association
           </span>
 
@@ -151,7 +151,7 @@ export default function Navbar() {
             </div>
             <nav className="flex flex-col px-4 pt-2" aria-label="Mobile navigation">
               {mobileNavLinks.map((item) => (
-                <a key={item.href} href={item.href} onClick={(event) => handleMobileNavClick(event, item.href)} className="flex min-h-14 items-center gap-3 border-b border-[#e8d8b8]/40 py-4 text-[0.86rem] uppercase tracking-[0.28em] text-[#4d3a2e] transition-colors duration-200 hover:text-[#7c1f2d]">
+                <a key={item.href} href={item.href} onClick={(event) => handleMobileNavClick(event, item.href)} className="flex min-h-14 items-center gap-3 border-b border-[#e8d8b8]/40 py-4 text-[0.92rem] uppercase tracking-[0.28em] text-[#4d3a2e] transition-colors duration-200 hover:text-[#7c1f2d]">
                   <span className="h-px w-4 shrink-0 bg-[#c6a87a]/60" />
                   {item.label}
                 </a>

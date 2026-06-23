@@ -33,17 +33,17 @@ export default function Footer() {
                 height={34}
                 className="rounded-lg opacity-[0.88]"
               />
-              <span className="text-[0.75rem] uppercase tracking-[0.26em] text-[#b8975a]">
+              <span className="text-[0.8rem] uppercase tracking-[0.26em] text-[#b8975a]">
                 Indian Mahjong Association
               </span>
             </div>
-            <p className="max-w-[32ch] text-[0.91rem] leading-[1.85] text-[#b8975a]">
+            <p className="max-w-[32ch] text-[0.98rem] leading-[1.78] text-[#b8975a]">
               Preserving the authentic Chinese game of Mahjong in India through
               culture, companionship, and strategy.
             </p>
             <a
               href="https://www.instagram.com/indianmahjongassociation_/?hl=en"
-              className="flex w-fit items-center gap-2 text-[0.82rem] text-[#9e968c] transition duration-200 hover:text-[#c6a87a]"
+              className="flex w-fit items-center gap-2 text-[0.89rem] text-[#9e968c] transition duration-200 hover:text-[#c6a87a]"
             >
               <svg
                 width="13"
@@ -71,26 +71,26 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-[0.6rem] uppercase tracking-[0.44em] text-[#b8975a]">
+            <p className="text-[0.64rem] uppercase tracking-[0.44em] text-[#b8975a]">
               Explore
             </p>
             <nav className="mt-5 flex flex-wrap items-center gap-y-1 sm:flex-col sm:items-start sm:gap-2.5" aria-label="Explore">
-              <a href="/#membership" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
+              <a href="/#membership" className="text-[1rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Membership
               </a>
               <span className="mx-2 text-[1.02rem] text-[#8a8278]/46 sm:hidden" aria-hidden="true">·</span>
-              <a href="/#events" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
+              <a href="/#events" className="text-[1rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Events
               </a>
             </nav>
           </div>
 
           <div>
-            <p className="text-[0.6rem] uppercase tracking-[0.44em] text-[#b8975a]">
+            <p className="text-[0.64rem] uppercase tracking-[0.44em] text-[#b8975a]">
               Learn
             </p>
             <nav className="mt-5 flex flex-wrap items-center gap-y-1 sm:flex-col sm:items-start sm:gap-2.5" aria-label="Learn">
-              <a href="/#trainers" className="text-[0.93rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
+              <a href="/#trainers" className="text-[1rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
                 Trainers
               </a>
             </nav>
@@ -100,19 +100,19 @@ export default function Footer() {
         <div className="mt-12 lg:mt-14">
           <div className="mb-5 h-px bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.18)_28%,rgba(198,168,122,0.18)_72%,rgba(198,168,122,0))]" />
           <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[0.63rem] tracking-[0.28em] text-[#b8975a]">
+            <p className="text-[0.67rem] tracking-[0.28em] text-[#b8975a]">
               Payments secured by Razorpay
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <a
                 href="/privacy"
-                className="text-[0.77rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
+                className="text-[0.83rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
               >
                 Privacy Policy
               </a>
               <a
                 href="/refund-policy"
-                className="text-[0.77rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
+                className="text-[0.83rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
               >
                 Refund Policy
               </a>
@@ -120,7 +120,7 @@ export default function Footer() {
                 href="https://www.instagram.com/casselle.co/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[0.77rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
+                className="text-[0.83rem] text-[#7e7a74] transition duration-200 hover:text-[#b0a8a0]"
               >
                 Site by Caselle &amp; Co.
               </a>
@@ -130,7 +130,7 @@ export default function Footer() {
 
         <div className="mt-6">
           <div className="mx-auto mb-5 h-px w-24 bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.22)_50%,rgba(198,168,122,0))]" />
-          <p className="text-center text-[0.77rem] text-[#7e7a74]">
+          <p className="text-center text-[0.83rem] text-[#7e7a74]">
             © 2026 Indian Mahjong Association
           </p>
         </div>

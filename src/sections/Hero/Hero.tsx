@@ -11,7 +11,7 @@ function HeroButtons() {
         <a
           key={link.href}
           href={link.href}
-          className="inline-flex min-h-12 min-w-[11rem] items-center justify-center rounded-full border px-7 py-3 text-[0.72rem] font-medium uppercase tracking-[0.20em] transition-all duration-300 hover:-translate-y-px hover:border-[rgba(110,79,47,0.70)] hover:bg-[rgba(110,79,47,0.30)] hover:text-[#211b16] lg:min-h-0 lg:min-w-[10.5rem] lg:px-6 lg:text-[0.70rem] lg:tracking-[0.22em]"
+          className="inline-flex min-h-12 min-w-[11rem] items-center justify-center rounded-full border px-7 py-3 text-[0.81rem] font-medium uppercase tracking-[0.20em] transition-all duration-300 hover:-translate-y-px hover:border-[rgba(110,79,47,0.70)] hover:bg-[rgba(110,79,47,0.30)] hover:text-[#211b16] lg:min-h-0 lg:min-w-[10.5rem] lg:px-6 lg:text-[0.79rem] lg:tracking-[0.22em]"
           style={{
             borderColor: "rgba(123,88,54,0.58)",
             background:
@@ -39,12 +39,15 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-7 pb-18 pt-14 text-center sm:px-8 lg:px-16 lg:pb-24 lg:pt-20">
-        <div className="mx-auto max-w-4xl">
-          <p className="mb-5 text-[0.66rem] font-medium uppercase tracking-[0.32em] text-[#6f1724] lg:mb-6 lg:text-[0.68rem] lg:tracking-[0.42em]">
+        <div
+          className="mx-auto max-w-4xl"
+          style={{ textShadow: "0 2px 8px rgba(0,0,0,0.18)" }}
+        >
+          <p className="mb-5 text-[0.71rem] font-medium uppercase tracking-[0.32em] text-[#6f1724] lg:mb-6 lg:text-[0.73rem] lg:tracking-[0.42em]">
             Preserving Tradition
           </p>
 
-          <h1 className="text-[2.75rem] leading-[1.04] text-[#2d2926] sm:text-[3.8rem] sm:leading-[0.99] lg:text-[5.4rem] lg:leading-[0.96]">
+          <h1 className="text-[3.05rem] leading-[1.02] text-[#2d2926] sm:text-[4.2rem] sm:leading-[0.98] lg:text-[5.95rem] lg:leading-[0.94]">
             INDIAN MAHJONG
             <br />
             ASSOCIATION
@@ -56,7 +59,7 @@ export default function Hero() {
             <div className="h-px w-8 bg-[#c6a87a]/40" />
           </div>
 
-          <p className="mx-auto mt-6 max-w-[44ch] text-[1rem] font-medium leading-[1.94] text-[#3f342b] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
+          <p className="mx-auto mt-6 max-w-[44ch] text-[1.08rem] font-medium leading-[1.9] text-[#3f342b] lg:mt-8 lg:text-[1.12rem] lg:leading-[1.88]">
             A modern home for Mahjong in India, cultivating community, learning
             and meaningful play.
           </p>

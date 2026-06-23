@@ -258,10 +258,10 @@ export default function RazorpayCheckout({
   if (status === "success") {
     return (
       <div className="w-full rounded-[0.75rem] border border-[#c6a87a]/36 bg-[#fbf7ef]/76 px-5 py-4 text-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.42)]">
-        <p className="text-[0.66rem] uppercase tracking-[0.24em] text-[#7c1f2d]">
+        <p className="text-[0.71rem] uppercase tracking-[0.24em] text-[#7c1f2d]">
           Payment Successful
         </p>
-        <p className="mt-2 text-[0.88rem] leading-[1.72] text-[#4d3a2e]">
+        <p className="mt-2 text-[0.95rem] leading-[1.66] text-[#4d3a2e]">
           {message ?? "Your membership payment has been verified."}
         </p>
       </div>
@@ -274,7 +274,7 @@ export default function RazorpayCheckout({
         type="button"
         onClick={startCheckout}
         disabled={status === "loading" || status === "verifying"}
-        className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.72rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] disabled:cursor-wait disabled:opacity-70 lg:min-h-0 lg:text-[0.70rem] lg:tracking-[0.22em]"
+        className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.77rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] disabled:cursor-wait disabled:opacity-70 lg:min-h-0 lg:text-[0.75rem] lg:tracking-[0.22em]"
       >
         {status === "loading"
           ? "Opening Checkout"
@@ -284,7 +284,7 @@ export default function RazorpayCheckout({
       </button>
 
       {message && (
-        <p className="mt-3 max-w-[26ch] text-center text-[0.78rem] leading-[1.62] text-[#7c1f2d]">
+        <p className="mt-3 max-w-[26ch] text-center text-[0.84rem] leading-[1.56] text-[#7c1f2d]">
           {message}
         </p>
       )}

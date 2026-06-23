@@ -168,12 +168,12 @@ export default function Trainers() {
         <div className="max-w-3xl text-left">
 
           {/* Heading */}
-          <h2 className="text-[2.25rem] leading-[1.08] text-[#2d2926] sm:text-[2.8rem] sm:leading-[1.0] lg:text-[3.8rem] lg:leading-[0.95]">
+          <h2 className="text-[2.48rem] leading-[1.05] text-[#2d2926] sm:text-[3.08rem] sm:leading-[0.98] lg:text-[4.18rem] lg:leading-[0.93]">
             Meet Our Trainers
           </h2>
 
           {/* Subtext */}
-          <p className="mt-6 max-w-[48ch] text-[1rem] leading-[1.92] text-[#5d4d40] lg:mt-8 lg:text-[1.04rem] lg:leading-[1.92]">
+          <p className="mt-6 max-w-[48ch] text-[1.08rem] leading-[1.86] text-[#5d4d40] lg:mt-8 lg:text-[1.12rem] lg:leading-[1.86]">
             Learn from experienced Mahjong practitioners, teachers, and community builders
             rooted in authentic Chinese Mahjong culture.
           </p>
@@ -201,12 +201,12 @@ export default function Trainers() {
           <div className="flex flex-col items-start text-left">
 
             {/* Name */}
-            <h3 className="text-[1.9rem] leading-tight text-[#2d2926] lg:text-[2.4rem]">
+            <h3 className="text-[2.08rem] leading-tight text-[#2d2926] lg:text-[2.64rem]">
               {featured.name}
             </h3>
 
             {/* Role · Location */}
-            <p className="mt-2 text-[0.70rem] uppercase leading-relaxed tracking-[0.24em] text-[#8a6a4a] lg:text-[0.68rem] lg:tracking-[0.28em]">
+            <p className="mt-2 text-[0.75rem] uppercase leading-relaxed tracking-[0.24em] text-[#8a6a4a] lg:text-[0.73rem] lg:tracking-[0.28em]">
               {featured.role}&ensp;·&ensp;{featured.location}
             </p>
 
@@ -214,7 +214,7 @@ export default function Trainers() {
             <div className="my-5 h-px w-10 bg-[#c6a87a]/40" />
 
             {/* Story */}
-            <p className="max-w-[44ch] text-[1rem] leading-[1.94] text-[#5d4d40] lg:text-[0.97rem] lg:leading-[1.92]">
+            <p className="max-w-[44ch] text-[1.08rem] leading-[1.88] text-[#5d4d40] lg:text-[1.05rem] lg:leading-[1.86]">
               {featured.story}
             </p>
 
@@ -244,12 +244,12 @@ export default function Trainers() {
               />
 
               {/* Name */}
-              <h3 className="mt-5 text-[1.25rem] leading-snug text-[#2d2926]">
+              <h3 className="mt-5 text-[1.36rem] leading-snug text-[#2d2926]">
                 {trainer.name}
               </h3>
 
               {/* Role · Location */}
-              <p className="mt-1.5 text-[0.64rem] uppercase leading-relaxed tracking-[0.21em] text-[#8a6a4a] lg:text-[0.62rem] lg:tracking-[0.24em]">
+              <p className="mt-1.5 text-[0.69rem] uppercase leading-relaxed tracking-[0.21em] text-[#8a6a4a] lg:text-[0.67rem] lg:tracking-[0.24em]">
                 {trainer.role}&ensp;·&ensp;{trainer.location}
               </p>
 
@@ -257,12 +257,12 @@ export default function Trainers() {
               <div className="my-4 h-px w-8 bg-[#c6a87a]/36" />
 
               {/* Description */}
-              <p className="max-w-[38ch] text-left text-[0.96rem] leading-[1.9] text-[#5d4d40] sm:text-justify lg:text-[0.91rem] lg:leading-[1.86]">
+              <p className="max-w-[38ch] text-left text-[1.04rem] leading-[1.84] text-[#5d4d40] sm:text-justify lg:text-[0.98rem] lg:leading-[1.8]">
                 {trainer.description}
               </p>
 
               {/* Specialty */}
-              <p className="mt-4 text-[0.62rem] uppercase tracking-[0.24em] text-[#8a6a4a]/80 lg:text-[0.6rem] lg:tracking-[0.28em]">
+              <p className="mt-4 text-[0.66rem] uppercase tracking-[0.24em] text-[#8a6a4a]/80 lg:text-[0.64rem] lg:tracking-[0.28em]">
                 {trainer.specialty}
               </p>
             </div>

@@ -162,7 +162,7 @@ export async function generateMembershipCertificatePdf({
     text: "This certifies that",
     y: 367,
     font: timesRoman,
-    size: 18,
+    size: 18.9,
     color: warmBrown,
   });
 
@@ -181,7 +181,7 @@ export async function generateMembershipCertificatePdf({
     text: "is a verified member of the",
     y: 256,
     font: timesRoman,
-    size: 17,
+    size: 17.85,
     color: warmBrown,
   });
 
@@ -208,7 +208,7 @@ export async function generateMembershipCertificatePdf({
     text: `Membership ID: ${membershipId}`,
     y: 117,
     font: helvetica,
-    size: 12,
+    size: 14.91,
     color: warmBrown,
   });
 
@@ -217,7 +217,7 @@ export async function generateMembershipCertificatePdf({
     text: `Issued: ${issueDate}`,
     y: 92,
     font: helvetica,
-    size: 12,
+    size: 14.91,
     color: warmBrown,
   });
 
@@ -226,7 +226,7 @@ export async function generateMembershipCertificatePdf({
     text: "Preserving Tradition. Building Community.",
     y: 50,
     font: timesRoman,
-    size: 14,
+    size: 17.22,
     color: burgundy,
   });
 
