@@ -61,6 +61,7 @@ const supporting = [
     name: "Annu Mastan",
     role: "Mahjong Trainer",
     location: "Ahmedabad",
+    image: "/assets/trainers/Annu.jpg",
     description:
       "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
     specialty: "Guided Learning",
