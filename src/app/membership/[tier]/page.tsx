@@ -5,6 +5,7 @@ import Footer from "@/sections/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import MembershipRegistrationForm from "@/components/membership/MembershipRegistrationForm";
 import {
+  getVisibleMembershipTierIds,
   isMembershipTierId,
   membershipTiers,
 } from "@/lib/membership/tiers";
@@ -14,7 +15,7 @@ type MembershipPageProps = {
 };
 
 export function generateStaticParams() {
-  return Object.keys(membershipTiers).map((tier) => ({ tier }));
+  return getVisibleMembershipTierIds().map((tier) => ({ tier }));
 }
 
 export async function generateMetadata({

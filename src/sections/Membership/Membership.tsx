@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const tiers = [
+const baseTiers = [
   {
     id: "pearl",
     eyebrow: "Pearl Membership",
@@ -82,7 +82,32 @@ const tiers = [
   },
 ] as const;
 
-type Tier = typeof tiers[number];
+const stagingTestTier = {
+  id: "test",
+  eyebrow: "Test Membership",
+  tagline: "Temporary staging payment verification.",
+  duration: "Payment Flow Test",
+  price: "₹10",
+  benefits: [
+    "Staging-only payment test",
+    "IMA Membership Certificate",
+    "Confirmation email test",
+    "Razorpay verification test",
+  ],
+  cta: "Test Payment",
+  accentRgb: "124,31,45",
+  panelBorder: "rgba(124,31,45,0.26)",
+  tileImage: "/assets/membership/ruby-tile.webp",
+  dragon: { symbol: "中", label: "Red Dragon" },
+  tileTheme: {
+    bg: "rgba(253,248,246,0.97)",
+    border: "rgba(124,31,45,0.38)",
+    text: "rgba(124,31,45,0.82)",
+    shadow: "rgba(124,31,45,0.08)",
+  },
+} as const;
+
+type Tier = typeof baseTiers[number] | typeof stagingTestTier;
 
 function TierPanel({ tier }: { tier: Tier }) {
   return (
@@ -187,7 +212,14 @@ function TierPanel({ tier }: { tier: Tier }) {
   );
 }
 
-export default function Membership() {
+export default function Membership({
+  showStagingTestTier = false,
+}: {
+  showStagingTestTier?: boolean;
+}) {
+  const tiers = showStagingTestTier
+    ? [...baseTiers, stagingTestTier]
+    : baseTiers;
   const carouselRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const snapPositions = useRef<number[]>([]);  const activeIndexRef = useRef(0);  const isProgrammatic = useRef(false);
@@ -408,7 +440,13 @@ export default function Membership() {
       <div className="relative z-10 hidden lg:block">
         <div className="mx-auto max-w-7xl px-6 pb-12 sm:px-8 lg:px-16">
           {/* CSS Grid stretches all items to the same row height by default */}
-          <div className="grid grid-cols-3 gap-8 xl:gap-10 items-stretch">
+          <div
+            className={
+              showStagingTestTier
+                ? "grid grid-cols-4 gap-6 xl:gap-8 items-stretch"
+                : "grid grid-cols-3 gap-8 xl:gap-10 items-stretch"
+            }
+          >
             {tiers.map((tier) => (
               <TierPanel key={tier.id} tier={tier} />
             ))}
