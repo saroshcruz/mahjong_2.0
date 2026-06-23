@@ -6,7 +6,6 @@ import Navbar from "@/sections/Navbar/Navbar";
 import OurStory from "@/sections/OurStory/OurStory";
 import Trainers from "@/sections/Trainers/Trainers";
 import ScrollToTop from "@/components/ScrollToTop";
-import { isStagingPaymentTestEnabled } from "@/lib/membership/tiers";
 
 export default function Home() {
   return (
@@ -14,7 +13,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <OurStory />
-      <Membership showStagingTestTier={isStagingPaymentTestEnabled()} />
+      <Membership />
       <Trainers />
       <Events />
       <Footer />

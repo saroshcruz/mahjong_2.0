@@ -1,4 +1,4 @@
-const baseMembershipTiers = {
+export const membershipTiers = {
   pearl: {
     name: "Pearl Membership",
     displayName: "PEARL MEMBERSHIP",
@@ -28,54 +28,15 @@ const baseMembershipTiers = {
   },
 } as const;
 
-const stagingTestMembershipTier = {
-  name: "Test Membership",
-  displayName: "TEST MEMBERSHIP",
-  amount: 1000,
-  price: "₹10",
-  duration: "Payment Flow Test",
-  summary: "Temporary staging-only payment verification tier.",
-  accentRgb: "124,31,45",
-} as const;
-
-export const membershipTiers = {
-  ...baseMembershipTiers,
-  test: stagingTestMembershipTier,
-} as const;
-
 export type MembershipTierId = keyof typeof membershipTiers;
 
-export function isStagingPaymentTestEnabled() {
-  const branch =
-    process.env.VERCEL_GIT_COMMIT_REF ??
-    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF;
-  const deploymentUrl =
-    process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL ?? "";
-
-  return (
-    process.env.NEXT_PUBLIC_ENABLE_TEST_MEMBERSHIP === "true" ||
-    branch === "staging" ||
-    deploymentUrl.includes("-git-staging-")
-  );
-}
-
 export function getVisibleMembershipTierIds() {
-  const tierIds = Object.keys(baseMembershipTiers) as MembershipTierId[];
-
-  if (isStagingPaymentTestEnabled()) {
-    return [...tierIds, "test" as MembershipTierId];
-  }
-
-  return tierIds;
+  return Object.keys(membershipTiers) as MembershipTierId[];
 }
 
 export function isMembershipTierId(value: unknown): value is MembershipTierId {
-  if (value === "test") {
-    return isStagingPaymentTestEnabled();
-  }
-
   return (
     typeof value === "string" &&
-    Object.prototype.hasOwnProperty.call(baseMembershipTiers, value)
+    Object.prototype.hasOwnProperty.call(membershipTiers, value)
   );
 }
