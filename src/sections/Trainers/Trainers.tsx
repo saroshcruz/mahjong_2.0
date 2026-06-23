@@ -17,7 +17,7 @@ const supporting = [
     image: "/assets/trainers/kavita.webp",
     imagePosition: "center 28%",
     description:
-      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+      "For over 14 years, Mahjong has been more than a game-it has been a passion. Today, I focus on teaching its rich strategy while helping grow a vibrant and connected Mahjong community.",
     specialty: "Player Development",
   },
   {
@@ -26,7 +26,7 @@ const supporting = [
     location: "Bengaluru",
     image: "/assets/trainers/alka.webp",
     description:
-      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+      "For over 12 years, Mahjong has brought me friendships, community, and joy. I teach with patience and passion, helping students enjoy every stage of their learning journey in the comfort of their homes.",
     specialty: "Beginner Mahjong",
   },
   {
@@ -35,7 +35,7 @@ const supporting = [
     location: "Chennai",
     image: "/assets/trainers/Sonia.webp",
     description:
-      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+      "With over 12 years of Mahjong experience, I am a patient and dedicated trainer. I enjoy guiding beginners and experienced players alike, helping each student build confidence and skill at the table.",
     specialty: "Community Play",
   },
   {
@@ -45,7 +45,7 @@ const supporting = [
     image: "/assets/trainers/Anu-Nagpal.webp",
     imagePosition: "center 42%",
     description:
-      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+      "With over 20 years of Mahjong experience, I simplify the strategy, traditions, and mathematics of the game for every learner. My goal is to help beginners become confident players while preserving the rich heritage of Mahjong.",
     specialty: "Strategy Practice",
   },
   {
@@ -54,7 +54,7 @@ const supporting = [
     location: "Kochi",
     image: "/assets/trainers/Anu.webp",
     description:
-      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+      "Playing Mahjong since 1999 and teaching since 2016, I help learners of all ages build confidence through clear strategy and supportive guidance. I believe Mahjong creates both skilled players and lasting friendships.",
     specialty: "Heritage & Tradition",
   },
   {
@@ -63,7 +63,7 @@ const supporting = [
     location: "Ahmedabad",
     image: "/assets/trainers/Annu.jpg",
     description:
-      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+      "With 16 years of experience, I am dedicated to making Mahjong approachable and engaging for every learner. I enjoy guiding students from their first tile to confident mastery of the game.",
     specialty: "Guided Learning",
   },
   {
@@ -72,7 +72,7 @@ const supporting = [
     location: "New Delhi",
     image: "/assets/trainers/rumpy.webp",
     description:
-      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+      "My fascination with Mahjong began in 1994, and after learning the game in 2015, I fell in love with its strategy and tactile charm. Today, I share that knowledge and passion with others, helping grow the Mahjong community.",
     specialty: "Community Sessions",
   },
   {
@@ -81,7 +81,7 @@ const supporting = [
     location: "Jaipur",
     image: "/assets/trainers/ritu.webp",
     description:
-      "A dedicated Mahjong educator who supports learners with clear instruction, patient guidance, and thoughtful table practice.",
+      "Mahjong came to me through the women before me-my mother and mother-in-law. What began as curiosity became a deep love for the game, and today I enjoy helping others discover its strategy, structure, and community.",
     specialty: "Table Practice",
   },
 ];
@@ -257,7 +257,7 @@ export default function Trainers() {
               <div className="my-4 h-px w-8 bg-[#c6a87a]/36" />
 
               {/* Description */}
-              <p className="max-w-[38ch] text-left text-[1.04rem] leading-[1.84] text-[#5d4d40] sm:text-justify lg:text-[0.98rem] lg:leading-[1.8]">
+              <p className="max-w-[38ch] text-left text-[1.04rem] leading-[1.84] text-[#5d4d40] lg:text-[0.98rem] lg:leading-[1.8]">
                 {trainer.description}
               </p>
 

@@ -1,5 +1,6 @@
 import Footer from "@/sections/Footer/Footer";
 import Events from "@/sections/Events/Events";
+import FAQ from "@/sections/FAQ/FAQ";
 import Hero from "@/sections/Hero/Hero";
 import Membership from "@/sections/Membership/Membership";
 import Navbar from "@/sections/Navbar/Navbar";
@@ -16,6 +17,7 @@ export default function Home() {
       <Membership />
       <Trainers />
       <Events />
+      <FAQ />
       <Footer />
       <ScrollToTop />
     </main>
