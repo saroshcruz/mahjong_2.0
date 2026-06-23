@@ -5,6 +5,12 @@ Format: Date → Change → Why → Files touched.
 
 ---
 
+## 2026-06-23
+
+### Staging — forced fresh deployment
+**Why:** No-op deployment trigger for staging cache refresh after live payment verification.
+**Files:** `CHANGELOG.md`
+
 ## 2026-05-19
 
 ### Navbar — refactored mobile menu to label/checkbox drawer
