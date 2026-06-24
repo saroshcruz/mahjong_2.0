@@ -9,7 +9,7 @@ const baseTiers = [
     eyebrow: "Pearl Membership",
     tagline: "Every player begins with a table.",
     duration: "1 Year Membership",
-    price: "₹1,500",
+    price: "₹1,650",
     benefits: [
       "Access to 2 events",
       "IMA Membership Certificate",
@@ -33,7 +33,7 @@ const baseTiers = [
     eyebrow: "Jade Membership",
     tagline: "For those who return to the table.",
     duration: "5 Year Membership",
-    price: "₹4,000",
+    price: "₹4,500",
     benefits: [
       "Access to 2 events per year",
       "IMA Membership Certificate",
@@ -59,7 +59,7 @@ const baseTiers = [
     eyebrow: "Ruby Membership",
     tagline: "For those helping shape the culture.",
     duration: "Lifetime Membership",
-    price: "₹10,000",
+    price: "₹11,000",
     benefits: [
       "Access to 2 events per year",
       "IMA Membership Certificate",
@@ -83,6 +83,14 @@ const baseTiers = [
 ] as const;
 
 type Tier = typeof baseTiers[number];
+
+function PricingDisclaimer() {
+  return (
+    <p className="mx-auto mt-6 max-w-[34rem] px-6 text-center text-[0.8rem] leading-[1.7] text-[#8a6a4a] sm:text-[0.86rem]">
+      All membership prices are inclusive of GST.
+    </p>
+  );
+}
 
 function TierPanel({ tier }: { tier: Tier }) {
   return (
@@ -403,6 +411,8 @@ export default function Membership() {
             </div>
           ))}
         </div>
+
+        <PricingDisclaimer />
       </div>
 
       {/* ── DESKTOP: THREE PANEL GRID ── */}
@@ -414,6 +424,7 @@ export default function Membership() {
               <TierPanel key={tier.id} tier={tier} />
             ))}
           </div>
+          <PricingDisclaimer />
         </div>
       </div>
 

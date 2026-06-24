@@ -3,7 +3,6 @@ import Image from "next/image";
 const featured = {
   name: "Vineeta Sahni",
   role: "Head Trainer",
-  location: "New Delhi",
   story:
     "Vineeta Sahni has been practicing authentic Chinese Mahjong for over two decades, training under IMA's founding circle. She brings together strategic depth and cultural warmth in every session, guiding students from their very first tile through to their first tournament.",
   specialisations: ["Beginner Mahjong", "Strategy & Scoring", "Tournament Preparation"],
@@ -13,7 +12,6 @@ const supporting = [
   {
     name: "Kavita Ranade",
     role: "Mahjong Trainer",
-    location: "Mumbai",
     image: "/assets/trainers/kavita.webp",
     imagePosition: "center 28%",
     description:
@@ -23,7 +21,6 @@ const supporting = [
   {
     name: "Alka Talwar",
     role: "Mahjong Trainer",
-    location: "Bengaluru",
     image: "/assets/trainers/alka.webp",
     description:
       "For over 12 years, Mahjong has brought me friendships, community, and joy. I teach with patience and passion, helping students enjoy every stage of their learning journey in the comfort of their homes.",
@@ -32,7 +29,6 @@ const supporting = [
   {
     name: "Sonia Jaidka",
     role: "Mahjong Trainer",
-    location: "Chennai",
     image: "/assets/trainers/Sonia.webp",
     description:
       "With over 12 years of Mahjong experience, I am a patient and dedicated trainer. I enjoy guiding beginners and experienced players alike, helping each student build confidence and skill at the table.",
@@ -41,7 +37,6 @@ const supporting = [
   {
     name: "Anu Nagpal",
     role: "Mahjong Trainer",
-    location: "Kolkata",
     image: "/assets/trainers/Anu-Nagpal.webp",
     imagePosition: "center 42%",
     description:
@@ -51,7 +46,6 @@ const supporting = [
   {
     name: "Anu Srivastav",
     role: "Mahjong Trainer",
-    location: "Kochi",
     image: "/assets/trainers/Anu.webp",
     description:
       "Playing Mahjong since 1999 and teaching since 2016, I help learners of all ages build confidence through clear strategy and supportive guidance. I believe Mahjong creates both skilled players and lasting friendships.",
@@ -60,7 +54,6 @@ const supporting = [
   {
     name: "Annu Mastan",
     role: "Mahjong Trainer",
-    location: "Ahmedabad",
     image: "/assets/trainers/Annu.jpg",
     description:
       "With 16 years of experience, I am dedicated to making Mahjong approachable and engaging for every learner. I enjoy guiding students from their first tile to confident mastery of the game.",
@@ -69,7 +62,6 @@ const supporting = [
   {
     name: "Rumpy Sidana",
     role: "Mahjong Trainer",
-    location: "New Delhi",
     image: "/assets/trainers/rumpy.webp",
     description:
       "My fascination with Mahjong began in 1994, and after learning the game in 2015, I fell in love with its strategy and tactile charm. Today, I share that knowledge and passion with others, helping grow the Mahjong community.",
@@ -78,7 +70,6 @@ const supporting = [
   {
     name: "Ritu Kapur",
     role: "Mahjong Trainer",
-    location: "Jaipur",
     image: "/assets/trainers/ritu.webp",
     description:
       "Mahjong came to me through the women before me-my mother and mother-in-law. What began as curiosity became a deep love for the game, and today I enjoy helping others discover its strategy, structure, and community.",
@@ -205,9 +196,9 @@ export default function Trainers() {
               {featured.name}
             </h3>
 
-            {/* Role · Location */}
+            {/* Role */}
             <p className="mt-2 text-[0.75rem] uppercase leading-relaxed tracking-[0.24em] text-[#8a6a4a] lg:text-[0.73rem] lg:tracking-[0.28em]">
-              {featured.role}&ensp;·&ensp;{featured.location}
+              {featured.role}
             </p>
 
             {/* Ornamental rule */}
@@ -248,9 +239,9 @@ export default function Trainers() {
                 {trainer.name}
               </h3>
 
-              {/* Role · Location */}
+              {/* Role */}
               <p className="mt-1.5 text-[0.69rem] uppercase leading-relaxed tracking-[0.21em] text-[#8a6a4a] lg:text-[0.67rem] lg:tracking-[0.24em]">
-                {trainer.role}&ensp;·&ensp;{trainer.location}
+                {trainer.role}
               </p>
 
               {/* Ornamental rule */}

@@ -14,6 +14,7 @@ type Database = {
           phone: string;
           city: string;
           membership_tier: string;
+          message: string | null;
           payment_status: string;
           razorpay_order_id: string;
           razorpay_payment_id: string;
@@ -26,6 +27,7 @@ type Database = {
           phone: string;
           city: string;
           membership_tier: string;
+          message?: string | null;
           payment_status: string;
           razorpay_order_id: string;
           razorpay_payment_id: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type Ref } from "react";
 import type { CoachingProgrammeId } from "@/lib/coaching/programmes";
 import type { MembershipTierId } from "@/lib/membership/tiers";
 
@@ -75,6 +75,7 @@ type RazorpayCheckoutProps = {
   tierId?: MembershipTierId;
   programmeId?: CoachingProgrammeId;
   cta: string;
+  checkoutButtonRef?: Ref<HTMLButtonElement>;
   customer?: {
     fullName?: string;
     email?: string;
@@ -115,6 +116,7 @@ export default function RazorpayCheckout({
   tierId,
   programmeId,
   cta,
+  checkoutButtonRef,
   customer,
   onSuccess,
 }: RazorpayCheckoutProps) {
@@ -271,10 +273,11 @@ export default function RazorpayCheckout({
   return (
     <div className="flex w-full flex-col items-center">
       <button
+        ref={checkoutButtonRef}
         type="button"
         onClick={startCheckout}
         disabled={status === "loading" || status === "verifying"}
-        className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.77rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] disabled:cursor-wait disabled:opacity-70 lg:min-h-0 lg:text-[0.75rem] lg:tracking-[0.22em]"
+        className="flex min-h-12 w-auto items-center justify-center rounded-full border border-[#7c1f2d] bg-[linear-gradient(180deg,#8b2736,#6d1b28)] px-8 py-3 text-[0.77rem] uppercase tracking-[0.20em] text-[#f5efe4] shadow-[0_6px_18px_rgba(124,31,45,0.18)] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(124,31,45,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7c1f2d]/52 focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbf7ef] disabled:cursor-wait disabled:opacity-70 lg:min-h-0 lg:text-[0.75rem] lg:tracking-[0.22em]"
       >
         {status === "loading"
           ? "Opening Checkout"

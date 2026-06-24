@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   coachingProgrammes,
   type CoachingProgrammeId,
@@ -43,6 +43,38 @@ export default function MembershipRegistrationForm({
     itemName?: string;
   } | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
+  const paymentStepRef = useRef<HTMLDivElement>(null);
+  const payButtonRef = useRef<HTMLButtonElement>(null);
+  const [highlightPaymentStep, setHighlightPaymentStep] = useState(false);
+
+  useEffect(() => {
+    if (!registrationDetails || paymentReference || isCoachingProgramme) return;
+
+    let focusTimer: number | undefined;
+    let highlightTimer: number | undefined;
+    const animationFrame = window.requestAnimationFrame(() => {
+      paymentStepRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+      setHighlightPaymentStep(true);
+
+      focusTimer = window.setTimeout(() => {
+        payButtonRef.current?.focus({ preventScroll: true });
+      }, 650);
+
+      highlightTimer = window.setTimeout(() => {
+        setHighlightPaymentStep(false);
+      }, 1800);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      if (focusTimer) window.clearTimeout(focusTimer);
+      if (highlightTimer) window.clearTimeout(highlightTimer);
+    };
+  }, [isCoachingProgramme, paymentReference, registrationDetails]);
 
   if (paymentReference) {
     return (
@@ -136,7 +168,19 @@ export default function MembershipRegistrationForm({
 
   if (registrationDetails) {
     return (
-      <div className="rounded-[0.75rem] border border-[#c6a87a]/36 bg-[#fbf7ef]/76 px-6 py-7 text-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.42)] sm:px-8 sm:py-8">
+      <div
+        ref={paymentStepRef}
+        className="rounded-[0.75rem] border border-[#c6a87a]/36 bg-[#fbf7ef]/76 px-6 py-7 text-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.42)] transition-[box-shadow,border-color] duration-500 sm:px-8 sm:py-8"
+        style={
+          highlightPaymentStep
+            ? {
+                borderColor: "rgba(124,31,45,0.42)",
+                boxShadow:
+                  "inset 0 0 0 1px rgba(255,255,255,0.42), 0 0 0 4px rgba(124,31,45,0.08), 0 10px 34px rgba(124,31,45,0.12)",
+              }
+            : undefined
+        }
+      >
         <p className="text-[0.71rem] uppercase tracking-[0.24em] text-[#7c1f2d]">
           Registration Received
         </p>
@@ -157,6 +201,7 @@ export default function MembershipRegistrationForm({
             tierId={tierId}
             programmeId={programmeId}
             cta="Pay Securely"
+            checkoutButtonRef={payButtonRef}
             customer={registrationDetails}
             onSuccess={setPaymentReference}
           />

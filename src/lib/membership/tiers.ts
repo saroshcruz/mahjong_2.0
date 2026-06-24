@@ -2,8 +2,8 @@ export const membershipTiers = {
   pearl: {
     name: "Pearl Membership",
     displayName: "PEARL MEMBERSHIP",
-    amount: 150000,
-    price: "₹1,500",
+    amount: 165000,
+    price: "₹1,650",
     duration: "1 Year Membership",
     summary: "For beginning your place at the IMA table.",
     accentRgb: "198,168,122",
@@ -11,8 +11,8 @@ export const membershipTiers = {
   jade: {
     name: "Jade Membership",
     displayName: "JADE MEMBERSHIP",
-    amount: 400000,
-    price: "₹4,000",
+    amount: 450000,
+    price: "₹4,500",
     duration: "5 Year Membership",
     summary: "For members returning with rhythm, study and community.",
     accentRgb: "47,93,80",
@@ -20,8 +20,8 @@ export const membershipTiers = {
   ruby: {
     name: "Ruby Lifetime Membership",
     displayName: "RUBY MEMBERSHIP",
-    amount: 1000000,
-    price: "₹10,000",
+    amount: 1100000,
+    price: "₹11,000",
     duration: "Lifetime Membership",
     summary: "For members helping shape the long life of Mahjong in India.",
     accentRgb: "124,31,45",
