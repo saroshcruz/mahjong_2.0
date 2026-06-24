@@ -24,7 +24,7 @@ const supporting = [
     image: "/assets/trainers/alka.webp",
     description:
       "For over 12 years, Mahjong has brought me friendships, community, and joy. I teach with patience and passion, helping students enjoy every stage of their learning journey in the comfort of their homes.",
-    specialty: "Beginner Mahjong",
+    specialty: "PLAYER DEVELOPMENT",
   },
   {
     name: "Sonia Jaidka",
