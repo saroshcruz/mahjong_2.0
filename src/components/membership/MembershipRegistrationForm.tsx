@@ -207,6 +207,12 @@ export default function MembershipRegistrationForm({
           />
         </div>
 
+        {!isCoachingProgramme && (
+          <p className="mx-auto mt-3 max-w-[30ch] text-[0.82rem] leading-[1.6] text-[#7b6959] sm:text-[0.86rem]">
+            Payments are processed securely via Razorpay
+          </p>
+        )}
+
       </div>
     );
   }
