@@ -25,8 +25,10 @@ export async function POST(request: Request) {
       purchaseType?: unknown;
       tierId?: unknown;
       programmeId?: unknown;
+      full_name?: unknown;
       email?: unknown;
       phone?: unknown;
+      city?: unknown;
     };
 
     const purchaseType = body.purchaseType === "coaching" ? "coaching" : "membership";
@@ -63,9 +65,20 @@ export async function POST(request: Request) {
     }
 
     const normalizedEmail = body.email.trim().toLowerCase();
+    const fullName = isNonEmptyString(body.full_name)
+      ? body.full_name.trim()
+      : "";
+    const city = isNonEmptyString(body.city) ? body.city.trim() : "";
     const supabase = getSupabaseServer();
 
     if (purchaseType === "membership") {
+      if (!fullName || !city) {
+        return NextResponse.json(
+          { error: "Membership registration details are incomplete." },
+          { status: 400 }
+        );
+      }
+
       const { data: existingMembers, error: lookupError } = await supabase
         .from("members")
         .select("id")
@@ -134,7 +147,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const order = await createRazorpayMembershipOrder(body.tierId);
+    const order = await createRazorpayMembershipOrder(body.tierId, {
+      fullName,
+      email: normalizedEmail,
+      phone: body.phone.trim(),
+      city,
+    });
     return NextResponse.json(order);
   } catch (error) {
     console.error(error);

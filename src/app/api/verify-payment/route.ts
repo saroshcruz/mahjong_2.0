@@ -8,8 +8,12 @@ import {
   membershipTiers,
 } from "@/lib/membership/tiers";
 import { sendCoachingConfirmation } from "@/lib/email/sendCoachingConfirmation";
-import { sendMembershipConfirmation } from "@/lib/email/sendMembershipConfirmation";
 import { sendRegistrationAdminNotification } from "@/lib/email/sendRegistrationAdminNotification";
+import { sendPaymentCaptureFailureAlert } from "@/lib/email/sendPaymentCaptureFailureAlert";
+import {
+  completeMembershipPayment,
+  MembershipCompletionError,
+} from "@/lib/payments/completeMembershipPayment";
 import { verifyRazorpayPaymentSignature } from "@/lib/payments/razorpay";
 import { getSupabaseServer } from "@/lib/supabase/server";
 
@@ -275,87 +279,67 @@ export async function POST(request: Request) {
     }
 
     const tier = membershipTiers[body.tierId];
-    const membershipActivatedAt = new Date();
-    const { data: member, error: insertError } = await supabase
-      .from("members")
-      .insert({
-        full_name: trimString(body.full_name),
-        email: trimString(body.email).toLowerCase(),
-        phone: trimString(body.phone),
-        city: trimString(body.city),
-        membership_tier: tier.name,
+    try {
+      const result = await completeMembershipPayment({
+        source: "browser",
+        tierId: body.tierId,
+        fullName: body.full_name,
+        email: body.email,
+        phone: body.phone,
+        city: body.city,
         message: submittedMessage,
-        payment_status: "paid",
-        razorpay_order_id: body.razorpay_order_id,
-        razorpay_payment_id: body.razorpay_payment_id,
-        amount_paid: tier.amount,
-      })
-      .select("membership_id")
-      .single();
+        orderId: body.razorpay_order_id,
+        paymentId: body.razorpay_payment_id,
+      });
 
-    if (insertError || !member?.membership_id) {
-      console.error(insertError);
+      return NextResponse.json({
+        verified: true,
+        paymentId: body.razorpay_payment_id,
+        orderId: body.razorpay_order_id,
+        membershipId: result.membershipId,
+      });
+    } catch (completionError) {
+      const stage =
+        completionError instanceof MembershipCompletionError
+          ? completionError.stage
+          : "membership.completion";
+      console.error("membership_payment_completion_failed", {
+        source: "browser",
+        stage,
+        paymentId: body.razorpay_payment_id,
+        orderId: body.razorpay_order_id,
+        tierId: body.tierId,
+        error:
+          completionError instanceof Error
+            ? completionError.message
+            : String(completionError),
+      });
+
+      try {
+        await sendPaymentCaptureFailureAlert({
+          source: "browser",
+          stage,
+          paymentId: body.razorpay_payment_id,
+          orderId: body.razorpay_order_id,
+          tierId: body.tierId,
+          amount: tier.amount,
+          error: completionError,
+        });
+      } catch (alertError) {
+        console.error("membership_payment_failure_alert_failed", {
+          source: "browser",
+          stage,
+          paymentId: body.razorpay_payment_id,
+          error:
+            alertError instanceof Error ? alertError.message : String(alertError),
+        });
+      }
 
       return NextResponse.json(
         { error: "Payment verified, but member record could not be saved." },
         { status: 500 }
       );
     }
-
-    console.info("Membership activated:", {
-      membershipId: member.membership_id,
-      membershipTier: tier.name,
-      paymentId: body.razorpay_payment_id,
-    });
-
-    try {
-      const email = await sendMembershipConfirmation({
-        to: trimString(body.email).toLowerCase(),
-        name: trimString(body.full_name),
-        membershipTier: tier.name,
-        membershipId: member.membership_id,
-        paymentId: body.razorpay_payment_id,
-        amountPaid: tier.amount,
-        joinedAt: membershipActivatedAt,
-      });
-      console.info("Membership confirmation email sent:", {
-        membershipId: member.membership_id,
-        emailId: email?.id,
-      });
-    } catch (emailError) {
-      console.error("Membership confirmation email failed:", emailError);
-    }
-
-    try {
-      const adminEmail = await sendRegistrationAdminNotification({
-        type: "membership",
-        fullName: trimString(body.full_name),
-        email: trimString(body.email).toLowerCase(),
-        phone: trimString(body.phone),
-        city: trimString(body.city),
-        label: tier.name,
-        recordId: member.membership_id,
-        paymentId: body.razorpay_payment_id,
-        amountPaid: tier.amount,
-        message: submittedMessage,
-        submittedAt: membershipActivatedAt,
-      });
-      if (adminEmail) {
-        console.info("Membership admin notification sent:", {
-          membershipId: member.membership_id,
-          emailId: adminEmail.id,
-        });
-      }
-    } catch (adminEmailError) {
-      console.error("Membership admin notification failed:", adminEmailError);
-    }
-
-    return NextResponse.json({
-      verified: true,
-      paymentId: body.razorpay_payment_id,
-      orderId: body.razorpay_order_id,
-      membershipId: member.membership_id,
-    });
   } catch (error) {
     console.error(error);
 

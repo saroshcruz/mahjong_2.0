@@ -10,6 +10,27 @@ type RazorpayOrder = {
   id: string;
   amount: number | string;
   currency: string;
+  status?: string;
+  notes?: Record<string, string>;
+};
+
+type RazorpayPayment = {
+  id: string;
+  amount: number | string;
+  currency: string;
+  status: string;
+  captured?: boolean;
+  order_id?: string | null;
+  email?: string;
+  contact?: string;
+  created_at?: number;
+};
+
+type MembershipRecoveryMetadata = {
+  fullName: string;
+  email: string;
+  phone: string;
+  city: string;
 };
 
 export class RazorpayOrderError extends Error {
@@ -43,7 +64,14 @@ function getRazorpayClient() {
   });
 }
 
-export async function createRazorpayMembershipOrder(tierId: MembershipTierId) {
+function truncateRazorpayNote(value: string) {
+  return value.trim().slice(0, 256);
+}
+
+export async function createRazorpayMembershipOrder(
+  tierId: MembershipTierId,
+  recoveryMetadata: MembershipRecoveryMetadata
+) {
   const tier = membershipTiers[tierId];
 
   if (tier.amount < 100) {
@@ -61,8 +89,12 @@ export async function createRazorpayMembershipOrder(tierId: MembershipTierId) {
       currency: "INR",
       receipt: `ima_${tierId}_${Date.now()}`,
       notes: {
+        purchase_type: "membership",
         membership_tier_id: tierId,
-        membership_tier: tier.name,
+        full_name: truncateRazorpayNote(recoveryMetadata.fullName),
+        email: truncateRazorpayNote(recoveryMetadata.email.toLowerCase()),
+        phone: truncateRazorpayNote(recoveryMetadata.phone),
+        city: truncateRazorpayNote(recoveryMetadata.city),
       },
     })) as RazorpayOrder;
   } catch (error) {
@@ -172,4 +204,41 @@ export function verifyRazorpayPaymentSignature({
   }
 
   return crypto.timingSafeEqual(signatureBuffer, expectedSignatureBuffer);
+}
+
+export function verifyRazorpayWebhookSignature({
+  rawBody,
+  signature,
+}: {
+  rawBody: string;
+  signature: string;
+}) {
+  const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
+
+  if (!webhookSecret) {
+    throw new Error("Razorpay webhook secret is not configured.");
+  }
+
+  const expectedSignature = crypto
+    .createHmac("sha256", webhookSecret)
+    .update(rawBody)
+    .digest("hex");
+  const signatureBuffer = Buffer.from(signature, "hex");
+  const expectedSignatureBuffer = Buffer.from(expectedSignature, "hex");
+
+  if (signatureBuffer.length !== expectedSignatureBuffer.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(signatureBuffer, expectedSignatureBuffer);
+}
+
+export async function fetchRazorpayPayment(paymentId: string) {
+  return (await getRazorpayClient().payments.fetch(
+    paymentId
+  )) as RazorpayPayment;
+}
+
+export async function fetchRazorpayOrder(orderId: string) {
+  return (await getRazorpayClient().orders.fetch(orderId)) as RazorpayOrder;
 }
