@@ -75,6 +75,15 @@ const supporting = [
       "Mahjong came to me through the women before me-my mother and mother-in-law. What began as curiosity became a deep love for the game, and today I enjoy helping others discover its strategy, structure, and community.",
     specialty: "Table Practice",
   },
+  {
+    name: "Meherangez Mistry",
+    role: "Mahjong Trainer",
+    image: "/assets/trainers/Meherangez.webp",
+    imagePosition: "center 34%",
+    description:
+      "Where do I begin, to tell my Mahjong story which started at the age of 18. Playing with my dear Mum and her best friends, who soon became my seniors after I married my Paratrooper in the Indian Army. Today I have a new purpose in life: to eat, breathe, dream, teach and play Mahjong. 60+ years of play and still loving it!",
+    specialty: "Mahjong Mentor",
+  },
 ];
 
 function PortraitPlaceholder({

@@ -230,6 +230,10 @@ export default function OurStory() {
             ›
           </button>
         </div>
+
+        <p className="mx-auto mt-8 max-w-3xl text-center text-[1.08rem] leading-[1.86] text-[#5d4d40] md:mt-10 lg:text-[1.12rem] lg:leading-[1.86]">
+          Our vision is to build niche, high-quality Mahjong communities across India&apos;s metro cities, Tier 2 cities and beyond, bringing players together through learning, strategy and lifelong friendships.
+        </p>
       </div>
     </section>
   );
