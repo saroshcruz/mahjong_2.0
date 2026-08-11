@@ -91,7 +91,7 @@ export default function Footer() {
             </p>
             <nav className="mt-5 flex flex-wrap items-center gap-y-1 sm:flex-col sm:items-start sm:gap-2.5" aria-label="Learn">
               <a href="/#trainers" className="text-[1rem] text-[#b0a8a0] transition duration-200 hover:text-[#f0e6d6]">
-                Trainers
+                Instructors
               </a>
             </nav>
           </div>

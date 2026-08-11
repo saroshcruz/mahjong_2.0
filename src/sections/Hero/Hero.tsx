@@ -1,6 +1,6 @@
 const heroLinks = [
   { href: "/#membership", label: "Membership" },
-  { href: "/#trainers", label: "Trainers" },
+  { href: "/#trainers", label: "Instructors" },
   { href: "/#events", label: "Events" },
 ];
 

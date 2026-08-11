@@ -6,7 +6,7 @@ const faqs = [
   {
     question: "Do I need prior Mahjong experience to join?",
     answer:
-      "Not at all. The Indian Mahjong Association welcomes complete beginners as well as experienced players. Our trainers guide members through the rules, strategy, and traditions of the game in a supportive and social environment.",
+      "Not at all. The Indian Mahjong Association welcomes complete beginners as well as experienced players. Our instructors guide members through the rules, strategy, and traditions of the game in a supportive and social environment.",
   },
   {
     question: "What is included with an IMA membership?",
@@ -16,7 +16,7 @@ const faqs = [
   {
     question: "How do Mahjong classes work?",
     answer:
-      "Classes are conducted by experienced IMA trainers and are designed for players of all skill levels. Whether you are learning your first tile or refining advanced strategies, our trainers will guide you through the game step by step.",
+      "Classes are conducted by experienced IMA instructors and are designed for players of all skill levels. Whether you are learning your first tile or refining advanced strategies, our instructors will guide you through the game step by step.",
   },
   {
     question: "Do I need to become a member to learn Mahjong?",
@@ -115,12 +115,6 @@ export default function FAQ() {
               );
             })}
           </div>
-        </div>
-      </div>
-
-      <div aria-hidden="true" className="pointer-events-none pb-8 pt-2 lg:pb-10">
-        <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-16">
-          <div className="h-px bg-[linear-gradient(90deg,rgba(198,168,122,0),rgba(198,168,122,0.44)_22%,rgba(198,168,122,0.44)_78%,rgba(198,168,122,0))]" />
         </div>
       </div>
     </section>
