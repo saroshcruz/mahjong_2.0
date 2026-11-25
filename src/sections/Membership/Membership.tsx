@@ -11,7 +11,7 @@ const baseTiers = [
     duration: "1 Year Membership",
     price: "₹1,650",
     benefits: [
-      "Access to 2 events",
+      "Access to 1 event",
       "IMA Membership Certificate",
       "Community events and gatherings",
       "Beginner curriculum access",
@@ -35,7 +35,7 @@ const baseTiers = [
     duration: "5 Year Membership",
     price: "₹4,500",
     benefits: [
-      "Access to 2 events per year",
+      "7 events over 5 years: 2 per year for the first 2 years, then 1 per year for the next 3 years",
       "IMA Membership Certificate",
       "Priority event registration",
       "Tournament participation rights",
