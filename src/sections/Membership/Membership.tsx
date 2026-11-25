@@ -35,7 +35,7 @@ const baseTiers = [
     duration: "5 Year Membership",
     price: "₹4,500",
     benefits: [
-      "7 events over 5 years: 2 per year for the first 2 years, then 1 per year for the next 3 years",
+      "Access to 7 events across your membership",
       "IMA Membership Certificate",
       "Priority event registration",
       "Tournament participation rights",
@@ -175,7 +175,16 @@ function TierPanel({ tier }: { tier: Tier }) {
                 className="mt-[0.44em] h-px w-3.5 shrink-0"
                 style={{ background: `rgba(${tier.accentRgb},0.40)` }}
               />
-              {benefit}
+              {tier.id === "jade" && benefit === tier.benefits[0] ? (
+                <span>
+                  <strong className="font-semibold">{benefit}</strong>
+                  <em className="mt-1 block text-[0.85em] leading-relaxed">
+                    2 events annually for the first 2 years then 1 event annually for the next 3 years.
+                  </em>
+                </span>
+              ) : (
+                benefit
+              )}
             </li>
           ))}
         </ul>
